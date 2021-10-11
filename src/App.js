@@ -1,9 +1,9 @@
-import logo from "./logo.svg";
 import "./App.scss";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
 import { useState } from "react";
+import SceneFour from './scenes/SceneFour'
 
 function App() {
   const commands = [
@@ -55,6 +55,7 @@ function App() {
 
   return (
     <div className="App">
+      <SceneFour />
       <h1>Hello</h1>
       <p>is this rendering</p>
 
