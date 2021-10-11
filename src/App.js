@@ -4,6 +4,7 @@ import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
 import { useState } from "react";
+import SceneOne from "./scenes/SceneOne";
 
 function App() {
   const commands = [
@@ -55,6 +56,8 @@ function App() {
 
   return (
     <div className="App">
+      
+      <SceneOne />
       <h1>Hello</h1>
       <p>is this rendering</p>
 
