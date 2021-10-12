@@ -49,8 +49,8 @@ function App() {
     <div className="App">
       
       <SceneOne />
-      <SceneFour />
-      <SceneTwo />
+      {/* <SceneFour />
+      <SceneTwo /> */}
       <h1>Hello</h1>
       <p>is this rendering</p>
 

@@ -1,0 +1,77 @@
+#boatPainting {
+    $sizeW: 300px;
+    $sizeH: 150px;
+    width: $sizeW;
+    height: $sizeH;
+    position: absolute;
+    top: 50px;
+    left: 400px;
+}
+
+#bookCase {
+    $sizeW: 400px;
+    $sizeH: 420px;
+    width: $sizeW;
+    height: $sizeH;
+    position: absolute;
+    top:60px;
+    left: 0px;
+}
+
+#lockedDiary {
+    $sizeW: 100px;
+    $sizeH: 100px;
+    width: $sizeW;
+    height: $sizeH;
+    position: absolute;
+    top: 240px;
+    left: 60px;
+    transform: rotate(-25deg);
+}
+
+#endTable {
+    $sizeW: 250px;
+    $sizeH: 250px;
+    width: $sizeW;
+    height: $sizeH;
+    position: absolute;
+    top: 275px;
+    left: 425px;
+}
+
+#full-bookshelf {
+    $sizeW: 400px;
+    $sizeH: 400px;
+    width: $sizeW;
+    height: $sizeH;
+    position: absolute;
+    top: 65px;
+    left: 675px;
+}
+
+#crystal-skull {
+    $sizeW: 65px;
+    $sizeH: 65px;
+    width: $sizeW;
+    height: $sizeH;
+    position: absolute;
+    top: 235px;
+    left: 550px;
+}
+
+#cassettePlayer {
+    width: 60px;
+    height: 60px;
+    position: absolute;
+    top: 225px;
+    left: 900px;
+    transform: rotate(45deg);
+}
+
+#ravenClosed {
+    position: absolute;
+    left: 900px;
+    top: 5px;
+    width: 90px;
+    height: 90px;
+}
