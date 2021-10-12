@@ -56,8 +56,8 @@ function App() {
 
   return (
     <div className="App">
-      <SceneTwo />
       <SceneThree />
+      <SceneTwo />
       <h1>Hello</h1>
       <p>is this rendering</p>
 
