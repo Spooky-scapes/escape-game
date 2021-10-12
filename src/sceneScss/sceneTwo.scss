@@ -1,0 +1,59 @@
+.coffin {
+  object-fit: cover;
+  width: 760px;
+  height: 350px;
+}
+.oldChair {
+  width: 350px;
+  height: 550px;
+}
+
+.stoolCabinet {
+  width: 300px;
+  height: 450px;
+}
+
+.holeInWall {
+  width: 100px;
+  height: 150px;
+}
+
+.rightCandle {
+  width: 110px;
+  height: 150px;
+}
+
+
+
+#sceneTwo {
+  position: relative;
+}
+
+#coffin-div {
+  position: absolute;
+  left: 625px;
+  top: 600px
+}
+
+#chair-div {
+  position: absolute;
+  left: 1575px;
+  top: 400px
+}
+
+#stool-div {
+  position: absolute;
+  top: 550px
+}
+
+#hole-div {
+  position: absolute;
+  left: 1275px;
+  top: 500px
+}
+
+#right-candle-div {
+  position: absolute;
+  left: 1475px;
+  top: 200px
+}

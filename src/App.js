@@ -54,29 +54,32 @@ function App() {
   }
 
   return (
-    <div className="App">
+    <div>
+      <div className="App">
+        {/* <h1>Hello</h1>
+        <p>is this rendering</p>
+
+       <button
+          id="bookButton"
+          className="Button"
+          onClick={() => {
+             playSound(
+                "http://www.simphonics.com/library/WaveFiles/Production%20Wavefiles/FS-98/JSPLASH2.WAV"
+              );
+            }}
+          >
+            Im a book!
+       </button>
+
+        <button onClick={SpeechRecognition.startListening}>Listen</button>
+
+        <button onClick={SpeechRecognition.stopListening}>Stop</button>
+        <button onClick={() => window.speechSynthesis.speak(speech)}>
+          My new friend the Button
+        </button> */}
+
+      </div>
       <SceneTwo />
-      <h1>Hello</h1>
-      <p>is this rendering</p>
-
-      <button
-        id="bookButton"
-        className="Button"
-        onClick={() => {
-          playSound(
-            "http://www.simphonics.com/library/WaveFiles/Production%20Wavefiles/FS-98/JSPLASH2.WAV"
-          );
-        }}
-      >
-        Im a book!
-      </button>
-
-      <button onClick={SpeechRecognition.startListening}>Listen</button>
-
-      <button onClick={SpeechRecognition.stopListening}>Stop</button>
-      <button onClick={() => window.speechSynthesis.speak(speech)}>
-        My new friend the Button
-      </button>
     </div>
   );
 }
