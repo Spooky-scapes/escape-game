@@ -5,6 +5,7 @@ import SpeechRecognition, {
 import { useState } from "react";
 import SceneOne from "./scenes/SceneOne";
 import SceneFour from './scenes/SceneFour'
+import SceneTwo from './scenes/SceneTwo'
 
 function App() {
   const commands = [
@@ -49,6 +50,7 @@ function App() {
       
       <SceneOne />
       <SceneFour />
+      <SceneTwo />
       <h1>Hello</h1>
       <p>is this rendering</p>
 
