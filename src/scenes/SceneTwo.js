@@ -1,5 +1,5 @@
 import '../main.scss'
-import closedCoffin from '../sceneTwoAssets/closed-coffin.png'
+import closedCoffin from '../assets/SceneTwo/closed-coffin.png'
 
 
 const SceneTwo = () => {
