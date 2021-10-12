@@ -3,6 +3,7 @@ import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
 import { useState } from "react";
+import SceneThree from "./scenes/SceneThree";
 import SceneTwo from './scenes/SceneTwo'
 import SceneFour from './scenes/SceneFour'
 import Inventory from  './components/Inventory'
@@ -59,6 +60,8 @@ function App() {
 
   return (
     <div className="App">
+//       <SceneThree />
+
       <Lobby />
       {/* <SceneFour /> */}
       {/* <Inventory />
