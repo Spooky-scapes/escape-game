@@ -27,23 +27,13 @@ function App() {
 
   const buttons = ["bookButton"];
 
-  // const buttonPotential = {
-  //   bookButton: true
-  // }
 
   if (isClicked) {
     clickButton();
-    // isClicked = false
-    // let buttoney = document.getElementById('bookButton');
-    // console.log('🧤 buttoney', buttoney);
-    //buttoney.click()
+    
   }
 
-  // const handleClick = () => {
 
-  //   console.log('🧤 im a working button');
-
-  // }
 
   let speech = new SpeechSynthesisUtterance();
   speech.lang = "en";
