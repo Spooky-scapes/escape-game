@@ -6,6 +6,9 @@ import { useState } from "react";
 import SceneOne from "./scenes/SceneOne";
 import SceneFour from './scenes/SceneFour'
 import SceneTwo from './scenes/SceneTwo'
+import Inventory from  './components/Inventory'
+import Chat from './components/Chat'
+import Lobby from './scenes/Lobby'
 
 function App() {
   const commands = [
@@ -51,6 +54,11 @@ function App() {
       <SceneOne />
       {/* <SceneFour />
       <SceneTwo /> */}
+      <Lobby />
+      {/* <SceneFour /> */}
+      {/* <Inventory />
+      <Chat /> */}
+      {/* <SceneTwo /> */}
       <h1>Hello</h1>
       <p>is this rendering</p>
 
