@@ -3,8 +3,9 @@ import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
 import { useState } from "react";
-import SceneThree from "./scenes/SceneThree";
+import SceneOne from "./scenes/SceneOne";
 import SceneTwo from './scenes/SceneTwo'
+import SceneThree from "./scenes/SceneThree";
 import SceneFour from './scenes/SceneFour'
 import Inventory from  './components/Inventory'
 import Chat from './components/Chat'
@@ -31,23 +32,13 @@ function App() {
 
   const buttons = ["bookButton"];
 
-  // const buttonPotential = {
-  //   bookButton: true
-  // }
 
   if (isClicked) {
     clickButton();
-    // isClicked = false
-    // let buttoney = document.getElementById('bookButton');
-    // console.log('🧤 buttoney', buttoney);
-    //buttoney.click()
+    
   }
 
-  // const handleClick = () => {
 
-  //   console.log('🧤 im a working button');
-
-  // }
 
   let speech = new SpeechSynthesisUtterance();
   speech.lang = "en";
@@ -60,13 +51,13 @@ function App() {
 
   return (
     <div className="App">
-//       <SceneThree />
-
       <Lobby />
-      {/* <SceneFour /> */}
-      {/* <Inventory />
-      <Chat /> */}
-      {/* <SceneTwo /> */}
+      <SceneOne />
+      <SceneTwo />
+      <SceneThree />
+      <SceneFour />
+      <Inventory />
+      <Chat />
       <h1>Hello</h1>
       <p>is this rendering</p>
 
