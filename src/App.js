@@ -3,8 +3,12 @@ import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
 import { useState } from "react";
-import SceneTwo from "./scenes/SceneTwo";
 import SceneThree from "./scenes/SceneThree";
+import SceneTwo from './scenes/SceneTwo'
+import SceneFour from './scenes/SceneFour'
+import Inventory from  './components/Inventory'
+import Chat from './components/Chat'
+import Lobby from './scenes/Lobby'
 
 function App() {
   const commands = [
@@ -56,8 +60,13 @@ function App() {
 
   return (
     <div className="App">
-      <SceneThree />
-      <SceneTwo />
+//       <SceneThree />
+
+      <Lobby />
+      {/* <SceneFour /> */}
+      {/* <Inventory />
+      <Chat /> */}
+      {/* <SceneTwo /> */}
       <h1>Hello</h1>
       <p>is this rendering</p>
 
