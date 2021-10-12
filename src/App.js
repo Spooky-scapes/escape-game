@@ -3,6 +3,7 @@ import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
 import { useState } from "react";
+
 import SceneThree from "./scenes/SceneThree";
 
 function App() {
@@ -55,6 +56,7 @@ function App() {
 
   return (
     <div className="App">
+    
       <SceneThree />
       <h1>Hello</h1>
       <p>is this rendering</p>
