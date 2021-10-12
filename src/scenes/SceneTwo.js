@@ -9,6 +9,7 @@ import oldChair from '../assets/sceneTwoAssets/old-chair.png';
 import savion from '../assets/ravenClosed.png';
 import cowPainting from '../assets/sceneTwoAssets/cow-painting.png'
 
+
 const SceneTwo = () => {
   return (
     <div id='sceneTwo'>

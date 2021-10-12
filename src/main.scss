@@ -4,10 +4,27 @@ body, html {
   margin: 0;
 }
 
+// body {
+//   position: absolute;
+//   background-image: url('./assets/Background.jpg');
+//   background-size: cover;
+//   background-repeat: no-repeat;
+// }
 
-body {
+.inventory{
+  background: white;
+  width: 900px;
+  height: 100px;
+  position: absolute;
+  top: 550px;
+  left: 150px;
+}
 
-  background-image: url('./assets/Background.jpg');
-  background-size: cover;
-  background-repeat: no-repeat;
+.chat{
+  position: absolute;
+  background: grey;
+  height: 600px;
+  width: 100px;
+  top: 50px;
+  left: 1050px;
 }

@@ -4,6 +4,10 @@ import SpeechRecognition, {
 } from "react-speech-recognition";
 import { useState } from "react";
 import SceneTwo from './scenes/SceneTwo'
+import SceneFour from './scenes/SceneFour'
+import Inventory from  './components/Inventory'
+import Chat from './components/Chat'
+import Lobby from './scenes/Lobby'
 
 function App() {
   const commands = [
@@ -54,32 +58,34 @@ function App() {
   }
 
   return (
-    <div>
-      <div className="App">
-        {/* <h1>Hello</h1>
-        <p>is this rendering</p>
+    <div className="App">
+      <Lobby />
+      {/* <SceneFour /> */}
+      {/* <Inventory />
+      <Chat /> */}
+      {/* <SceneTwo /> */}
+      <h1>Hello</h1>
+      <p>is this rendering</p>
 
-       <button
-          id="bookButton"
-          className="Button"
-          onClick={() => {
-             playSound(
-                "http://www.simphonics.com/library/WaveFiles/Production%20Wavefiles/FS-98/JSPLASH2.WAV"
-              );
-            }}
-          >
-            Im a book!
-       </button>
+      <button
+        id="bookButton"
+        className="Button"
+        onClick={() => {
+          playSound(
+            "http://www.simphonics.com/library/WaveFiles/Production%20Wavefiles/FS-98/JSPLASH2.WAV"
+          );
+        }}
+      >
+        Im a book!
+      </button>
 
-        <button onClick={SpeechRecognition.startListening}>Listen</button>
+      <button onClick={SpeechRecognition.startListening}>Listen</button>
 
-        <button onClick={SpeechRecognition.stopListening}>Stop</button>
-        <button onClick={() => window.speechSynthesis.speak(speech)}>
-          My new friend the Button
-        </button> */}
-
-      </div>
-      <SceneTwo />
+      <button onClick={SpeechRecognition.stopListening}>Stop</button>
+      <button onClick={() => window.speechSynthesis.speak(speech)}>
+        My new friend the Button
+      </button>
+>>>>>>> 744ba1cb358b240e10e2c47edce4e34cfe298e6a
     </div>
   );
 }
