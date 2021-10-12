@@ -51,10 +51,10 @@ function App() {
 
   return (
     <div className="App">
-      <Lobby />
-      <SceneOne />
-      <SceneTwo />
-      <SceneThree />
+      {/* <Lobby /> */}
+      {/* <SceneOne /> */}
+      {/* <SceneTwo /> */}
+      {/* <SceneThree /> */}
       <SceneFour />
       <Inventory />
       <Chat />
@@ -76,7 +76,7 @@ function App() {
       <button onClick={SpeechRecognition.stopListening}>Stop</button>
       <button onClick={() => window.speechSynthesis.speak(speech)}>
         My new friend the Button
-      </button> */}
+      </button>
     </div>
   );
 }
