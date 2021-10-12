@@ -35,7 +35,7 @@ function App() {
 
   if (isClicked) {
     clickButton();
-    
+
   }
 
 
@@ -58,8 +58,6 @@ function App() {
       <SceneFour />
       <Inventory />
       <Chat />
-      <h1>Hello</h1>
-      <p>is this rendering</p>
 
       <button
         id="bookButton"
@@ -78,7 +76,7 @@ function App() {
       <button onClick={SpeechRecognition.stopListening}>Stop</button>
       <button onClick={() => window.speechSynthesis.speak(speech)}>
         My new friend the Button
-      </button>
+      </button> */}
     </div>
   );
 }
