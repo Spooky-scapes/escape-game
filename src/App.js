@@ -65,7 +65,6 @@ function App() {
       <div className="inventory-chat">
         <Inventory />
       </div>
-
       <button
         id="bookButton"
         className="Button"

@@ -1,22 +1,53 @@
 import "../assets/SceneFour/SceneFour.scss";
 import mainDoor from "../assets/SceneFour/main-door.png";
-import backgroundImage from "../assets/Background.jpg";
 import window from "../assets/SceneFour/window.png";
 import dog from "../assets/SceneFour/Bonedog.png";
 import mat from "../assets/SceneFour/mat.png";
 import cassette from "../assets/SceneFour/cassette-tape.png";
+import closedRaven from "../assets/SceneFour/ravenClosedFIT.png";
+import openRaven from "../assets/SceneFour/ravenOpenFIT.png";
 
 const SceneFour = () => {
   return (
-    <div>
-      <img className="backgroundImage" src={backgroundImage} alt="background" />
-      <img className="mainDoor" src={mainDoor} alt="front door"/>
-      <img className="window1" src={window} alt="window to the left of door" />
-      <img className="window2" src={window} alt="window to the right of door" />
-      <img className="dog" src={dog} alt="cute little bonedog" />
-      <img className="cassette" src={cassette} alt="hidden cassette tape"/>
-      <img className="mat" src={mat} alt="dusty old mat" />
-      <div className="matClick" onClick = { () => console.log('this is the mat')}></div>
+    <div className="container">
+      <img
+        className="mainDoor"
+        src={mainDoor}
+        alt="front door"
+        onClick={() => alert("this is the door")}
+      />
+      <img
+        className="window1"
+        src={window}
+        alt="window to the left of door"
+        onClick={() => alert("this is the window1")}
+      />
+      <img
+        className="window2"
+        src={window}
+        alt="window to the right of door"
+        onClick={() => alert("this is the window2")}
+      />
+      <img
+        className="dog"
+        src={dog}
+        alt="cute little bonedog"
+        onClick={() => alert("this is the bone dog")}
+      />
+      <img className="cassette" src={cassette} alt="hidden cassette tape" />
+      <img
+        className="mat"
+        src={mat}
+        alt="dusty old mat"
+        onClick={() => alert("this is the mat")}
+      />
+      <img
+        className="closedRaven"
+        src={closedRaven}
+        alt="raven watching you"
+        onClick={() => alert("this is the raven")}
+      />
+      {/* <div className="matClick" onClick = { () => alert('this is the mat')}></div> */}
     </div>
   );
 };
