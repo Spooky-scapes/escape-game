@@ -12,6 +12,9 @@ import oldChair from '../assets/SceneTwo/old-chair.png';
 import savion from '../assets/ravenClosedFIT.png';
 import cowPainting from '../assets/SceneTwo/cow-painting.png';
 import backgroundImage from "../assets/Background.jpg";
+import { Link } from "react-router-dom";
+import leftArrow from "../assets/ghostArrowLeft.png";
+import rightArrow from "../assets/ghostArrowRight.png";
 
 
 const SceneTwo = () => {
@@ -44,6 +47,20 @@ const SceneTwo = () => {
         }/></div>
         <div><img src={savion} className='raven-quiet' alt='a squawking talking raven'/></div>
         <div className='narrationBox'><p className={isActive? 'coffin-text-active':'coffin-text'}>A closed casket...spooky theres gonna be a whole lotta text in here cause i need to see it wrap not rap but wrap i would prefer to only hear professionals rap tyvm shut up and carry on my friend. welp thats not enough text so here we go with more to show i hope it tickles your fancy my friend.</p></div>
+        <Link to="/scene1">
+        <div>
+          <img src={leftArrow} id="leftArrow" alt="ghost arrow pointing left" />
+        </div>
+      </Link>
+      <Link to="/scene3">
+        <div>
+          <img
+            src={rightArrow}
+            id="rightArrow"
+            alt="ghost arrow pointing right"
+          />
+        </div>
+      </Link>
     </div>
   )
 }
