@@ -1,12 +1,18 @@
-import '../index.scss'
-import lobbyScreen from '../assets/home-screen.png'
+import "../lobby.scss";
+import { Link } from 'react-router-dom'
 
 const Lobby = () => {
   return (
-    <div>
-      <img className= 'lobbyScreen' src={lobbyScreen} alt = 'haunted house lobby screen'/>
-    </div>
-  )
-}
+    <div className="lobbyScreen">
+      <div className="title">
+        <h1>Spooky Scapes!</h1>
+      </div>
+   <Link to="/scene1">
+     <div className="playButton">
+        <h1>Play</h1>
+      </div>
+    </Link>
+  );
+};
 
 export default Lobby;

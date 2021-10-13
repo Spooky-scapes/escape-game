@@ -6,10 +6,12 @@ import { useState } from "react";
 import SceneOne from "./scenes/SceneOne";
 import SceneTwo from "./scenes/SceneTwo";
 import SceneThree from "./scenes/SceneThree";
-import SceneFour from "./scenes/SceneFour";
-import Inventory from "./components/Inventory";
-import Chat from "./components/Chat";
-import Lobby from "./scenes/Lobby";
+import SceneFour from './scenes/SceneFour'
+import Inventory from  './components/Inventory'
+import Chat from './components/Chat'
+import Lobby from './scenes/Lobby'
+import { Route, Switch, BrowserRouter as Router } from "react-router-dom"
+
 
 function App() {
   const commands = [
@@ -47,14 +49,20 @@ function App() {
 
   return (
     <div className="App">
-      {/* <Lobby /> */}
-      {/* <SceneOne /> */}
-      {/* <SceneTwo /> */}
-      <SceneThree />
-      {/* <SceneFour /> */}
-      {/* <Inventory /> */}
-      {/* <Chat /> */}
 
+      <Chat />
+      <Router>
+      <Switch>
+        <Route exact path = "/" component = {Lobby} />
+        <Route path = "/scene1" component = {SceneOne} />
+        <Route path = "/scene2" component = {SceneTwo} />
+        <Route path = "/scene3" component = {SceneThree} />
+        <Route path = "/scene4" component = {SceneFour} />
+      </Switch> 
+      </Router> 
+      <div className="inventory-chat">
+        <Inventory />
+      </div>
       <button
         id="bookButton"
         className="Button"

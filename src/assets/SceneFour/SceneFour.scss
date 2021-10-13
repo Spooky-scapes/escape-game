@@ -2,66 +2,130 @@
 //   background: black;
 // }
 
+.container {
+  background-image: url("../Background.jpg");
+  background-position: center;
+  background-size: cover;
+  position: relative;
+  margin: auto;
+  width: 1100px;
+  height: 650px;
+  top: 100px;
+}
+
 .mainDoor {
   position: absolute;
-  top: 100px;
-  left: 500px;
-  width: 200px;
-  height: 300px;
+  max-width: 75%;
+  max-height: 60%;
+  left: 40%;
+  top: 10%;
 }
 
-.window1{
+.mainDoor:hover {
   position: absolute;
-  top: 150px;
-  left: 300px;
-  width: 110px;
-  height: 180px;
+  max-width: 77%;
+  max-height: 62%;
+  left: 40%;
+  top: 10%;
 }
 
-.window2{
+.window1 {
   position: absolute;
-  top: 150px;
-  width: 110px;
-  height: 180px;
-  left: 800px;
+  max-width: 50%;
+  max-height: 35%;
+  left: 15%;
+  top: 18%;
 }
 
-.dog{
+.window1:hover {
   position: absolute;
-  height: 150px;
-  width: 150px;
-  left: 280px;
-  top: 350px;
+  max-width: 52%;
+  max-height: 37%;
+  left: 15%;
+  top: 18%;
 }
 
-.cassette{
+.window2 {
   position: absolute;
-  height: 50px;
-  width: 50px;
-  left: 490px;
-  top: 400px;
+  position: absolute;
+  max-width: 50%;
+  max-height: 35%;
+  left: 73%;
+  top: 18%;
 }
 
-.mat{
+.window2:hover {
   position: absolute;
-  height: 200px;
-  width: 300px;
-  left: 455px;
-  top: 320px;
+  position: absolute;
+  max-width: 52%;
+  max-height: 37%;
+  left: 73%;
+  top: 18%;
 }
 
-.matClick{
+.dog {
   position: absolute;
-  height: 75px;
-  width: 190px;
-  left: 510px;
-  top: 390px;
+  max-width: 20%;
+  max-height: 30%;
+  left: 15%;
+  top: 60%;
 }
 
-.backgroundImage {
+.dog:hover {
   position: absolute;
-  left: 150px;
-  top: 50px;
-  width: 900px;
-  height: 500px;
+  max-width: 20%;
+  max-height: 30%;
+  left: 15%;
+  top: 55%;
 }
+
+.cassette {
+  position: absolute;
+  max-width: 8%;
+  max-height: 8%;
+  left: 42%;
+  top: 70%;
+}
+
+.mat {
+  position: absolute;
+  max-width: 30%;
+  max-height: 35%;
+  left: 37%;
+  top: 60%;
+}
+
+.mat:hover {
+  position: absolute;
+  max-width: 32%;
+  max-height: 37%;
+  left: 37%;
+  top: 60%;
+}
+
+.matClick {
+  background-color: red;
+  opacity: 40%;
+  position: absolute;
+  width: 21%;
+  height: 13%;
+  left: 41%;
+  top: 70%;
+}
+
+.closedRaven {
+  position: absolute;
+  max-width: 10%;
+  max-height: 10%;
+  left: 17%;
+  top: 11%;
+}
+
+.closedRaven:hover {
+  position: absolute;
+  max-width: 10%;
+  max-height: 10%;
+  left: 17%;
+  top: 6%;
+}
+
