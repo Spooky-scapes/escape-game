@@ -12,6 +12,7 @@ const Lobby = () => {
         <h1>Play</h1>
       </div>
     </Link>
+    </div>
   );
 };
 

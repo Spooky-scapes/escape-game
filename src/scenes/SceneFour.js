@@ -6,6 +6,9 @@ import mat from "../assets/SceneFour/mat.png";
 import cassette from "../assets/SceneFour/cassette-tape.png";
 import closedRaven from "../assets/SceneFour/ravenClosedFIT.png";
 import openRaven from "../assets/SceneFour/ravenOpenFIT.png";
+import { Link } from "react-router-dom";
+import leftArrow from "../assets/ghostArrowLeft.png";
+import rightArrow from "../assets/ghostArrowRight.png";
 
 const SceneFour = () => {
   return (
@@ -48,6 +51,20 @@ const SceneFour = () => {
         onClick={() => alert("this is the raven")}
       />
       {/* <div className="matClick" onClick = { () => alert('this is the mat')}></div> */}
+      <Link to="/scene3">
+        <div>
+          <img src={leftArrow} id="leftArrow" alt="ghost arrow pointing left" />
+        </div>
+      </Link>
+      <Link to="/scene1">
+        <div>
+          <img
+            src={rightArrow}
+            id="rightArrow"
+            alt="ghost arrow pointing right"
+          />
+        </div>
+      </Link>
     </div>
   );
 };
