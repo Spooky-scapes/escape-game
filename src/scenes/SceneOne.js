@@ -9,23 +9,67 @@ import cassettePlayer from "../assets/SceneOne/cassette-player.png";
 import ravenClosed from "../assets/SceneOne/ravenClosedFIT.png";
 import backgroundImage from "../assets/Background.jpg";
 import "../assets/SceneOne/sceneone.scss";
-import '../main.scss';
+import "../main.scss";
 import "../App.scss";
 
-function SceneOne(){
-    return (
-        <div className="sceneOne">
-            {/* <img className='backgroundImage' src={backgroundImage} alt='background' /> */}
-            <div ><img src= {boatPainting} id="boatPainting" alt="Oil painting of four sailboats" /></div>
-            <div><img src={bookCase} id = "bookCase" alt = "large wooden bookcase that is empty" /></div>
-            <div><img src={lockedDiary} id = "lockedDiary" alt = "blue diary with gold designs on the cover and a lock keeping it shut" /></div>
-            <div><img src={endTable} id="endTable" alt = "victorian-style wooden end table with four curved legs and a flat square top" /></div>
-            <div><img src={bookShelf} id="full-bookshelf" alt = "wooden bookshelf with several books and knick knacks inside of it" /></div>
-            <div><img src={crystalSkull} id="crystal-skull" alt = "green crystal skull" /></div>
-            <div><img src={cassettePlayer} id="cassettePlayer" alt = "small cassette player" /></div>
-            <div><img src={ravenClosed} id="ravenClosed" alt = "wise old raven to guide you on your journey" /></div>
-        </div>
-    )
+function SceneOne() {
+  return (
+    <div className="sceneOne">
+      {/* <img className="backgroundImage" src={backgroundImage} alt="background" /> */}
+      <div>
+        <img
+          src={boatPainting}
+          id="boatPainting"
+          alt="Oil painting of four sailboats"
+        />
+      </div>
+      <div>
+        <img
+          src={bookCase}
+          id="bookCase"
+          alt="large wooden bookcase that is empty"
+        />
+      </div>
+      <div>
+        <img
+          src={lockedDiary}
+          id="lockedDiary"
+          alt="blue diary with gold designs on the cover and a lock keeping it shut"
+        />
+      </div>
+      <div>
+        <img
+          src={endTable}
+          id="endTable"
+          alt="victorian-style wooden end table with four curved legs and a flat square top"
+        />
+      </div>
+      <div>
+        <img
+          src={bookShelf}
+          id="full-bookshelf"
+          alt="wooden bookshelf with several books and knick knacks inside of it"
+        />
+      </div>
+      <div>
+        <img src={crystalSkull} id="crystal-skull" alt="green crystal skull" />
+      </div>
+      <div>
+        <img
+          src={cassettePlayer}
+          id="cassettePlayer"
+          alt="small cassette player"
+        />
+      </div>
+      <div>
+        <img
+          src={ravenClosed}
+          id="ravenClosed"
+          alt="wise old raven to guide you on your journey"
+        />
+      </div>
+    </div>
+  );
 }
 
-export default SceneOne
+export default SceneOne;
