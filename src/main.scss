@@ -1,4 +1,5 @@
-body, html {
+body,
+html {
   height: 100%;
   width: 100%;
   margin: 0;
@@ -11,16 +12,16 @@ body, html {
 //   background-repeat: no-repeat;
 // }
 
-.inventory{
+.inventory {
   background: white;
-  width: 900px;
-  height: 100px;
+  width: 75%;
+  height: 25%;
   position: absolute;
   top: 550px;
   left: 150px;
 }
 
-.chat{
+.chat {
   position: absolute;
   background: grey;
   height: 600px;
