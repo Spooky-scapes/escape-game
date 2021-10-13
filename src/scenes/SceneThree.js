@@ -8,6 +8,7 @@ import woodenspoon from "../assets/SceneThreeAssets/woodenspoon.png";
 import arrowRight from "../assets/SceneThreeAssets/ghostArrowRight.png";
 import arrowLeft from "../assets/SceneThreeAssets/ghostArrowLeft.png";
 import ravenClosed from "../assets/SceneOne/ravenClosedFIT.png";
+import { Link } from "react-router-dom";
 import backgroundImage from "../assets/Background.jpg";
 import SpeechRecognition, {
   useSpeechRecognition,
@@ -59,20 +60,24 @@ const SceneThree = () => {
           alt="classical painting of farmers working"
         ></img>
       </div>
-      <div>
-        <img
-          className="arrowRight"
-          src={arrowRight}
-          alt="An arrow that looks ghostly"
-        ></img>
-      </div>
-      <div>
-        <img
-          className="arrowLeft"
-          src={arrowLeft}
-          alt="An arrow that looks ghostly"
-        ></img>
-      </div>
+      <Link to="/scene4">
+        <div>
+          <img
+            className="arrowRight"
+            src={arrowRight}
+            alt="An arrow that looks ghostly"
+          ></img>
+        </div>
+      </Link>
+      <Link to="/scene2">
+        <div>
+          <img
+            className="arrowLeft"
+            src={arrowLeft}
+            alt="An arrow that looks ghostly"
+          ></img>
+        </div>
+      </Link>
     </div>
   );
 };
