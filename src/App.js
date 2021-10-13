@@ -4,13 +4,14 @@ import SpeechRecognition, {
 } from "react-speech-recognition";
 import { useState } from "react";
 import SceneOne from "./scenes/SceneOne";
-import SceneTwo from './scenes/SceneTwo'
+import SceneTwo from "./scenes/SceneTwo";
 import SceneThree from "./scenes/SceneThree";
 import SceneFour from './scenes/SceneFour'
 import Inventory from  './components/Inventory'
 import Chat from './components/Chat'
 import Lobby from './scenes/Lobby'
 import { Route, Switch, BrowserRouter as Router } from "react-router-dom"
+
 
 function App() {
   const commands = [
@@ -33,13 +34,9 @@ function App() {
 
   const buttons = ["bookButton"];
 
-
   if (isClicked) {
     clickButton();
-
   }
-
-
 
   let speech = new SpeechSynthesisUtterance();
   speech.lang = "en";

@@ -10,9 +10,10 @@ import ravenClosed from "../assets/SceneOne/ravenClosedFIT.png";
 import leftArrow from "../assets/ghostArrowLeft.png";
 import rightArrow from "../assets/ghostArrowRight.png";
 import "../assets/SceneOne/sceneone.scss";
-import '../main.scss';
+import "../main.scss";
 import "../App.scss";
 import { Link } from "react-router-dom"
+
 
 function SceneOne(){
     return (
@@ -30,6 +31,7 @@ function SceneOne(){
             <Link to="/scene2"><div><img src={rightArrow} id="rightArrow" alt="ghost arrow pointing right" /></div></Link>
         </div>
     )
+
 }
 
-export default SceneOne
+export default SceneOne;

@@ -54,13 +54,6 @@
     left: 40%;
 }
 
-#bookCase {
-    max-width: 75%;
-    max-height: 75%;
-    position: absolute;
-    top:0%;
-    left: 0%;
-}
 #bookCase:hover {
     max-width: 75%;
     max-height: 75%;
@@ -70,12 +63,12 @@
 }
 
 #lockedDiary {
-    max-width: 25%;
-    max-height: 25%;
-    position: absolute;
-    top: 25%;
-    left: 5%;
-    transform: rotate(-25deg);
+  max-width: 25%;
+  max-height: 25%;
+  position: absolute;
+  top: 25%;
+  left: 5%;
+  transform: rotate(-25deg);
 }
 #lockedDiary:hover {
     max-width: 25%;
@@ -87,11 +80,11 @@
 }
 
 #endTable {
-    max-width: 40%;
-    max-height: 40%;
-    position: absolute;
-    top: 40%;
-    left: 40%;
+  max-width: 40%;
+  max-height: 40%;
+  position: absolute;
+  top: 40%;
+  left: 40%;
 }
 #endTable:hover {
     max-width: 40%;
@@ -102,11 +95,11 @@
 }
 
 #full-bookshelf {
-    max-width: 50%;
-    max-height: 50%;
-    position: absolute;
-    top: 20%;
-    right: 2%;
+  max-width: 50%;
+  max-height: 50%;
+  position: absolute;
+  top: 20%;
+  right: 2%;
 }
 #full-bookshelf:hover {
     max-width: 55%;
@@ -117,11 +110,11 @@
 }
 
 #crystal-skull {
-    max-width: 10%;
-    max-height: 10%;
-    position: absolute;
-    top: 35%;
-    left: 58%;
+  max-width: 10%;
+  max-height: 10%;
+  position: absolute;
+  top: 35%;
+  left: 58%;
 }
 #crystal-skull:hover {
     max-width: 15%;
@@ -132,12 +125,12 @@
 }
 
 #cassettePlayer {
-    max-width: 7%;
-    max-height: 7%;
-    position: absolute;
-    top: 40%;
-    right: 8%;
-    transform: rotate(35deg);
+  max-width: 7%;
+  max-height: 7%;
+  position: absolute;
+  top: 40%;
+  right: 8%;
+  transform: rotate(35deg);
 }
 #cassettePlayer:hover {
     max-width: 7%;
