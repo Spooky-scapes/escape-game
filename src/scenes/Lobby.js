@@ -1,12 +1,16 @@
-import '../index.scss'
-import lobbyScreen from '../assets/home-screen.png'
+import "../lobby.scss";
 
 const Lobby = () => {
   return (
-    <div>
-      <img className= 'lobbyScreen' src={lobbyScreen} alt = 'haunted house lobby screen'/>
+    <div className="lobbyScreen">
+      <div className="title">
+        <h1>Spooky Scapes!</h1>
+      </div>
+      <div className="playButton">
+        <h1>Play</h1>
+      </div>
     </div>
-  )
-}
+  );
+};
 
 export default Lobby;
