@@ -51,13 +51,13 @@ function App() {
 
   return (
     <div className="App">
-      <Lobby />
-      <SceneOne />
+      {/* <Lobby /> */}
+      {/* <SceneOne /> */}
       <SceneTwo />
-      <SceneThree />
-      <SceneFour />
-      <Inventory />
-      <Chat />
+      {/* <SceneThree /> */}
+      {/* <SceneFour /> */}
+      {/* <Inventory /> */}
+      {/* <Chat /> */}
 
       <button
         id="bookButton"
