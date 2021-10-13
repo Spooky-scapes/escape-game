@@ -1,77 +1,76 @@
-#boatPainting {
-    $sizeW: 300px;
-    $sizeH: 150px;
-    width: $sizeW;
-    height: $sizeH;
-    position: absolute;
+.sceneOne {
+    background-image: url('../Background.jpg');
+    background-position: center;
+    background-size: cover;
+    position: relative;
+    margin: auto;
+    width: 800px;
+    height: 500px;
     top: 50px;
-    left: 400px;
 }
 
-#bookCase {
-    $sizeW: 400px;
-    $sizeH: 420px;
-    width: $sizeW;
-    height: $sizeH;
+.sceneOne #boatPainting {
+    max-width: 25%;
+    max-height: 25%;
     position: absolute;
-    top:60px;
-    left: 0px;
+    top: 10%;
+    left: 40%;
+}
+
+.sceneOne #bookCase {
+    max-width: 75%;
+    max-height: 75%;
+    position: absolute;
+    top:0%;
+    left: 0%;
 }
 
 #lockedDiary {
-    $sizeW: 100px;
-    $sizeH: 100px;
-    width: $sizeW;
-    height: $sizeH;
+    max-width: 25%;
+    max-height: 25%;
     position: absolute;
-    top: 240px;
-    left: 60px;
+    top: 25%;
+    left: 5%;
     transform: rotate(-25deg);
 }
 
 #endTable {
-    $sizeW: 250px;
-    $sizeH: 250px;
-    width: $sizeW;
-    height: $sizeH;
+    max-width: 40%;
+    max-height: 40%;
     position: absolute;
-    top: 275px;
-    left: 425px;
+    top: 40%;
+    left: 40%;
 }
 
 #full-bookshelf {
-    $sizeW: 400px;
-    $sizeH: 400px;
-    width: $sizeW;
-    height: $sizeH;
+    max-width: 50%;
+    max-height: 50%;
     position: absolute;
-    top: 65px;
-    left: 675px;
+    top: 20%;
+    right: 2%;
 }
 
 #crystal-skull {
-    $sizeW: 65px;
-    $sizeH: 65px;
-    width: $sizeW;
-    height: $sizeH;
+    max-width: 10%;
+    max-height: 10%;
     position: absolute;
-    top: 235px;
-    left: 550px;
+    top: 35%;
+    left: 58%;
 }
 
 #cassettePlayer {
-    width: 60px;
-    height: 60px;
+    max-width: 7%;
+    max-height: 7%;
     position: absolute;
-    top: 225px;
-    left: 900px;
-    transform: rotate(45deg);
+    top: 40%;
+    right: 8%;
+    transform: rotate(35deg);
 }
 
 #ravenClosed {
     position: absolute;
-    left: 900px;
-    top: 5px;
-    width: 90px;
-    height: 90px;
+    right: 5%;
+    top: 10%;
+    max-width: 15%;
+    max-height: 15%;
 }
