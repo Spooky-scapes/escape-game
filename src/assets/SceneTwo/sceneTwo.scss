@@ -1,0 +1,144 @@
+.coffin {
+  position: absolute;
+  max-width: 45%;
+  max-height: 45%;
+  top: 60%;
+  left: 30%;
+
+}
+
+.coffin:hover {
+  position: absolute;
+  max-width: 45%;
+  max-height: 45%;
+  top: 55%;
+  left: 30%;
+}
+
+.coffin-text {
+  display: none;
+}
+
+.coffin-text-active {
+  // position: absolute;
+  // bottom: -22%;
+  word-wrap: break-word;
+  color: azure;
+}
+.oldChair {
+  max-width: 30%;
+  max-height: 40%;
+  position: absolute;
+  top: 42%;
+  right: 2%;
+}
+
+.oldChair:hover {
+  max-width: 30%;
+  max-height: 40%;
+  position: absolute;
+  top: 37%;
+  right: 2%;
+}
+
+.stoolCabinet {
+  max-width: 22%;
+  position: absolute;
+  top: 63%;
+  left: 0%;
+}
+
+.stoolCabinet:hover {
+  max-width: 25%;
+  position: absolute;
+  top: 63%;
+  left: 0%;
+}
+
+.holeInWall {
+  position: absolute;
+  right: 20%;
+  width: 8%;
+  top: 43%
+}
+
+.holeInWall:hover {
+  position: absolute;
+  right: 20%;
+  width: 10%;
+  top: 43%
+}
+
+.rightCandle {
+  position: absolute;
+  width: 6%;
+  right: 15%;
+  top: 6%
+}
+
+.rightCandle:hover {
+  position: absolute;
+  width: 8%;
+  right: 15%;
+  top: 6%
+}
+
+.leftCandle {
+  position: absolute;
+  width: 6%;
+  left: 15%;
+  top: 6%
+}
+
+.leftCandle:hover {
+  position: absolute;
+  width: 8%;
+  left: 15%;
+  top: 6%
+}
+
+.cowPainting {
+  max-width: 30%;
+  max-height: 32%;
+  position: absolute;
+  top: 10%;
+  left: 42%;
+}
+
+.cowPainting:hover {
+  max-width: 32%;
+  max-height: 34%;
+  position: absolute;
+  top: 10%;
+  left: 42%;
+}
+
+.sceneTwo {
+  background-image: url('../Background.jpg');
+  background-position: center;
+  background-size: cover;
+  position: relative;
+  margin: auto;
+  width: 1100px;
+  height: 650px;
+  top: 100px;
+}
+
+.raven-quiet {
+  width: 9%;
+  position: absolute;
+  top: 53.5%;
+  left: 3%;
+}
+
+.narrationBox{
+  position: absolute;
+  height: 65px;
+  width: 800px;
+  left: 15%;
+  top: 88%;
+  background-color: rgb(41, 41, 41);
+  opacity: 80%;
+  border-style: double;
+  border-color: black;
+}
