@@ -7,15 +7,15 @@ import bookShelf from "../assets/SceneOne/bookshelf-full.png";
 import crystalSkull from "../assets/SceneOne/crystal-skull.png";
 import cassettePlayer from "../assets/SceneOne/cassette-player.png";
 import ravenClosed from "../assets/SceneOne/ravenClosedFIT.png";
+import backgroundImage from "../assets/Background.jpg";
 import "../assets/SceneOne/sceneone.scss";
-//import '../main.scss';
+import '../main.scss';
+import "../App.scss";
 
 function SceneOne(){
-
-
     return (
         <div id="sceneOne" className="scenes">
-            <h1>I am scene 1</h1>
+            <img className='backgroundImage' src={backgroundImage} alt='background' />
             <img src= {boatPainting} id="boatPainting" alt="Oil painting of four sailboats" />
             <img src={bookCase} id = "bookCase" alt = "large wooden bookcase that is empty" />
             <img src={lockedDiary} id = "lockedDiary" alt = "blue diary with gold designs on the cover and a lock keeping it shut" />

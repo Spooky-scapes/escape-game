@@ -47,10 +47,10 @@ function App() {
 
   return (
     <div className="App">
-      <Lobby />
-      <SceneOne />
-      <SceneTwo />
-      <SceneThree />
+      {/* <Lobby /> */}
+      {/* <SceneOne /> */}
+      {/* <SceneTwo /> */}
+      {/* <SceneThree /> */}
       <SceneFour />
       <Inventory />
       <Chat />
