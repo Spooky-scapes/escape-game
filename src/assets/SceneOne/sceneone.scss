@@ -9,20 +9,64 @@
     top: 100px;
 }
 
-.sceneOne #boatPainting {
+#leftArrow {
+    width: 8%;
+    height: 10%;
+    position: absolute;
+    top: 50%;
+    left: 0%;
+}
+#leftArrow:hover {
+    width: 10%;
+    height: 12%;
+    position: absolute;
+    top: 50%;
+    left: 0%;
+}
+
+#rightArrow {
+    width: 8%;
+    height: 10%;
+    position: absolute;
+    top: 50%;
+    right: 0%;
+}
+#rightArrow:hover {
+    width: 10%;
+    height: 12%;
+    position: absolute;
+    top: 50%;
+    right: 0%;
+}
+
+#boatPainting {
     max-width: 25%;
     max-height: 25%;
     position: absolute;
     top: 10%;
     left: 40%;
 }
+#boatPainting:hover {
+    max-width: 25%;
+    max-height: 25%;
+    position: absolute;
+    top: 5%;
+    left: 40%;
+}
 
-.sceneOne #bookCase {
+#bookCase {
     max-width: 75%;
     max-height: 75%;
     position: absolute;
     top:0%;
     left: 0%;
+}
+#bookCase:hover {
+    max-width: 75%;
+    max-height: 75%;
+    position: absolute;
+    top:0%;
+    left: 5%;
 }
 
 #lockedDiary {
@@ -33,12 +77,27 @@
     left: 5%;
     transform: rotate(-25deg);
 }
+#lockedDiary:hover {
+    max-width: 25%;
+    max-height: 25%;
+    position: absolute;
+    top: 25%;
+    left: 5%;
+    transform: rotate(-15deg);
+}
 
 #endTable {
     max-width: 40%;
     max-height: 40%;
     position: absolute;
     top: 40%;
+    left: 40%;
+}
+#endTable:hover {
+    max-width: 40%;
+    max-height: 40%;
+    position: absolute;
+    top: 35%;
     left: 40%;
 }
 
@@ -49,10 +108,24 @@
     top: 20%;
     right: 2%;
 }
+#full-bookshelf:hover {
+    max-width: 55%;
+    max-height: 55%;
+    position: absolute;
+    top: 20%;
+    right: 2%;
+}
 
 #crystal-skull {
     max-width: 10%;
     max-height: 10%;
+    position: absolute;
+    top: 35%;
+    left: 58%;
+}
+#crystal-skull:hover {
+    max-width: 15%;
+    max-height: 15%;
     position: absolute;
     top: 35%;
     left: 58%;
@@ -66,10 +139,25 @@
     right: 8%;
     transform: rotate(35deg);
 }
+#cassettePlayer:hover {
+    max-width: 7%;
+    max-height: 7%;
+    position: absolute;
+    top: 40%;
+    right: 8%;
+    transform: rotate(25deg);
+}
 
 #ravenClosed {
     position: absolute;
     right: 5%;
+    top: 10%;
+    max-width: 15%;
+    max-height: 15%;
+}
+#ravenClosed:hover {
+    position: absolute;
+    right: 10%;
     top: 10%;
     max-width: 15%;
     max-height: 15%;
