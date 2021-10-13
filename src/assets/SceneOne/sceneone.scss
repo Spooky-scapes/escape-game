@@ -9,6 +9,36 @@
     top: 100px;
 }
 
+#leftArrow {
+    width: 8%;
+    height: 10%;
+    position: absolute;
+    top: 50%;
+    left: 0%;
+}
+#leftArrow:hover {
+    width: 10%;
+    height: 12%;
+    position: absolute;
+    top: 50%;
+    left: 0%;
+}
+
+#rightArrow {
+    width: 8%;
+    height: 10%;
+    position: absolute;
+    top: 50%;
+    right: 0%;
+}
+#rightArrow:hover {
+    width: 10%;
+    height: 12%;
+    position: absolute;
+    top: 50%;
+    right: 0%;
+}
+
 #boatPainting {
     max-width: 25%;
     max-height: 25%;
