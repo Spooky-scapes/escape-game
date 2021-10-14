@@ -20,33 +20,57 @@ import rightArrow from "../assets/ghostArrowRight.png";
 const SceneTwo = () => {
   const [isActive, setActive] = useState(false)
   console.log('🧤 isActive', isActive);
+  const assetClicked = (e) => {
+    console.log('🧤 e',e.target.className)
+    setActive(false)
+    const clicked = e.target.className
+    const narrationBox = document.getElementById('narrationBox')
+    narrationBox.innerHTML = ''
 
-  const assetClicked = () => {
+    switch (clicked) {
+      case 'coffin':
+        narrationBox.innerHTML = 'A large coffin, the lid is heavy, you wonder what may be inside of it, but you’re too afraid to open it yourself.'
+        break;
+      case 'cowPainting':
+        narrationBox.innerHTML = 'A painting of a cow, what a strange painting to own.'
+        break;
+      case 'stoolCabinet':
+        narrationBox.innerHTML = 'An old worn down stool cabinet that doesn’t open.'
+        break;
+      case 'oldChair':
+        narrationBox.innerHTML = 'An old worn down chair, it doesn’t look sturdy enough to sit on.'
+        break;
+      case 'holeInWall':
+        narrationBox.innerHTML = 'The old purple wallpaper has a huge hole in it, there doesn’t seem to be anything behind that wallpaper but darkness'
+        break;
+      case 'rightCandle':
+        narrationBox.innerHTML = 'A wall candle, there’s another one on the opposite side of the room. The candle is lit but who lit them?'
+        break;
+      case 'leftCandle':
+        narrationBox.innerHTML = 'A wall candle, there’s another one on the opposite side of the room. The candle is lit but who lit them?'
+        break;
+      default:
+        break;
+    }
+
     setActive(true)
     setTimeout(function() {setActive(false)}, 3000)
     return
   }
 
-
   return (
     <div className='sceneTwo'>
-        <div><img src={closedCoffin} alt='an open coffin' className='coffin' onClick={assetClicked}/></div>
+        <div><img src={closedCoffin} alt='an open coffin' className='coffin' onClick={(e) => assetClicked(e)}/></div>
         <div></div>
 
-        <div><img src={oldChair} alt='a very old chair' className='oldChair' onClick={() => console.log('🧤 chair')
-        }/></div>
-        <div><img src={stool} alt='an old nasty cabinet' className='stoolCabinet' onClick={() => console.log('🧤 stool')
-        }/></div>
-        <div><img src={hole} alt='an odd hole in the wall' className='holeInWall' onClick={() => console.log('🧤 hole')
-        }/></div>
-        <div><img src={wallCandle} alt='a lit candle' className='rightCandle' onClick={() => console.log('🧤 right-candle')
-        }/></div>
-        <div><img src={wallCandle} alt='a lit candle' className='leftCandle' onClick={() => console.log('🧤 left-candle')
-        } /></div>
-        <div><img src={cowPainting} alt='an interesting painting' className='cowPainting' onClick={() => console.log('🧤 painting')
-        }/></div>
+        <div><img src={oldChair} alt='a very old chair' className='oldChair' onClick={(e) => assetClicked(e)}/></div>
+        <div><img src={stool} alt='an old nasty cabinet' className='stoolCabinet' onClick={(e) => assetClicked(e)}/></div>
+        <div><img src={hole} alt='an odd hole in the wall' className='holeInWall' onClick={(e) => assetClicked(e)}/></div>
+        <div><img src={wallCandle} alt='a lit candle' className='rightCandle' onClick={(e) => assetClicked(e)}/></div>
+        <div><img src={wallCandle} alt='a lit candle' className='leftCandle' onClick={(e) => assetClicked(e)} /></div>
+        <div><img src={cowPainting} alt='an interesting painting' className='cowPainting' onClick={(e) => assetClicked(e)}/></div>
         <div><img src={savion} className='raven-quiet' alt='a squawking talking raven'/></div>
-        <div className='narrationBox'><p className={isActive? 'coffin-text-active':'coffin-text'}>A closed casket...spooky theres gonna be a whole lotta text in here cause i need to see it wrap not rap but wrap i would prefer to only hear professionals rap tyvm shut up and carry on my friend. welp thats not enough text so here we go with more to show i hope it tickles your fancy my friend.</p></div>
+        <div className='narrationBox'><p id='narrationBox' className={isActive? 'coffin-text-active':'coffin-text'}></p></div>
         <Link to="/scene1">
         <div>
           <img src={leftArrow} id="leftArrow" alt="ghost arrow pointing left" />
