@@ -7,8 +7,8 @@ import SceneOne from "./scenes/SceneOne";
 import SceneTwo from "./scenes/SceneTwo";
 import SceneThree from "./scenes/SceneThree";
 import SceneFour from "./scenes/SceneFour";
-import Inventory from "./components/Inventory";
-import Chat from "./components/Chat";
+// import Inventory from "./components/Inventory";
+// import Chat from "./components/Chat";
 import Lobby from "./scenes/Lobby";
 import { Route, Switch, BrowserRouter as Router } from "react-router-dom";
 
@@ -48,7 +48,7 @@ function App() {
 
   return (
     <div className="App">
-      <Chat />
+      {/* <Chat /> */}
       <Router>
         <Switch>
           <Route exact path="/" component={Lobby} />
@@ -59,7 +59,7 @@ function App() {
         </Switch>
       </Router>
       <div className="inventory-chat">
-        <Inventory />
+        {/* <Inventory /> */}
       </div>
       <button
         id="bookButton"
