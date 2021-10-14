@@ -7,8 +7,8 @@ import SceneOne from "./scenes/SceneOne";
 import SceneTwo from "./scenes/SceneTwo";
 import SceneThree from "./scenes/SceneThree";
 import SceneFour from "./scenes/SceneFour";
-import Inventory from "./components/Inventory";
-import Chat from "./components/Chat";
+// import Inventory from "./components/Inventory";
+// import Chat from "./components/Chat";
 import Lobby from "./scenes/Lobby";
 import { Route, Switch, BrowserRouter as Router } from "react-router-dom";
 

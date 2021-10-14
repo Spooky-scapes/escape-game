@@ -162,3 +162,12 @@
     max-width: 15%;
     max-height: 15%;
 }
+
+.painting-text {
+    display: none;
+  }
+  
+  .painting-text-active {
+    word-wrap: break-word;
+    color: azure;
+  }
