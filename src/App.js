@@ -48,7 +48,7 @@ function App() {
 
   return (
     <div className="App">
-      <Chat />
+      {/* <Chat /> */}
       <Router>
         <Switch>
           <Route exact path="/" component={Lobby} />

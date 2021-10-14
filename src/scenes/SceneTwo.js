@@ -15,13 +15,19 @@ import backgroundImage from "../assets/Background.jpg";
 import { Link } from "react-router-dom";
 import leftArrow from "../assets/ghostArrowLeft.png";
 import rightArrow from "../assets/ghostArrowRight.png";
+import { timeoutCollection } from 'time-events-manager';
 
 
 const SceneTwo = () => {
+
   const [isActive, setActive] = useState(false)
-  console.log('🧤 isActive', isActive);
+  const [openCoffin, setOpen] = useState(false)
+
+
+
+
   const assetClicked = (e) => {
-    console.log('🧤 e',e.target.className)
+    timeoutCollection.removeAll()
     setActive(false)
     const clicked = e.target.className
     const narrationBox = document.getElementById('narrationBox')
@@ -29,7 +35,7 @@ const SceneTwo = () => {
 
     switch (clicked) {
       case 'coffin':
-        narrationBox.innerHTML = 'A large coffin, the lid is heavy, you wonder what may be inside of it, but you’re too afraid to open it yourself.'
+        narrationBox.innerHTML = openCoffin? 'A large coffin, it’s open but there isn’t anyone in it. The pungent smell emanating from it fills the room, there may be something in there':'A large coffin, the lid is heavy, you wonder what may be inside of it, but you’re too afraid to open it yourself.'
         break;
       case 'cowPainting':
         narrationBox.innerHTML = 'A painting of a cow, what a strange painting to own.'
@@ -55,14 +61,13 @@ const SceneTwo = () => {
 
     setActive(true)
     setTimeout(function() {setActive(false)}, 3000)
-    return
+
   }
 
   return (
     <div className='sceneTwo'>
         <div><img src={closedCoffin} alt='an open coffin' className='coffin' onClick={(e) => assetClicked(e)}/></div>
         <div></div>
-
         <div><img src={oldChair} alt='a very old chair' className='oldChair' onClick={(e) => assetClicked(e)}/></div>
         <div><img src={stool} alt='an old nasty cabinet' className='stoolCabinet' onClick={(e) => assetClicked(e)}/></div>
         <div><img src={hole} alt='an odd hole in the wall' className='holeInWall' onClick={(e) => assetClicked(e)}/></div>
