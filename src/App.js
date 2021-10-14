@@ -59,7 +59,7 @@ function App() {
         </Switch>
       </Router>
       <div className="inventory-chat">
-        <Inventory />
+        {/* <Inventory /> */}
       </div>
       <button
         id="bookButton"
