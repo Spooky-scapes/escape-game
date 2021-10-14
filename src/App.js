@@ -15,7 +15,7 @@ import { Route, Switch, BrowserRouter as Router } from "react-router-dom";
 function App() {
   const commands = [
     {
-      command: ["Click on *"],
+      command: ["Click on button"],
       callback: () => clickButton(),
     },
   ];
