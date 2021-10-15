@@ -50,7 +50,7 @@ function App() {
 
   return (
     <div className="App">
-     {/* <Timer /> */}
+     <Timer />
       {/* <Chat /> */}
       <Router>
         <Switch>
