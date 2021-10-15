@@ -50,6 +50,7 @@ function App() {
 
   return (
     <div className="App">
+     {/* <Timer /> */}
       {/* <Chat /> */}
       <Router>
         <Switch>
@@ -61,7 +62,7 @@ function App() {
           <Route path="/youdied" component={EndFail} />
         </Switch>
       </Router>
-      <Timer />
+
       <div className="inventory-chat">
         {/* <Inventory /> */}
       </div>
