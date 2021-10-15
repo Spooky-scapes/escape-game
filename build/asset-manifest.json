@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/static/css/main.795b7eb3.chunk.css",
-    "main.js": "/static/js/main.25303655.chunk.js",
-    "main.js.map": "/static/js/main.25303655.chunk.js.map",
+    "main.css": "/static/css/main.a5a3986f.chunk.css",
+    "main.js": "/static/js/main.47fb751a.chunk.js",
+    "main.js.map": "/static/js/main.47fb751a.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.00dd8949.js",
     "runtime-main.js.map": "/static/js/runtime-main.00dd8949.js.map",
-    "static/js/2.b7990799.chunk.js": "/static/js/2.b7990799.chunk.js",
-    "static/js/2.b7990799.chunk.js.map": "/static/js/2.b7990799.chunk.js.map",
+    "static/js/2.76d533d9.chunk.js": "/static/js/2.76d533d9.chunk.js",
+    "static/js/2.76d533d9.chunk.js.map": "/static/js/2.76d533d9.chunk.js.map",
     "index.html": "/index.html",
-    "static/css/main.795b7eb3.chunk.css.map": "/static/css/main.795b7eb3.chunk.css.map",
-    "static/js/2.b7990799.chunk.js.LICENSE.txt": "/static/js/2.b7990799.chunk.js.LICENSE.txt",
+    "static/css/main.a5a3986f.chunk.css.map": "/static/css/main.a5a3986f.chunk.css.map",
+    "static/js/2.76d533d9.chunk.js.LICENSE.txt": "/static/js/2.76d533d9.chunk.js.LICENSE.txt",
     "static/media/SceneFour.scss": "/static/media/Background.c5303eea.jpg",
     "static/media/Bonedog.8c5cbca6.png": "/static/media/Bonedog.8c5cbca6.png",
     "static/media/Cauldron2.31de26b6.png": "/static/media/Cauldron2.31de26b6.png",
@@ -42,8 +42,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.00dd8949.js",
-    "static/js/2.b7990799.chunk.js",
-    "static/css/main.795b7eb3.chunk.css",
-    "static/js/main.25303655.chunk.js"
+    "static/js/2.76d533d9.chunk.js",
+    "static/css/main.a5a3986f.chunk.css",
+    "static/js/main.47fb751a.chunk.js"
   ]
 }

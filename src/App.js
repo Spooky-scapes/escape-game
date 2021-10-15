@@ -9,7 +9,9 @@ import SceneThree from "./scenes/SceneThree";
 import SceneFour from "./scenes/SceneFour";
 // import Inventory from "./components/Inventory";
 // import Chat from "./components/Chat";
+import EndFail from "./components/EndFail";
 import Lobby from "./scenes/Lobby";
+// import Timer from "./components/Timer/Timer.js"
 import { Route, Switch, BrowserRouter as Router } from "react-router-dom";
 
 function App() {
@@ -56,8 +58,10 @@ function App() {
           <Route path="/scene2" component={SceneTwo} />
           <Route path="/scene3" component={SceneThree} />
           <Route path="/scene4" component={SceneFour} />
+          {/* <Route path="/youdied" component={EndFail} /> */}
         </Switch>
       </Router>
+      {/* <Timer /> */}
       <div className="inventory-chat">
         {/* <Inventory /> */}
       </div>

@@ -24,9 +24,10 @@ const SceneThree = () => {
   const assetClicked = (e) => {
     setActive(false);
     const clicked = e.target.className;
+    const paintingClicked = e.target.id;
     const narrationBox = document.getElementById("narrationBox");
     narrationBox.innerHTML = "";
-    switch (clicked) {
+    switch (clicked || paintingClicked) {
       case "woodenSpoon":
         narrationBox.innerHTML =
           "A wooden spoon, a witch’s favorite tool. Potion stirrer and wand! What more could a witch want?";
@@ -104,7 +105,7 @@ const SceneThree = () => {
       </div>
       <div>
         <img
-          className="painting"
+          id="painting"
           src={painting}
           alt="classical painting of farmers working"
           onClick={(event) => assetClicked(event)}
