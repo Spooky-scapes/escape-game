@@ -1,6 +1,6 @@
 import "../assets/SceneFour/SceneFour.scss";
 import mainDoor from "../assets/SceneFour/main-door.png";
-import window from "../assets/SceneFour/window.png";
+import Window from "../assets/SceneFour/window.png";
 import dog from "../assets/SceneFour/Bonedog.png";
 import mat from "../assets/SceneFour/mat.png";
 import cassette from "../assets/SceneFour/cassette-tape.png";
@@ -55,9 +55,9 @@ const SceneFour = () => {
         onClick={() => alert("this is the door")}
       />
       <img
-        className="window"
-        src={window}
-        alt="window to the left of door"
+        className="Window"
+        src={Window}
+        alt="Window to the left of door"
         onClick={() => alert("this is the window")}
       />
       <img
@@ -82,7 +82,10 @@ const SceneFour = () => {
         className="mat"
         src={mat}
         alt="dusty old mat"
-        onClick={() => alert("this is the mat")}
+        onClick={() => {
+          alert("this is the mat");
+          window.localStorage.setItem("hasCasset", true);
+        }}
       />
       <img
         className="closedRaven"

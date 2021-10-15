@@ -20,6 +20,13 @@ const SceneThree = () => {
   const [haveCandy, setCandy] = useState(false);
   const [usedCandy, setUsedCandy] = useState(false);
   const [paintingHint, setPaintingHint] = useState(false);
+  const hasBucket = () => {
+    const bool = JSON.parse(window.localStorage.getItem("hasCandyBucket"));
+    if (bool) {
+      window.localStorage.setItem("usedCandyBucket", true);
+      window.localStorage.setItem("hasKey", true);
+    }
+  };
 
   const assetClicked = (e) => {
     setActive(false);
@@ -33,12 +40,24 @@ const SceneThree = () => {
           "A wooden spoon, a witch’s favorite tool. Potion stirrer and wand! What more could a witch want?";
         break;
       case "cauldron":
-        narrationBox.innerHTML = usedCandy
-          ? "Is that candy, for me? Thank you kindly. *shuffling sound and crinkle of wrappers* *witches cackle* *savions signature explosion sound* Come and drink some of this potion sweaty. I have a feeling that you will need this in order to get out of here."
+        let bool = JSON.parse(window.localStorage.getItem("usedCandyBucket"));
+        narrationBox.innerHTML = bool
+          ? "The small is rather pleasant now, sweet and spicy, with a hint of something citricy.” Lily: “I was making my famous candied chilis! Now scram you oversized crow!” *squack*"
           : "Lily’s cauldron. It seems to be made out of cast iron with skull motifs on four sides of it. In the witch's pot is an unholy amount of chili peppers boiling. I am not sure what she is making, but it hurts to breathe it in.";
         break;
       case "witch":
-        narrationBox.innerHTML = haveCandy
+        const hasCandyBucket = JSON.parse(
+          window.localStorage.getItem("hasCandyBucket")
+        );
+        const usedCandyBucket = JSON.parse(
+          window.localStorage.getItem("usedCandyBucket")
+        );
+        if (usedCandyBucket) {
+          narrationBox.innerHTML =
+            "Thank you for you lovely gift I hope you make it out of here... *witches laugh*";
+          break;
+        }
+        narrationBox.innerHTML = hasCandyBucket
           ? "Is that candy, for me? Thank you kindly. *shuffling sound and crinkle of wrappers* *witches cackle* *savions signature explosion sound* Come and drink some of this potion sweaty. I have a feeling that you will need this in order to get out of here."
           : "Oh hello there deary. It appears you have also been stolen into the belly of this house monster. Child, I am missing something to counteract the spiciness of my brew here and I was wondering if you could help me?";
         break;
@@ -85,7 +104,10 @@ const SceneThree = () => {
           className="witch"
           src={witch}
           alt="A spooky witch sitting in a rocking-chair"
-          onClick={(event) => assetClicked(event)}
+          onClick={(event) => {
+            assetClicked(event);
+            hasBucket();
+          }}
         ></img>
       </div>
       <div>

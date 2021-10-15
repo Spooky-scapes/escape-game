@@ -7,7 +7,7 @@ import SceneOne from "./scenes/SceneOne";
 import SceneTwo from "./scenes/SceneTwo";
 import SceneThree from "./scenes/SceneThree";
 import SceneFour from "./scenes/SceneFour";
-// import Inventory from "./components/Inventory";
+import Inventory from "./components/Inventory";
 // import Chat from "./components/Chat";
 import Lobby from "./scenes/Lobby";
 import { Route, Switch, BrowserRouter as Router } from "react-router-dom";
@@ -58,9 +58,7 @@ function App() {
           <Route path="/scene4" component={SceneFour} />
         </Switch>
       </Router>
-      <div className="inventory-chat">
-        {/* <Inventory /> */}
-      </div>
+      <div className="inventory-chat">{/* <Inventory /> */}</div>
       <button
         id="bookButton"
         className="Button"
