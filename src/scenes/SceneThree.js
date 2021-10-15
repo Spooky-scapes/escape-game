@@ -3,7 +3,7 @@ import "../assets/SceneThreeAssets/SceneThree.scss";
 import grandFatherClock from "../assets/SceneThreeAssets/GrandfatherClock.png";
 import cauldron from "../assets/SceneThreeAssets/Cauldron2.png";
 import witch from "../assets/SceneThreeAssets/witch.png";
-import painting from "../assets/SceneThreeAssets/farm-painting.png";
+import harvestPainting from "../assets/SceneThreeAssets/farm-painting.png";
 import woodenspoon from "../assets/SceneThreeAssets/woodenspoon.png";
 import arrowRight from "../assets/SceneThreeAssets/ghostArrowRight.png";
 import arrowLeft from "../assets/SceneThreeAssets/ghostArrowLeft.png";
@@ -24,7 +24,6 @@ const SceneThree = () => {
     const bool = JSON.parse(window.localStorage.getItem("hasCandyBucket"));
     if (bool) {
       window.localStorage.setItem("usedCandyBucket", true);
-      window.localStorage.setItem("hasKey", true);
     }
   };
 
@@ -54,7 +53,8 @@ const SceneThree = () => {
         );
         if (usedCandyBucket) {
           narrationBox.innerHTML =
-            "Thank you for you lovely gift I hope you make it out of here... *witches laugh*";
+            "Thank you for you lovely gift. I found this at the bottom of your candy bucket. I hope you make it out of here alive... *witches laugh*";
+          window.localStorage.setItem("hasKey", true);
           break;
         }
         narrationBox.innerHTML = hasCandyBucket
@@ -65,8 +65,14 @@ const SceneThree = () => {
         narrationBox.innerHTML =
           "An old grandfather clock that has stopped working ages ago. It’s beautiful smooth dark wood has been kept in decent shape. It’s a shame that we are the only ones who get to enjoy this.";
         break;
-      case "painting":
-        narrationBox.innerHTML = paintingHint
+      case "harvestPainting":
+        let usedKey = JSON.parse(window.localStorage.getItem("usedKey"));
+        if (usedKey) {
+          narrationBox.innerHTML =
+            "The clouds do cast a shadow, but the painting is set during the day.";
+          break;
+        }
+        narrationBox.innerHTML = usedKey
           ? "Hmmm… I am not sure that is right, there aren’t any orbs in this painting."
           : "This painting depicts three women harvesting golden wheat on a hot fall day. A fluffy cloud looms in the distance foreshadowing a muddy week ahead.";
         break;
@@ -127,8 +133,8 @@ const SceneThree = () => {
       </div>
       <div>
         <img
-          id="painting"
-          src={painting}
+          id="harvestPainting"
+          src={harvestPainting}
           alt="classical painting of farmers working"
           onClick={(event) => assetClicked(event)}
         ></img>

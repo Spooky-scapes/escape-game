@@ -9,8 +9,7 @@ import openRaven from "../assets/SceneFour/ravenOpenFIT.png";
 import { Link } from "react-router-dom";
 import leftArrow from "../assets/ghostArrowLeft.png";
 import rightArrow from "../assets/ghostArrowRight.png";
-import painting from "../assets/SceneFour/moon-painting.jpeg";
-import frame from "../assets/SceneFour/gold-frame.png";
+import moonPainting from "../assets/SceneFour/moon-painting.png";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
@@ -60,16 +59,20 @@ const SceneFour = () => {
         alt="Window to the left of door"
         onClick={() => alert("this is the window")}
       />
+
       <img
-        className="painting"
-        src={painting}
+        className="moonPainting"
+        src={moonPainting}
         alt="Autumn themed painting with a night sky and a crescent moon overlooking a farmer"
-      />
-      <img
-        className="frame"
-        src={frame}
-        alt="elegant gold painting frame"
-        onClick={() => alert("this is the painting")}
+        onClick={() => {
+          alert(
+            "What an interesting painting. I've lived here for a while, but I always come back to this one for some reason."
+          );
+          let usedKey = JSON.parse(window.localStorage.getItem("usedKey"));
+          if (usedKey) {
+            alert("This is it! This is the painting!");
+          }
+        }}
       />
       <img
         className="dog"

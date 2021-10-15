@@ -43,6 +43,12 @@ const SceneTwo = () => {
           : "A large coffin, the lid is heavy, you wonder what may be inside of it, but you’re too afraid to open it yourself.";
         break;
       case "cowPainting":
+        let usedKey = JSON.parse(window.localStorage.getItem("usedKey"));
+        if (usedKey) {
+          narrationBox.innerHTML =
+            "It is getting close to night, but not really.";
+          break;
+        }
         narrationBox.innerHTML =
           "A painting of a cow, what a strange painting to own.";
         break;

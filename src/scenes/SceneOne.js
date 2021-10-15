@@ -45,7 +45,6 @@ const SceneOne = () => {
   };
 
   const assetClicked = (e) => {
-    console.log("hi, i'm e", e.target.id);
     setActive(false);
     const clicked = e.target.id;
     const narrationBox = document.getElementById("narrationBox");
@@ -53,6 +52,12 @@ const SceneOne = () => {
 
     switch (clicked) {
       case "boatPainting":
+        let usedKey = JSON.parse(window.localStorage.getItem("usedKey"));
+        if (usedKey) {
+          narrationBox.innerHTML =
+            "It is a lovely painting, but I don't see any orbs in it.";
+          break;
+        }
         narrationBox.innerHTML = "What a lovely old painting.";
         break;
       case "bookCase":
@@ -61,6 +66,12 @@ const SceneOne = () => {
           : "There is a locked diary here now. Do you have anything that can unlock it?";
         break;
       case "lockedDiary":
+        let hasKey = JSON.parse(window.localStorage.getItem("hasKey"));
+        if (hasKey) {
+          narrationBox.innerHTML = "It seems like the key fits the lock!";
+          window.localStorage.setItem("usedKey", true);
+          break;
+        }
         narrationBox.innerHTML =
           "The diary is locked. Is there something in the room that can unlock it?";
         break;
@@ -115,9 +126,12 @@ const SceneOne = () => {
       </div>
       <div>
         <img
-          src={lockedDiary}
+          src={
+            JSON.parse(window.localStorage.getItem("usedCandyBucket"))
+              ? lockedDiary
+              : ""
+          }
           id="lockedDiary"
-          alt="blue diary with gold designs on the cover and a lock keeping it shut"
           onClick={(e) => assetClicked(e)}
         />
       </div>
