@@ -17,13 +17,80 @@ import leftArrow from "../assets/ghostArrowLeft.png";
 import rightArrow from "../assets/ghostArrowRight.png";
 import { timeoutCollection } from 'time-events-manager';
 
+import SpeechRecognition, {
+  useSpeechRecognition,
+} from "react-speech-recognition";
+
 
 const SceneTwo = () => {
 
   const [isActive, setActive] = useState(false)
   const [openCoffin, setOpen] = useState(false)
 
+  const commands = [
+    {
+      command: ['Click on *'],
+      callback: (item) => clickImage(item)
+    },
+    // {
+    //   command: ['Go to *'],
+    //   callback: (page) => goTo(page)
+    // }
+  ]
+  useSpeechRecognition({ commands });
 
+  const clickableItems = ['coffin','coughing', 'coffee', 'old chair', 'cow painting', 'hole in wall', 'left candle', 'left candy','right candle', 'right candy', 'stool cabinet', 'stool','stool cab','raven']
+
+  const matchItemToClass = {
+    coffin: 'coffin',
+    coughing: 'coffin',
+    coffee: 'coffin',
+    'old chair': 'oldChair',
+    'hole in wall': 'holeInWall',
+    'left candle': 'leftCandle',
+    'left candy' : 'leftCandle',
+    'right candle': 'rightCandle',
+    'right candy': 'rightCandle',
+    'stool cabinet': 'stoolCabinet',
+    'stool cab': 'stoolCabinet',
+    'stool': 'stoolCabinet',
+    'cow painting': 'cowPainting'
+  }
+
+  function clickImage(item) {
+    item = item.toLowerCase()
+
+
+    console.log('🧤 item', item);
+
+    if(clickableItems.includes(item)){
+      item = matchItemToClass[item]
+
+    document.getElementsByClassName(item)[0].click()
+    } else {
+      console.log('🧤 item', item);
+
+    }
+  }
+
+  let keyDown = false
+  document.addEventListener("keydown", (event) => {
+    if (event.code === "Space") {
+      event.preventDefault();
+      if(event.repeat){return}
+      SpeechRecognition.startListening();
+      console.log('🧤 list');
+
+    }
+  });
+  document.addEventListener("keyup", (event) => {
+    if (event.code === "Space") {
+      // keyDown = false
+      event.preventDefault();
+      SpeechRecognition.stopListening();
+      console.log('🧤 not');
+    }
+  });
 
 
   const assetClicked = (e) => {
