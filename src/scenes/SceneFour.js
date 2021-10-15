@@ -1,6 +1,6 @@
 import "../assets/SceneFour/SceneFour.scss";
 import mainDoor from "../assets/SceneFour/main-door.png";
-import window from "../assets/SceneFour/window.png";
+import Window from "../assets/SceneFour/window.png";
 import dog from "../assets/SceneFour/Bonedog.png";
 import mat from "../assets/SceneFour/mat.png";
 import cassette from "../assets/SceneFour/cassette-tape.png";
@@ -9,8 +9,7 @@ import openRaven from "../assets/SceneFour/ravenOpenFIT.png";
 import { Link } from "react-router-dom";
 import leftArrow from "../assets/ghostArrowLeft.png";
 import rightArrow from "../assets/ghostArrowRight.png";
-import painting from "../assets/SceneFour/moon-painting.jpeg";
-import frame from "../assets/SceneFour/gold-frame.png";
+import moonPainting from "../assets/SceneFour/moon-painting.png";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
@@ -55,21 +54,25 @@ const SceneFour = () => {
         onClick={() => alert("this is the door")}
       />
       <img
-        className="window"
-        src={window}
-        alt="window to the left of door"
+        className="Window"
+        src={Window}
+        alt="Window to the left of door"
         onClick={() => alert("this is the window")}
       />
+
       <img
-        className="painting"
-        src={painting}
+        className="moonPainting"
+        src={moonPainting}
         alt="Autumn themed painting with a night sky and a crescent moon overlooking a farmer"
-      />
-      <img
-        className="frame"
-        src={frame}
-        alt="elegant gold painting frame"
-        onClick={() => alert("this is the painting")}
+        onClick={() => {
+          alert(
+            "What an interesting painting. I've lived here for a while, but I always come back to this one for some reason."
+          );
+          let usedKey = JSON.parse(window.localStorage.getItem("usedKey"));
+          if (usedKey) {
+            alert("This is it! This is the painting!");
+          }
+        }}
       />
       <img
         className="dog"
@@ -82,7 +85,10 @@ const SceneFour = () => {
         className="mat"
         src={mat}
         alt="dusty old mat"
-        onClick={() => alert("this is the mat")}
+        onClick={() => {
+          alert("this is the mat");
+          window.localStorage.setItem("hasCasset", true);
+        }}
       />
       <img
         className="closedRaven"
