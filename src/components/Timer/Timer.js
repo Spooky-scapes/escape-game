@@ -13,7 +13,7 @@ const Timer = () => {
       seconds = seconds < 10 ? "0" + seconds : seconds;
       display.textContent = minutes + ":" + seconds;
       if (timer > 0) timer--;
-      else window.location.replace('https://spooky-scapes.netlify.app/fail')
+      else window.location.href('https://spooky-scapes.netlify.app/fail')
     }, 1000)
   }
 
