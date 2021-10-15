@@ -10,6 +10,7 @@ import SceneFour from "./scenes/SceneFour";
 // import Inventory from "./components/Inventory";
 // import Chat from "./components/Chat";
 import Lobby from "./scenes/Lobby";
+import Timer from "./components/Timer/Timer.js"
 import { Route, Switch, BrowserRouter as Router } from "react-router-dom";
 
 function App() {
@@ -58,6 +59,7 @@ function App() {
           <Route path="/scene4" component={SceneFour} />
         </Switch>
       </Router>
+      <Timer />
       <div className="inventory-chat">
         {/* <Inventory /> */}
       </div>
