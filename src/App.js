@@ -59,7 +59,7 @@ function App() {
           <Route path="/scene2" component={SceneTwo} />
           <Route path="/scene3" component={SceneThree} />
           <Route path="/scene4" component={SceneFour} />
-          {/* <Route path="/youdied" component={EndFail} /> */}
+          <Route exact path="/youdied" component={EndFail} />
         </Switch>
       </Router>
 
