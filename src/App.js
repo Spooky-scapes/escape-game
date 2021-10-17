@@ -50,6 +50,7 @@ function App() {
 
   return (
     <div className="App">
+     <Timer />
       {/* <Chat /> */}
       <Router>
         <Switch>
@@ -62,7 +63,6 @@ function App() {
         </Switch>
       </Router>
 
-      <Timer />
       <div className="inventory-chat">
         {/* <Inventory /> */}
       </div>
