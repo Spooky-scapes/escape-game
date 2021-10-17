@@ -14,17 +14,17 @@ import "../main.scss";
 import "../App.scss";
 import { Link } from "react-router-dom"
 import {Howl, Howler} from 'howler';
-
-const sxf = {
-    caw: new Howl({
-        src: ["../SceneOne/Blastwave_FX_BirdCrowCawMultiple_SFXB.17.mp3"]
-    })
-}
+import { getStorage, ref } from "firebase/storage";
 
 
 const SceneOne = () => {
   const [isActive, setActive] = useState(false)
   const [hiddenDiary, setHidden] = useState(true)
+
+  const storage = getStorage();
+  const caw = ref(storage, "caw.mp3");
+  const cawPath = "https://firebasestorage.googleapis.com/v0/b/spooky-scapes.appspot.com/o/caw.mp3?alt=media&token=cd4cc366-1a6b-47f6-912b-5b5eb21096f2";
+  console.log("I am scene one caw", caw.path);
 
   const assetClicked = (e) => {
     console.log("hi, i'm e", e.target.id)
@@ -61,16 +61,20 @@ const SceneOne = () => {
       default:
         break;
     }
-    sxf.caw.play();
     setActive(true)
     setTimeout(function() {setActive(false)}, 3000)
     return
   }
 
+  function playSound(url) {
+    var a = new Audio(url);
+    a.play();
+  }
+
   
     return (
         <div className="sceneOne">
-            <div><img src= {boatPainting} id="boatPainting" alt="Oil painting of four sailboats" onClick={(e) => assetClicked(e)}/></div>
+            <div><img src= {boatPainting} id="boatPainting" alt="Oil painting of four sailboats" onClick={(e) => {assetClicked(e); playSound({cawPath})}}/></div>
             <div><img src={bookCase} id = "bookCase" alt = "large wooden bookcase that is empty" onClick={(e) => assetClicked(e)}/></div>
             <div><img src={lockedDiary} id = "lockedDiary" alt = "blue diary with gold designs on the cover and a lock keeping it shut" onClick={(e) => assetClicked(e)}/></div>
             <div><img src={endTable} id="endTable" alt = "victorian-style wooden end table with four curved legs and a flat square top" onClick={(e) => assetClicked(e)}/></div>
