@@ -95,6 +95,8 @@ const SceneTwo = () => {
     if(pagePossibilities.includes(page)){
       page = mapPageToLink[page]
       document.getElementById(page).click()
+    } else {
+      alert(`it thinks you said ${page}, consider adding ${page} to your item list, and mapping that to the correct word/phrase. Remove this when finished testing`)
     }
   }
 
