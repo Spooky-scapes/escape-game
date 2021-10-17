@@ -28,6 +28,7 @@ window.localStorage.setItem("hasCandyBucket", false);
 window.localStorage.setItem("usedCandyBucket", false);
 window.localStorage.setItem("hasKey", false);
 window.localStorage.setItem("usedKey", false);
+window.localStorage.setItem("foundPainting", false);
 
 const SceneOne = () => {
   const [isActive, setActive] = useState(false);
