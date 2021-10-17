@@ -3,7 +3,7 @@ import "../assets/SceneThreeAssets/SceneThree.scss";
 import grandFatherClock from "../assets/SceneThreeAssets/GrandfatherClock.png";
 import cauldron from "../assets/SceneThreeAssets/Cauldron2.png";
 import witch from "../assets/SceneThreeAssets/witch.png";
-import painting from "../assets/SceneThreeAssets/farm-painting.png";
+import harvestPainting from "../assets/SceneThreeAssets/farm-painting.png";
 import woodenspoon from "../assets/SceneThreeAssets/woodenspoon.png";
 import arrowRight from "../assets/SceneThreeAssets/ghostArrowRight.png";
 import arrowLeft from "../assets/SceneThreeAssets/ghostArrowLeft.png";
@@ -20,6 +20,12 @@ const SceneThree = () => {
   const [haveCandy, setCandy] = useState(false);
   const [usedCandy, setUsedCandy] = useState(false);
   const [paintingHint, setPaintingHint] = useState(false);
+  const hasBucket = () => {
+    const bool = JSON.parse(window.localStorage.getItem("hasCandyBucket"));
+    if (bool) {
+      window.localStorage.setItem("usedCandyBucket", true);
+    }
+  };
 
   const assetClicked = (e) => {
     setActive(false);
@@ -33,12 +39,25 @@ const SceneThree = () => {
           "A wooden spoon, a witch’s favorite tool. Potion stirrer and wand! What more could a witch want?";
         break;
       case "cauldron":
-        narrationBox.innerHTML = usedCandy
-          ? "Is that candy, for me? Thank you kindly. *shuffling sound and crinkle of wrappers* *witches cackle* *savions signature explosion sound* Come and drink some of this potion sweaty. I have a feeling that you will need this in order to get out of here."
+        let bool = JSON.parse(window.localStorage.getItem("usedCandyBucket"));
+        narrationBox.innerHTML = bool
+          ? "The small is rather pleasant now, sweet and spicy, with a hint of something citricy.” Lily: “I was making my famous candied chilis! Now scram you oversized crow!” *squack*"
           : "Lily’s cauldron. It seems to be made out of cast iron with skull motifs on four sides of it. In the witch's pot is an unholy amount of chili peppers boiling. I am not sure what she is making, but it hurts to breathe it in.";
         break;
       case "witch":
-        narrationBox.innerHTML = haveCandy
+        const hasCandyBucket = JSON.parse(
+          window.localStorage.getItem("hasCandyBucket")
+        );
+        const usedCandyBucket = JSON.parse(
+          window.localStorage.getItem("usedCandyBucket")
+        );
+        if (usedCandyBucket) {
+          narrationBox.innerHTML =
+            "Thank you for you lovely gift. I found this at the bottom of your candy bucket. I hope you make it out of here alive... *witches laugh*";
+          window.localStorage.setItem("hasKey", true);
+          break;
+        }
+        narrationBox.innerHTML = hasCandyBucket
           ? "Is that candy, for me? Thank you kindly. *shuffling sound and crinkle of wrappers* *witches cackle* *savions signature explosion sound* Come and drink some of this potion sweaty. I have a feeling that you will need this in order to get out of here."
           : "Oh hello there deary. It appears you have also been stolen into the belly of this house monster. Child, I am missing something to counteract the spiciness of my brew here and I was wondering if you could help me?";
         break;
@@ -46,8 +65,14 @@ const SceneThree = () => {
         narrationBox.innerHTML =
           "An old grandfather clock that has stopped working ages ago. It’s beautiful smooth dark wood has been kept in decent shape. It’s a shame that we are the only ones who get to enjoy this.";
         break;
-      case "painting":
-        narrationBox.innerHTML = paintingHint
+      case "harvestPainting":
+        let usedKey = JSON.parse(window.localStorage.getItem("usedKey"));
+        if (usedKey) {
+          narrationBox.innerHTML =
+            "The clouds do cast a shadow, but the painting is set during the day.";
+          break;
+        }
+        narrationBox.innerHTML = usedKey
           ? "Hmmm… I am not sure that is right, there aren’t any orbs in this painting."
           : "This painting depicts three women harvesting golden wheat on a hot fall day. A fluffy cloud looms in the distance foreshadowing a muddy week ahead.";
         break;
@@ -85,7 +110,10 @@ const SceneThree = () => {
           className="witch"
           src={witch}
           alt="A spooky witch sitting in a rocking-chair"
-          onClick={(event) => assetClicked(event)}
+          onClick={(event) => {
+            assetClicked(event);
+            hasBucket();
+          }}
         ></img>
       </div>
       <div>
@@ -105,8 +133,8 @@ const SceneThree = () => {
       </div>
       <div>
         <img
-          id="painting"
-          src={painting}
+          id="harvestPainting"
+          src={harvestPainting}
           alt="classical painting of farmers working"
           onClick={(event) => assetClicked(event)}
         ></img>
