@@ -5,7 +5,7 @@ import "./EndFail.scss";
 const EndFail = () => {
     return (
         <div className="youFail">
-            <h1>You Died</h1>
+            <h1 className='deadText'>You Died</h1>
             {/* <img src={youdied} alt="testing" /> */}
         </div>
     )
