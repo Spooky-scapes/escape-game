@@ -16,11 +16,6 @@ import { Link } from "react-router-dom"
 import {Howl, Howler} from 'howler';
 import { getStorage, ref } from "firebase/storage";
 
-// const sxf = {
-//   caw: new Howl({
-//     src: ["../SceneOne/Blastwave_FX_BirdCrowCawMultiple_SFXB.17.mp3"],
-//   }),
-// };
 
 window.localStorage.setItem("hasCasset", false);
 window.localStorage.setItem("usedCasset", false);
@@ -46,9 +41,9 @@ const SceneOne = () => {
   };
 
   const storage = getStorage();
-  const caw = ref(storage, "caw.mp3");
-  const cawPath = "https://firebasestorage.googleapis.com/v0/b/spooky-scapes.appspot.com/o/caw.mp3?alt=media&token=cd4cc366-1a6b-47f6-912b-5b5eb21096f2";
-  console.log("I am scene one caw", caw.path);
+  // const caw = ref(storage, "caw.mp3");
+  const cawPath = "https://firebasestorage.googleapis.com/v0/b/spooky-scapes.appspot.com/o/caw.mp3?alt=media&token=cd4cc366-1a6b-47f6-912b-5b5eb21096f2/allow-cors";
+  
 
   const assetClicked = (e) => {
     setActive(false);
@@ -109,8 +104,10 @@ const SceneOne = () => {
     return
   }
 
-  function playSound(url) {
-    var a = new Audio(url);
+  function playSound(sound) {
+    var a = new Howl({
+      src: [sound],
+      html5: true});
     a.play();
   }
 
@@ -121,7 +118,7 @@ const SceneOne = () => {
           src={boatPainting}
           id="boatPainting"
           alt="Oil painting of four sailboats"
-          onClick={(e) => assetClicked(e)}
+          onClick={(e) => {assetClicked(e); playSound(cawPath)}}
         />
       </div>
       <div>
