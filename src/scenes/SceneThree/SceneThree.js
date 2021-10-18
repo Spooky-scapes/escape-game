@@ -188,7 +188,7 @@ const SceneThree = () => {
     setActive(true);
     setTimeout(function () {
       setActive(false);
-    }, 3000);
+    }, 15000);
     return;
   };
 
