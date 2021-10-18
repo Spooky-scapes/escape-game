@@ -26,6 +26,111 @@ const SceneThree = () => {
       window.localStorage.setItem("usedCandyBucket", true);
     }
   };
+  // voice cammand
+  const commands = [
+    {
+      command: ["Click on *"],
+      callback: (item) => clickImage(item),
+    },
+    {
+      command: ["Go to *"],
+      callback: (page) => goTo(page),
+    },
+  ];
+  useSpeechRecognition({ commands });
+
+  const clickableItems = [
+    "painting",
+    "witch",
+    "wooden spoon",
+    "spoon",
+    "grandfather clock",
+    "clock",
+    "old clock",
+    "grand father clock",
+    "cauldron",
+    "pot",
+    "which",
+  ];
+
+  const pagePossibilities = [
+    "right",
+    "left",
+    "next room",
+    "previous room",
+    "room two",
+    "room four",
+    "write",
+  ];
+
+  const matchItemToClass = {
+    painting: "harvestPainting",
+    witch: "witch",
+    "wooden spoon": "woodenSpoon",
+    spoon: "woodenSpoon",
+    "grandfather clock": "grandFatherClock",
+    "old clock": "grandFatherClock",
+    cauldron: "cauldron",
+    pot: "cauldron",
+    which: "witch",
+    clock: "grandFatherClock",
+  };
+
+  const mapPageToLink = {
+    right: "rightArrow",
+    left: "leftArrow",
+    write: "rightArrow",
+    "next room": "rightArrow",
+    "previous room": "leftArrow",
+    "room two": "leftArrow",
+    "room four": "rightArrow",
+  };
+
+  function clickImage(item) {
+    item = item.toLowerCase();
+    console.log("🧤 item", item);
+    if (clickableItems.includes(item)) {
+      item = matchItemToClass[item];
+      document.getElementsByClassName(item)[0].click();
+    } else {
+      console.log("🧤 item", item);
+      alert(
+        `it thinks you said ${item}, consider adding ${item} to your item list, and mapping that to the correct word/phrase. Remove this when finished testing`
+      );
+    }
+  }
+
+  function goTo(page) {
+    console.log("🧤 what the api heard....", page);
+
+    if (pagePossibilities.includes(page)) {
+      page = mapPageToLink[page];
+      document.getElementById(page).click();
+    } else {
+      alert(
+        `it thinks you said ${page}, consider adding ${page} to your item list, and mapping that to the correct word/phrase. Remove this when finished testing`
+      );
+    }
+  }
+
+  document.addEventListener("keydown", (event) => {
+    if (event.code === "Space") {
+      event.preventDefault();
+      if (event.repeat) {
+        return;
+      }
+      SpeechRecognition.startListening();
+      console.log("🧤 list");
+    }
+  });
+
+  document.addEventListener("keyup", (event) => {
+    if (event.code === "Space") {
+      event.preventDefault();
+      SpeechRecognition.stopListening();
+      console.log("🧤 not");
+    }
+  });
 
   const assetClicked = (e) => {
     setActive(false);
