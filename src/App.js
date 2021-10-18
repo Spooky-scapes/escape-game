@@ -3,22 +3,22 @@ import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
 import { useState } from "react";
-import SceneOne from "./scenes/SceneOne";
-import SceneTwo from "./scenes/SceneTwo";
-import SceneThree from "./scenes/SceneThree";
-import SceneFour from "./scenes/SceneFour";
-// import Inventory from "./components/Inventory";
-import Victory from "./components/victory";
-// import Chat from "./components/Chat";gi
-import EndFail from "./components/EndFail";
-import Lobby from "./scenes/Lobby";
-import Timer from "./components/Timer/Timer.js"
+import SceneOne from "./scenes/SceneOne/SceneOne";
+import SceneTwo from "./scenes/SceneTwo/SceneTwo";
+import SceneThree from "./scenes/SceneThree/SceneThree";
+import SceneFour from "./scenes/SceneFour/SceneFour";
+import Inventory from "./components/Inventory/Inventory";
+import Victory from "./scenes/Victory/victory"
+// import Chat from "./components/Chat/Chat";
+import EndFail from "./scenes/EndFail/EndFail";
+import Lobby from "./scenes/Lobby/Lobby";
+// import Timer from "./components/Timer/Timer.js"
 import { Route, Switch, BrowserRouter as Router } from "react-router-dom";
 
 function App() {
   return (
     <div className="App">
-      <Timer />
+      {/* <Timer /> */}
       {/* <Chat /> */}
       <Router>
         <Switch>
@@ -31,7 +31,10 @@ function App() {
           <Route exact path="/victory" component={Victory} />
         </Switch>
       </Router>
-      <div className="inventory-chat">{/* <Inventory /> */}</div>
+
+      <div className="inventory-chat">
+        {/* <Inventory /> */}
+      </div>
     </div>
   );
 }

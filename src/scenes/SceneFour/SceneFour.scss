@@ -1,9 +1,5 @@
-// body {
-//   background: black;
-// }
-
 .container {
-  background-image: url("../Background.jpg");
+  background-image: url("../../assets/Background.jpg");
   background-position: center;
   background-size: cover;
   position: relative;
@@ -134,7 +130,7 @@
   left: 15%;
   top: 88%;
   background-color: rgb(41, 41, 41);
-  opacity: 80%;
+  opacity: 0.8;
   border-style: double;
   border-color: black;
 }
