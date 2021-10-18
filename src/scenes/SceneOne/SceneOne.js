@@ -1,17 +1,17 @@
 import React, { useState } from "react";
-import boatPainting from "../assets/SceneOne/boat-painting.png";
-import bookCase from "../assets/SceneOne/empty-bookcase.jpeg";
-import lockedDiary from "../assets/SceneOne/locked-diary.png";
-import endTable from "../assets/SceneOne/victorian-cabinet.png";
-import bookShelf from "../assets/SceneOne/bookshelf-full.png";
-import crystalSkull from "../assets/SceneOne/crystal-skull.png";
-import cassettePlayer from "../assets/SceneOne/cassette-player.png";
-import ravenClosed from "../assets/SceneOne/ravenClosedFIT.png";
-import leftArrow from "../assets/ghostArrowLeft.png";
-import rightArrow from "../assets/ghostArrowRight.png";
-import "../assets/SceneOne/sceneone.scss";
-import "../main.scss";
-import "../App.scss";
+import boatPainting from "../../assets/SceneOne/boat-painting.png";
+import bookCase from "../../assets/SceneOne/empty-bookcase.jpeg";
+import lockedDiary from "../../assets/SceneOne/locked-diary.png";
+import endTable from "../../assets/SceneOne/victorian-cabinet.png";
+import bookShelf from "../../assets/SceneOne/bookshelf-full.png";
+import crystalSkull from "../../assets/SceneOne/crystal-skull.png";
+import cassettePlayer from "../../assets/SceneOne/cassette-player.png";
+import ravenClosed from "../../assets/SceneOne/ravenClosedFIT.png";
+import leftArrow from "../../assets/ghostArrowLeft.png";
+import rightArrow from "../../assets/ghostArrowRight.png";
+import "./sceneone.scss";
+import "../../main.scss";
+import "../../App.scss";
 import { Link } from "react-router-dom"
 import {Howl, Howler} from 'howler';
 import { getStorage, ref } from "firebase/storage";
@@ -134,7 +134,7 @@ const SceneOne = () => {
   const storage = getStorage();
   // const caw = ref(storage, "caw.mp3");
   const cawPath = "https://firebasestorage.googleapis.com/v0/b/spooky-scapes.appspot.com/o/caw.mp3?alt=media&token=cd4cc366-1a6b-47f6-912b-5b5eb21096f2/allow-cors";
-  
+
 
   const assetClicked = (e) => {
     setActive(false);

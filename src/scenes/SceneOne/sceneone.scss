@@ -1,5 +1,5 @@
 .sceneOne {
-    background-image: url('../Background.jpg');
+    background-image: url('../../assets/Background.jpg');
     background-position: center;
     background-size: cover;
     position: relative;
@@ -166,7 +166,7 @@
 .painting-text {
     display: none;
   }
-  
+
   .painting-text-active {
     word-wrap: break-word;
     color: azure;
