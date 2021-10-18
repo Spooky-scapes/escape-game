@@ -9,7 +9,7 @@ import SceneThree from "./scenes/SceneThree";
 import SceneFour from "./scenes/SceneFour";
 import Inventory from "./components/Inventory";
 import Victory from "./components/victory"
-// import Chat from "./components/Chat";
+// import Chat from "./components/Chat";gi
 import EndFail from "./components/EndFail";
 import Lobby from "./scenes/Lobby";
 // import Timer from "./components/Timer/Timer.js"
