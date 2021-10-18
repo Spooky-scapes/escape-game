@@ -1,4 +1,4 @@
-import "../main.scss";
+import "../../main.scss";
 
 const Inventory = () => {
   return <div className="inventory">Inventory Placeholder</div>;

@@ -1,26 +1,22 @@
 import React, { useState } from "react";
-import boatPainting from "../assets/SceneOne/boat-painting.png";
-import bookCase from "../assets/SceneOne/empty-bookcase.jpeg";
-import lockedDiary from "../assets/SceneOne/locked-diary.png";
-import endTable from "../assets/SceneOne/victorian-cabinet.png";
-import bookShelf from "../assets/SceneOne/bookshelf-full.png";
-import crystalSkull from "../assets/SceneOne/crystal-skull.png";
-import cassettePlayer from "../assets/SceneOne/cassette-player.png";
-import ravenClosed from "../assets/SceneOne/ravenClosedFIT.png";
-import leftArrow from "../assets/ghostArrowLeft.png";
-import rightArrow from "../assets/ghostArrowRight.png";
-import "../assets/SceneOne/sceneone.scss";
-import "../main.scss";
-import "../App.scss";
+import boatPainting from "../../assets/SceneOne/boat-painting.png";
+import bookCase from "../../assets/SceneOne/empty-bookcase.jpeg";
+import lockedDiary from "../../assets/SceneOne/locked-diary.png";
+import endTable from "../../assets/SceneOne/victorian-cabinet.png";
+import bookShelf from "../../assets/SceneOne/bookshelf-full.png";
+import crystalSkull from "../../assets/SceneOne/crystal-skull.png";
+import cassettePlayer from "../../assets/SceneOne/cassette-player.png";
+import ravenClosed from "../../assets/SceneOne/ravenClosedFIT.png";
+import leftArrow from "../../assets/ghostArrowLeft.png";
+import rightArrow from "../../assets/ghostArrowRight.png";
+import "./sceneone.scss";
+import "../../main.scss";
+import "../../App.scss";
 import { Link } from "react-router-dom"
 import {Howl, Howler} from 'howler';
 import { getStorage, ref } from "firebase/storage";
+import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
 
-// const sxf = {
-//   caw: new Howl({
-//     src: ["../SceneOne/Blastwave_FX_BirdCrowCawMultiple_SFXB.17.mp3"],
-//   }),
-// };
 
 window.localStorage.setItem("hasCasset", false);
 window.localStorage.setItem("usedCasset", false);
@@ -28,10 +24,100 @@ window.localStorage.setItem("hasCandyBucket", false);
 window.localStorage.setItem("usedCandyBucket", false);
 window.localStorage.setItem("hasKey", false);
 window.localStorage.setItem("usedKey", false);
+window.localStorage.setItem("foundPainting", false);
 
 const SceneOne = () => {
   const [isActive, setActive] = useState(false);
   const [hiddenDiary, setHidden] = useState(true);
+
+  const commands = [
+    {
+      command: ['Click on *'],
+      callback: (item) => clickImage(item)
+    },
+    {
+      command: ['Go to *'],
+      callback: (page) => goTo(page)
+    }
+  ]
+  useSpeechRecognition({ commands });
+
+  const clickableItems = ['empty bookcase','bookcase', 'empty bookshelf', 'bookshelf', 'boat painting', 'painting', 'end table', 'table','skull', 'crystal skull', 'full book case', 'full book shelf','cassette player','raven']
+
+  const pagePossibilities = ['right', 'left', 'next room', 'previous room', 'room two', 'room four', 'write']
+
+  const matchItemToClass = {
+    'empty bookcase': 'bookCase',
+    'bookcase': 'bookCase',
+    'empty bookshelf': 'bookCase',
+    'bookshelf' : 'bookCase',
+    'boat painting': 'boatPainting',
+    'painting': 'boatPainting',
+    'end table' : 'endTable',
+    'table': 'endTable',
+    'skull': 'crystal-skull',
+    'crystal skull': 'crystal-skull',
+    'full book case': 'full-bookshelf',
+    'full book shelf': 'full-bookshelf',
+    'cassette player': 'cassettePlayer',
+    'raven' : 'ravenClosed'
+  }
+
+
+  const mapPageToLink = {
+    right: 'rightArrow',
+    left: 'leftArrow',
+    write: 'rightArrow',
+    'next room': 'rightArrow',
+    'previous room': 'leftArrow',
+    'room four': 'leftArrow',
+    'room two': 'rightArrow'
+  }
+
+
+  function clickImage(item) {
+    item = item.toLowerCase()
+    console.log('🧤 item', item);
+    if(clickableItems.includes(item)){
+      item = matchItemToClass[item]
+      document.getElementsByClassName(item)[0].click()
+    } else {
+      console.log('🧤 item', item);
+      alert(`it thinks you said ${item}, consider adding ${item} to your item list, and mapping that to the correct word/phrase. Remove this when finished testing`)
+  }
+  }
+
+  function goTo(page) {
+    console.log('🧤 what the api heard....', page);
+
+    if(pagePossibilities.includes(page)){
+      page = mapPageToLink[page]
+      document.getElementById(page).click()
+    } else {
+      alert(`it thinks you said ${page}, consider adding ${page} to your item list, and mapping that to the correct word/phrase. Remove this when finished testing`)
+    }
+  }
+
+
+  document.addEventListener("keydown", (event) => {
+    if (event.code === "Space") {
+      event.preventDefault();
+      if(event.repeat){return}
+      SpeechRecognition.startListening();
+      console.log('🧤 list');
+
+    }
+  });
+
+
+  document.addEventListener("keyup", (event) => {
+    if (event.code === "Space") {
+      event.preventDefault();
+      SpeechRecognition.stopListening();
+      console.log('🧤 not');
+    }
+  });
+
   const invokeCasset = () => {
     const bool = JSON.parse(window.localStorage.getItem("hasCasset"));
     if (bool) {
@@ -46,13 +132,13 @@ const SceneOne = () => {
   };
 
   const storage = getStorage();
-  const caw = ref(storage, "caw.mp3");
-  const cawPath = "https://firebasestorage.googleapis.com/v0/b/spooky-scapes.appspot.com/o/caw.mp3?alt=media&token=cd4cc366-1a6b-47f6-912b-5b5eb21096f2";
-  console.log("I am scene one caw", caw.path);
+  // const caw = ref(storage, "caw.mp3");
+  const cawPath = "https://firebasestorage.googleapis.com/v0/b/spooky-scapes.appspot.com/o/caw.mp3?alt=media&token=cd4cc366-1a6b-47f6-912b-5b5eb21096f2/allow-cors";
+
 
   const assetClicked = (e) => {
     setActive(false);
-    const clicked = e.target.id;
+    const clicked = e.target.className;
     const narrationBox = document.getElementById("narrationBox");
     narrationBox.innerHTML = "";
 
@@ -109,8 +195,10 @@ const SceneOne = () => {
     return
   }
 
-  function playSound(url) {
-    var a = new Audio(url);
+  function playSound(sound) {
+    var a = new Howl({
+      src: [sound],
+      html5: true});
     a.play();
   }
 
@@ -119,15 +207,15 @@ const SceneOne = () => {
       <div>
         <img
           src={boatPainting}
-          id="boatPainting"
+          className="boatPainting"
           alt="Oil painting of four sailboats"
-          onClick={(e) => assetClicked(e)}
+          onClick={(e) => {assetClicked(e); playSound(cawPath)}}
         />
       </div>
       <div>
         <img
           src={bookCase}
-          id="bookCase"
+          className="bookCase"
           alt="large wooden bookcase that is empty"
           onClick={(e) => assetClicked(e)}
         />
@@ -139,14 +227,14 @@ const SceneOne = () => {
               ? lockedDiary
               : ""
           }
-          id="lockedDiary"
+          className="lockedDiary"
           onClick={(e) => assetClicked(e)}
         />
       </div>
       <div>
         <img
           src={endTable}
-          id="endTable"
+          className="endTable"
           alt="victorian-style wooden end table with four curved legs and a flat square top"
           onClick={(e) => assetClicked(e)}
         />
@@ -154,7 +242,7 @@ const SceneOne = () => {
       <div>
         <img
           src={bookShelf}
-          id="full-bookshelf"
+          className="full-bookshelf"
           alt="wooden bookshelf with several books and knick knacks inside of it"
           onClick={(e) => assetClicked(e)}
         />
@@ -162,7 +250,7 @@ const SceneOne = () => {
       <div>
         <img
           src={crystalSkull}
-          id="crystal-skull"
+          className="crystal-skull"
           alt="green crystal skull"
           onClick={(e) => assetClicked(e)}
         />
@@ -170,7 +258,7 @@ const SceneOne = () => {
       <div>
         <img
           src={cassettePlayer}
-          id="cassettePlayer"
+          className="cassettePlayer"
           alt="small cassette player"
           onClick={(e) => {
             assetClicked(e);
@@ -181,7 +269,7 @@ const SceneOne = () => {
       <div>
         <img
           src={ravenClosed}
-          id="ravenClosed"
+          className="ravenClosed"
           alt="wise old raven to guide you on your journey"
           onClick={(e) => assetClicked(e)}
         />

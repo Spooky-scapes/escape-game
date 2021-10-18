@@ -1,9 +1,5 @@
-// body {
-//   background: black;
-// }
-
 .container {
-  background-image: url("../Background.jpg");
+  background-image: url("../../assets/Background.jpg");
   background-position: center;
   background-size: cover;
   position: relative;
@@ -13,7 +9,7 @@
   top: 100px;
 }
 
-.mainDoor {
+.door {
   position: absolute;
   max-width: 75%;
   max-height: 60%;
@@ -21,7 +17,7 @@
   top: 10%;
 }
 
-.mainDoor:hover {
+.door:hover {
   position: absolute;
   max-width: 77%;
   max-height: 62%;
@@ -61,7 +57,7 @@
   top: 18%;
 }
 
-.dog {
+.boneDog {
   position: absolute;
   max-width: 20%;
   max-height: 30%;
@@ -69,7 +65,7 @@
   top: 60%;
 }
 
-.dog:hover {
+.boneDog:hover {
   position: absolute;
   max-width: 20%;
   max-height: 30%;
@@ -125,4 +121,16 @@
   max-height: 10%;
   left: 17%;
   top: 6%;
+}
+
+.narrationBox{
+  position: absolute;
+  height: 65px;
+  width: 800px;
+  left: 15%;
+  top: 88%;
+  background-color: rgb(41, 41, 41);
+  opacity: 0.8;
+  border-style: double;
+  border-color: black;
 }
