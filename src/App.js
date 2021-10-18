@@ -16,6 +16,7 @@ import Timer from "./components/Timer/Timer.js"
 import { Route, Switch, BrowserRouter as Router } from "react-router-dom";
 
 function App() {
+
   return (
     <div className="App">
       {/* <Chat /> */}

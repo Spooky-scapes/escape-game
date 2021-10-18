@@ -191,7 +191,7 @@ const SceneOne = () => {
         break;
     }
     setActive(true)
-    setTimeout(function() {setActive(false)}, 3000)
+    setTimeout(function() {setActive(false)}, 15000)
     return
   }
 
