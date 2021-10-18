@@ -39,14 +39,14 @@
     right: 0%;
 }
 
-#boatPainting {
+.boatPainting {
     max-width: 25%;
     max-height: 25%;
     position: absolute;
     top: 10%;
     left: 40%;
 }
-#boatPainting:hover {
+.boatPainting:hover {
     max-width: 25%;
     max-height: 25%;
     position: absolute;
@@ -54,14 +54,14 @@
     left: 40%;
 }
 
-#bookCase {
+.bookCase {
     max-width: 70%;
     max-height: 70%;
     position: absolute;
     top:5%;
     left: 5%;
 }
-#bookCase:hover {
+.bookCase:hover {
     max-width: 75%;
     max-height: 75%;
     position: absolute;
@@ -69,7 +69,7 @@
     left: 5%;
 }
 
-#lockedDiary {
+.lockedDiary {
   max-width: 25%;
   max-height: 25%;
   position: absolute;
@@ -77,7 +77,7 @@
   left: 5%;
   transform: rotate(-25deg);
 }
-#lockedDiary:hover {
+.lockedDiary:hover {
     max-width: 25%;
     max-height: 25%;
     position: absolute;
@@ -86,14 +86,14 @@
     transform: rotate(-15deg);
 }
 
-#endTable {
+.endTable {
   max-width: 40%;
   max-height: 40%;
   position: absolute;
   top: 40%;
   left: 40%;
 }
-#endTable:hover {
+.endTable:hover {
     max-width: 40%;
     max-height: 40%;
     position: absolute;
@@ -101,14 +101,14 @@
     left: 40%;
 }
 
-#full-bookshelf {
+.full-bookshelf {
   max-width: 50%;
   max-height: 50%;
   position: absolute;
   top: 20%;
   right: 2%;
 }
-#full-bookshelf:hover {
+.full-bookshelf:hover {
     max-width: 55%;
     max-height: 55%;
     position: absolute;
@@ -116,14 +116,14 @@
     right: 2%;
 }
 
-#crystal-skull {
+.crystal-skull {
   max-width: 10%;
   max-height: 10%;
   position: absolute;
   top: 35%;
   left: 58%;
 }
-#crystal-skull:hover {
+.crystal-skull:hover {
     max-width: 15%;
     max-height: 15%;
     position: absolute;
@@ -131,7 +131,7 @@
     left: 58%;
 }
 
-#cassettePlayer {
+.cassettePlayer {
   max-width: 7%;
   max-height: 7%;
   position: absolute;
@@ -139,7 +139,7 @@
   right: 8%;
   transform: rotate(35deg);
 }
-#cassettePlayer:hover {
+.cassettePlayer:hover {
     max-width: 7%;
     max-height: 7%;
     position: absolute;
@@ -148,14 +148,14 @@
     transform: rotate(25deg);
 }
 
-#ravenClosed {
+.ravenClosed {
     position: absolute;
     right: 5%;
     top: 10%;
     max-width: 15%;
     max-height: 15%;
 }
-#ravenClosed:hover {
+.ravenClosed:hover {
     position: absolute;
     right: 10%;
     top: 10%;
