@@ -8,19 +8,19 @@ import SceneTwo from "./scenes/SceneTwo/SceneTwo";
 import SceneThree from "./scenes/SceneThree/SceneThree";
 import SceneFour from "./scenes/SceneFour/SceneFour";
 import Inventory from "./components/Inventory/Inventory";
-import Victory from "./scenes/Victory/victory";
-// import Chat from "./components/Chat/Chat";
+import Victory from "./scenes/Victory/victory"
+import Chat from "./components/Chat/Chat";
 import EndFail from "./scenes/EndFail/EndFail";
 import Lobby from "./scenes/Lobby/Lobby";
-// import Timer from "./components/Timer/Timer.js"
+import Timer from "./components/Timer/Timer.js"
 import { Route, Switch, BrowserRouter as Router } from "react-router-dom";
 
 function App() {
   return (
     <div className="App">
-      {/* <Timer /> */}
       {/* <Chat /> */}
       <Router>
+        <Timer />
         <Switch>
           <Route exact path="/" component={Lobby} />
           <Route exact path="/scene1" component={SceneOne} />

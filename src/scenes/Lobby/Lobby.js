@@ -1,5 +1,6 @@
 import "./lobby.scss";
 import { Link } from "react-router-dom";
+import Timer from '../../components/Timer/Timer.js'
 
 const Lobby = () => {
   return (
