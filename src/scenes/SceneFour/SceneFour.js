@@ -1,15 +1,15 @@
-import "../assets/SceneFour/SceneFour.scss";
-import mainDoor from "../assets/SceneFour/main-door.png";
-import Window from "../assets/SceneFour/window.png";
-import dog from "../assets/SceneFour/Bonedog.png";
-import mat from "../assets/SceneFour/mat.png";
-import cassette from "../assets/SceneFour/cassette-tape.png";
-import closedRaven from "../assets/SceneFour/ravenClosedFIT.png";
-import openRaven from "../assets/SceneFour/ravenOpenFIT.png";
+import "./SceneFour.scss";
+import mainDoor from "../../assets/SceneFour/main-door.png";
+import Window from "../../assets/SceneFour/window.png";
+import dog from "../../assets/SceneFour/Bonedog.png";
+import mat from "../../assets/SceneFour/mat.png";
+import cassette from "../../assets/SceneFour/cassette-tape.png";
+import closedRaven from "../../assets/SceneFour/ravenClosedFIT.png";
+import openRaven from "../../assets/SceneFour/ravenOpenFIT.png";
 import { Link } from "react-router-dom";
-import leftArrow from "../assets/ghostArrowLeft.png";
-import rightArrow from "../assets/ghostArrowRight.png";
-import moonPainting from "../assets/SceneFour/moon-painting.png";
+import leftArrow from "../../assets/ghostArrowLeft.png";
+import rightArrow from "../../assets/ghostArrowRight.png";
+import moonPainting from "../../assets/SceneFour/moon-painting.png";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";

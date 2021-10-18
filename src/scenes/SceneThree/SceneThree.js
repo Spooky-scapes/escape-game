@@ -1,15 +1,15 @@
-import "../main.scss";
-import "../assets/SceneThreeAssets/SceneThree.scss";
-import grandFatherClock from "../assets/SceneThreeAssets/GrandfatherClock.png";
-import cauldron from "../assets/SceneThreeAssets/Cauldron2.png";
-import witch from "../assets/SceneThreeAssets/witch.png";
-import harvestPainting from "../assets/SceneThreeAssets/farm-painting.png";
-import woodenspoon from "../assets/SceneThreeAssets/woodenspoon.png";
-import arrowRight from "../assets/SceneThreeAssets/ghostArrowRight.png";
-import arrowLeft from "../assets/SceneThreeAssets/ghostArrowLeft.png";
-import ravenClosed from "../assets/SceneOne/ravenClosedFIT.png";
+import "../../main.scss";
+import "./SceneThree.scss";
+import grandFatherClock from "../../assets/SceneThreeAssets/GrandfatherClock.png";
+import cauldron from "../../assets/SceneThreeAssets/Cauldron2.png";
+import witch from "../../assets/SceneThreeAssets/witch.png";
+import harvestPainting from "../../assets/SceneThreeAssets/farm-painting.png";
+import woodenspoon from "../../assets/SceneThreeAssets/woodenspoon.png";
+import arrowRight from "../../assets/SceneThreeAssets/ghostArrowRight.png";
+import arrowLeft from "../../assets/SceneThreeAssets/ghostArrowLeft.png";
+import ravenClosed from "../../assets/SceneOne/ravenClosedFIT.png";
 import { Link } from "react-router-dom";
-import backgroundImage from "../assets/Background.jpg";
+import backgroundImage from "../../assets/Background.jpg";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";

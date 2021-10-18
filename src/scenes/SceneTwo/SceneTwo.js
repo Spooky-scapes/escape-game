@@ -1,20 +1,20 @@
-import "../App.scss";
-import "../main.scss";
-import "../assets/SceneTwo/sceneTwo.scss";
+import "../../App.scss";
+import "../../main.scss";
+import "./sceneTwo.scss";
 import React, { useState } from "react";
 // import ReactDom from 'react-dom'
-import closedCoffin from "../assets/SceneTwo/closed-coffin.png";
-// import openCoffin from '../assets/SceneTwo/open-coffin.png';
-import stool from "../assets/SceneTwo/stool-cabinet.png";
-import hole from "../assets/SceneTwo/holeinwall.png";
-import wallCandle from "../assets/SceneTwo/wall-candle.png";
-import oldChair from "../assets/SceneTwo/old-chair.png";
-import savion from "../assets/ravenClosedFIT.png";
-import cowPainting from "../assets/SceneTwo/cow-painting.png";
-// import backgroundImage from "../assets/Background.jpg";
+import closedCoffin from "../../assets/SceneTwo/closed-coffin.png";
+// import openCoffin from '../../assets/SceneTwo/open-coffin.png';
+import stool from "../../assets/SceneTwo/stool-cabinet.png";
+import hole from "../../assets/SceneTwo/holeinwall.png";
+import wallCandle from "../../assets/SceneTwo/wall-candle.png";
+import oldChair from "../../assets/SceneTwo/old-chair.png";
+import savion from "../../assets/ravenClosedFIT.png";
+import cowPainting from "../../assets/SceneTwo/cow-painting.png";
+// import backgroundImage from "../../assets/Background.jpg";
 import { Link, Redirect } from "react-router-dom";
-import leftArrow from "../assets/ghostArrowLeft.png";
-import rightArrow from "../assets/ghostArrowRight.png";
+import leftArrow from "../../assets/ghostArrowLeft.png";
+import rightArrow from "../../assets/ghostArrowRight.png";
 import { timeoutCollection } from "time-events-manager";
 
 import SpeechRecognition, {

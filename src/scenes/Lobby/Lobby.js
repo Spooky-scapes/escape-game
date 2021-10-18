@@ -1,4 +1,4 @@
-import "../lobby.scss";
+import "./lobby.scss";
 import { Link } from "react-router-dom";
 
 const Lobby = () => {
