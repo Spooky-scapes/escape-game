@@ -15,12 +15,11 @@ import cowPainting from "../../assets/SceneTwo/cow-painting.png";
 import { Link, Redirect } from "react-router-dom";
 import leftArrow from "../../assets/ghostArrowLeft.png";
 import rightArrow from "../../assets/ghostArrowRight.png";
-import { timeoutCollection } from 'time-events-manager';
+import { timeoutCollection } from "time-events-manager";
 
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
-
 
 const SceneTwo = () => {
   const [isActive, setActive] = useState(false);
@@ -28,94 +27,120 @@ const SceneTwo = () => {
 
   const commands = [
     {
-      command: ['Click on *'],
-      callback: (item) => clickImage(item)
+      command: ["Click on *"],
+      callback: (item) => clickImage(item),
     },
     {
-      command: ['Go to *'],
-      callback: (page) => goTo(page)
-    }
-  ]
+      command: ["Go to *"],
+      callback: (page) => goTo(page),
+    },
+  ];
   useSpeechRecognition({ commands });
 
-  const clickableItems = ['coffin','coughing', 'coffee', 'old chair', 'cow painting', 'hole in wall', 'left candle', 'left candy','right candle', 'right candy', 'stool cabinet', 'stool','stool cab','raven']
+  const clickableItems = [
+    "coffin",
+    "coughing",
+    "coffee",
+    "old chair",
+    "cow painting",
+    "hole in wall",
+    "left candle",
+    "left candy",
+    "right candle",
+    "right candy",
+    "stool cabinet",
+    "stool",
+    "stool cab",
+    "raven",
+  ];
 
   // ^^^items in this array should match all of the ${item}'s that are returned and shown in the alert  ^^^
 
-  const pagePossibilities = ['right', 'left', 'next room', 'previous room', 'room one', 'room three', 'write']
+  const pagePossibilities = [
+    "right",
+    "left",
+    "next room",
+    "previous room",
+    "room one",
+    "room three",
+    "write",
+  ];
 
   // ^^^ above should need no adjustments, if any are made we should all adjust with you ^^^
 
   const matchItemToClass = {
-    coffin: 'coffin',
-    coughing: 'coffin',
-    coffee: 'coffin',
-    'old chair': 'oldChair',
-    'hole in wall': 'holeInWall',
-    'left candle': 'leftCandle',
-    'left candy' : 'leftCandle',
-    'right candle': 'rightCandle',
-    'right candy': 'rightCandle',
-    'stool cabinet': 'stoolCabinet',
-    'stool cab': 'stoolCabinet',
-    'stool': 'stoolCabinet',
-    'cow painting': 'cowPainting'
-  }
+    coffin: "coffin",
+    coughing: "coffin",
+    coffee: "coffin",
+    "old chair": "oldChair",
+    "hole in wall": "holeInWall",
+    "left candle": "leftCandle",
+    "left candy": "leftCandle",
+    "right candle": "rightCandle",
+    "right candy": "rightCandle",
+    "stool cabinet": "stoolCabinet",
+    "stool cab": "stoolCabinet",
+    stool: "stoolCabinet",
+    "cow painting": "cowPainting",
+  };
 
   // ^^^ this object will map the item as spoken, to the items class name as written, there are other ways to accomplish this ^^^
 
   const mapPageToLink = {
-    right: 'rightArrow',
-    left: 'leftArrow',
-    write: 'rightArrow',
-    'next room': 'rightArrow',
-    'previous room': 'leftArrow',
-    'room one': 'leftArrow',
-    'room three': 'rightArrow'
-  }
+    right: "rightArrow",
+    left: "leftArrow",
+    write: "rightArrow",
+    "next room": "rightArrow",
+    "previous room": "leftArrow",
+    "room one": "leftArrow",
+    "room three": "rightArrow",
+  };
 
   // ^^^ should need no adjustment, if adjusted we should all match the adjustment^^^
 
   function clickImage(item) {
-    item = item.toLowerCase()
-    console.log('🧤 item', item);
-    if(clickableItems.includes(item)){
-      item = matchItemToClass[item]
-      document.getElementsByClassName(item)[0].click()
+    item = item.toLowerCase();
+    console.log("🧤 item", item);
+    if (clickableItems.includes(item)) {
+      item = matchItemToClass[item];
+      document.getElementsByClassName(item)[0].click();
     } else {
-      console.log('🧤 item', item);
-      alert(`it thinks you said ${item}, consider adding ${item} to your item list, and mapping that to the correct word/phrase. Remove this when finished testing`)
-  }
-  }
-
-  function goTo(page) {
-    console.log('🧤 what the api heard....', page);
-
-    if(pagePossibilities.includes(page)){
-      page = mapPageToLink[page]
-      document.getElementById(page).click()
-    } else {
-      alert(`it thinks you said ${page}, consider adding ${page} to your item list, and mapping that to the correct word/phrase. Remove this when finished testing`)
+      console.log("🧤 item", item);
+      alert(
+        `it thinks you said ${item}, consider adding ${item} to your item list, and mapping that to the correct word/phrase. Remove this when finished testing`
+      );
     }
   }
 
+  function goTo(page) {
+    console.log("🧤 what the api heard....", page);
+
+    if (pagePossibilities.includes(page)) {
+      page = mapPageToLink[page];
+      document.getElementById(page).click();
+    } else {
+      alert(
+        `it thinks you said ${page}, consider adding ${page} to your item list, and mapping that to the correct word/phrase. Remove this when finished testing`
+      );
+    }
+  }
 
   document.addEventListener("keydown", (event) => {
     if (event.code === "Space") {
       event.preventDefault();
-      if(event.repeat){return}
+      if (event.repeat) {
+        return;
+      }
       SpeechRecognition.startListening();
-      console.log('🧤 list');
-
+      console.log("🧤 list");
     }
   });
-
 
   document.addEventListener("keyup", (event) => {
     if (event.code === "Space") {
       event.preventDefault();
       SpeechRecognition.stopListening();
-      console.log('🧤 not');
+      console.log("🧤 not");
     }
   });
 
@@ -257,11 +282,7 @@ const SceneTwo = () => {
       </div>
       <Link to="/scene1">
         <div>
-          <img
-            src={leftArrow}
-            id="leftArrow"
-            alt="ghost arrow pointing left"
-          />
+          <img src={leftArrow} id="leftArrow" alt="ghost arrow pointing left" />
         </div>
       </Link>
       <Link to="/scene3">
