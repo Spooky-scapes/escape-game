@@ -1,6 +1,10 @@
 import "./lobby.scss";
 import { Link } from "react-router-dom";
+
 import SpeechRecognition , {useSpeechRecognition } from "react-speech-recognition";
+
+
+import Timer from '../../components/Timer/Timer.js'
 
 
 const Lobby = () => {
