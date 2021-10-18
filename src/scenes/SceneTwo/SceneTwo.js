@@ -4,7 +4,7 @@ import "./sceneTwo.scss";
 import React, { useState } from "react";
 // import ReactDom from 'react-dom'
 import closedCoffin from "../../assets/SceneTwo/closed-coffin.png";
-import openCoffin from '../../assets/SceneTwo/open-coffin.png';
+import openCoffin from '../../assets/SceneTwo/openCasket.png';
 import stool from "../../assets/SceneTwo/stool-cabinet.png";
 import hole from "../../assets/SceneTwo/holeinwall.png";
 import wallCandle from "../../assets/SceneTwo/wall-candle.png";
