@@ -8,6 +8,7 @@ import SceneTwo from "./scenes/SceneTwo";
 import SceneThree from "./scenes/SceneThree";
 import SceneFour from "./scenes/SceneFour";
 import Inventory from "./components/Inventory";
+import Victory from "./components/victory"
 // import Chat from "./components/Chat";
 import EndFail from "./components/EndFail";
 import Lobby from "./scenes/Lobby";
@@ -60,6 +61,7 @@ function App() {
           <Route path="/scene3" component={SceneThree} />
           <Route path="/scene4" component={SceneFour} />
           <Route exact path="/youdied" component={EndFail} />
+          <Route exact path="/victory" component={Victory} />
         </Switch>
       </Router>
 
