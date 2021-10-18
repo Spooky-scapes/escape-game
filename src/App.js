@@ -7,51 +7,18 @@ import SceneOne from "./scenes/SceneOne";
 import SceneTwo from "./scenes/SceneTwo";
 import SceneThree from "./scenes/SceneThree";
 import SceneFour from "./scenes/SceneFour";
-import Inventory from "./components/Inventory";
-import Victory from "./components/victory"
+// import Inventory from "./components/Inventory";
+import Victory from "./components/victory";
 // import Chat from "./components/Chat";gi
 import EndFail from "./components/EndFail";
 import Lobby from "./scenes/Lobby";
-// import Timer from "./components/Timer/Timer.js"
+import Timer from "./components/Timer/Timer.js"
 import { Route, Switch, BrowserRouter as Router } from "react-router-dom";
 
 function App() {
-  const commands = [
-    {
-      command: ["Click on button"],
-      callback: () => clickButton(),
-    },
-  ];
-
-  let buttoney = document.getElementById("bookButton");
-
-  function clickButton() {
-    isClicked = false;
-    console.log("i'm buttoney");
-    buttoney.click();
-  }
-
-  const { transcript } = useSpeechRecognition({ commands });
-  let [isClicked] = useState(false);
-
-  const buttons = ["bookButton"];
-
-  if (isClicked) {
-    clickButton();
-  }
-
-  let speech = new SpeechSynthesisUtterance();
-  speech.lang = "en";
-  speech.text = "Im a button I am.";
-
-  function playSound(url) {
-    var a = new Audio(url);
-    a.play();
-  }
-
   return (
     <div className="App">
-     {/* <Timer /> */}
+      <Timer />
       {/* <Chat /> */}
       <Router>
         <Switch>
@@ -64,29 +31,7 @@ function App() {
           <Route exact path="/victory" component={Victory} />
         </Switch>
       </Router>
-
-      <div className="inventory-chat">
-        {/* <Inventory /> */}
-      </div>
-
-      <button
-        id="bookButton"
-        className="Button"
-        onClick={() => {
-          playSound(
-            "http://www.simphonics.com/library/WaveFiles/Production%20Wavefiles/FS-98/JSPLASH2.WAV"
-          );
-        }}
-      >
-        Im a book!
-      </button>
-
-      <button onClick={SpeechRecognition.startListening}>Listen</button>
-
-      <button onClick={SpeechRecognition.stopListening}>Stop</button>
-      <button onClick={() => window.speechSynthesis.speak(speech)}>
-        My new friend the Button
-      </button>
+      <div className="inventory-chat">{/* <Inventory /> */}</div>
     </div>
   );
 }
