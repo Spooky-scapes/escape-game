@@ -12,19 +12,19 @@ html {
 //   background-repeat: no-repeat;
 // }
 
-
-
-.inventory{
-  background: white;
+.inventory {
   width: 1100px;
   height: 100px;
   position: relative;
-  top: 0px;
-  border-style: groove;
+  top: 100px;
   float: left;
 }
+.itemBox {
+  width: 1100px;
+  height: 200px;
+}
 
-.chat{
+.chat {
   background: grey;
   width: 200px;
   height: 750px;
