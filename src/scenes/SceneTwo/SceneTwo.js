@@ -4,14 +4,13 @@ import "./sceneTwo.scss";
 import React, { useState } from "react";
 // import ReactDom from 'react-dom'
 import closedCoffin from "../../assets/SceneTwo/closed-coffin.png";
-// import openCoffin from '../../assets/SceneTwo/open-coffin.png';
+import openCoffin from '../../assets/SceneTwo/open-coffin.png';
 import stool from "../../assets/SceneTwo/stool-cabinet.png";
 import hole from "../../assets/SceneTwo/holeinwall.png";
 import wallCandle from "../../assets/SceneTwo/wall-candle.png";
 import oldChair from "../../assets/SceneTwo/old-chair.png";
 import savion from "../../assets/ravenClosedFIT.png";
 import cowPainting from "../../assets/SceneTwo/cow-painting.png";
-// import backgroundImage from "../../assets/Background.jpg";
 import { Link, Redirect } from "react-router-dom";
 import leftArrow from "../../assets/ghostArrowLeft.png";
 import rightArrow from "../../assets/ghostArrowRight.png";
@@ -23,7 +22,7 @@ import SpeechRecognition, {
 
 const SceneTwo = () => {
   const [isActive, setActive] = useState(false);
-  const [openCoffin, setOpen] = useState(false);
+  // const [openCoffin, setOpen] = useState(false);
 
   const commands = [
     {
@@ -36,6 +35,8 @@ const SceneTwo = () => {
     },
   ];
   useSpeechRecognition({ commands });
+
+  let casket = false;
 
   const clickableItems = [
     "coffin",
@@ -148,6 +149,9 @@ const SceneTwo = () => {
     const bool = JSON.parse(window.localStorage.getItem("usedCasset"));
     if (bool) {
       window.localStorage.setItem("hasCandyBucket", true);
+      document.getElementsByClassName('coffin')[0].src = openCoffin
+      console.log('🧤 casket', casket);
+
     }
   };
 
@@ -202,7 +206,7 @@ const SceneTwo = () => {
     setActive(true);
     setTimeout(function () {
       setActive(false);
-    }, 3000);
+    }, 15000);
   };
 
   return (
