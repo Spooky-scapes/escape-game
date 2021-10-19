@@ -12,6 +12,7 @@ import rightArrow from "../../assets/ghostArrowRight.png";
 import "./sceneone.scss";
 import "../../main.scss";
 import "../../App.scss";
+import s1sounds from "./sceneOneSounds.json";
 import { Link } from "react-router-dom"
 import {Howl, Howler} from 'howler';
 import { getStorage, ref } from "firebase/storage";
@@ -131,10 +132,6 @@ const SceneOne = () => {
     }
   };
 
-  const storage = getStorage();
-  // const caw = ref(storage, "caw.mp3");
-  const cawPath = "https://firebasestorage.googleapis.com/v0/b/spooky-scapes.appspot.com/o/caw.mp3?alt=media&token=cd4cc366-1a6b-47f6-912b-5b5eb21096f2/allow-cors";
-
 
   const assetClicked = (e) => {
     setActive(false);
@@ -191,15 +188,17 @@ const SceneOne = () => {
         break;
     }
     setActive(true)
-    setTimeout(function() {setActive(false)}, 3000)
+    setTimeout(function() {setActive(false)}, 15000)
     return
   }
 
-  function playSound(sound) {
-    var a = new Howl({
-      src: [sound],
-      html5: true});
-    a.play();
+
+  const descriptions = {
+    scene1desc1: new Howl({src: [s1sounds[0].sceneOneDescription], html5: true}),
+    scene1desc2: new Howl({src: [s1sounds[8].sceneOneDescription2], html5: true}),
+    table: new Howl({src: [s1sounds[1].sideTable], html5: true}),
+    riddle: new Howl({src: [s1sounds[2].riddle], html5: true}),
+    bookCaseWithDairy: new Howl({src: [s1sounds[3].bookcaseWithDiary], html5: true})
   }
 
   return (
@@ -209,7 +208,7 @@ const SceneOne = () => {
           src={boatPainting}
           className="boatPainting"
           alt="Oil painting of four sailboats"
-          onClick={(e) => {assetClicked(e); playSound(cawPath)}}
+          onClick={(e) => {assetClicked(e); descriptions.scene1desc1.play()}}
         />
       </div>
       <div>
