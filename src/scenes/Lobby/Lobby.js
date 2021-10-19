@@ -1,6 +1,5 @@
 import "./lobby.scss";
 import { Link } from "react-router-dom";
-import Timer from '../../components/Timer/Timer.js'
 
 const Lobby = () => {
   return (
@@ -8,7 +7,7 @@ const Lobby = () => {
       <div className="title">
         <h1>Spooky Scapes!</h1>
       </div>
-      <Link to="/scene1">
+      <Link to="/parlor">
         <div className="playButton">
           <h1>Play</h1>
         </div>

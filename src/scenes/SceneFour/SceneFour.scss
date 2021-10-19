@@ -77,7 +77,7 @@
   position: absolute;
   max-width: 8%;
   max-height: 8%;
-  left: 42%;
+  left: 41%;
   top: 70%;
 }
 
@@ -133,4 +133,8 @@
   opacity: 0.8;
   border-style: double;
   border-color: black;
+}
+
+.hidden{
+  display: none;
 }
