@@ -284,12 +284,12 @@ const SceneTwo = () => {
           className={isActive ? "coffin-text-active" : "coffin-text"}
         ></p>
       </div>
-      <Link to="/scene1">
+      <Link to="/parlor">
         <div>
           <img src={leftArrow} id="leftArrow" alt="ghost arrow pointing left" />
         </div>
       </Link>
-      <Link to="/scene3">
+      <Link to="/witchDen">
         <div>
           <img
             src={rightArrow}
