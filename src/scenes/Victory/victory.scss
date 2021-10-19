@@ -17,7 +17,14 @@
   height: 650px;
   top: 100px;
 }
-
-.hidden {
-  display: none;
+@mixin victoryButtons{
+  color: orange;
+  font-family:Georgia, 'Times New Roman', Times, serif;
+  position: absolute;
+  font-size: 20px;
+  left: 45%;
+  top: 20%;
+}
+.playAgain {
+  @include victoryButtons();
 }
