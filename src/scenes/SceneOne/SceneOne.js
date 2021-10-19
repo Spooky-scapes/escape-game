@@ -13,11 +13,12 @@ import "./sceneone.scss";
 import "../../main.scss";
 import "../../App.scss";
 import s1sounds from "./sceneOneSounds.json";
-import { Link } from "react-router-dom"
-import {Howl, Howler} from 'howler';
+import { Link } from "react-router-dom";
+import { Howl, Howler } from "howler";
 import { getStorage, ref } from "firebase/storage";
-import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
-
+import SpeechRecognition, {
+  useSpeechRecognition,
+} from "react-speech-recognition";
 
 window.localStorage.setItem("hasCasset", false);
 window.localStorage.setItem("usedCasset", false);
@@ -33,89 +34,164 @@ const SceneOne = () => {
 
   const commands = [
     {
-      command: ['Click on *'],
-      callback: (item) => clickImage(item)
+      command: ["Click on *"],
+      callback: (item) => clickImage(item),
     },
     {
-      command: ['Go to *'],
-      callback: (page) => goTo(page)
-    }
-  ]
+      command: ["Go to *"],
+      callback: (page) => goTo(page),
+    },
+  ];
   useSpeechRecognition({ commands });
 
-  const clickableItems = ['empty bookcase','bookcase', 'empty bookshelf', 'bookshelf', 'boat painting', 'painting', 'end table', 'table','skull', 'crystal skull', 'full book case', 'full book shelf','cassette player','raven']
+  const clickableItems = [
+    "empty bookcase",
+    "bookcase",
+    "empty bookshelf",
+    "bookshelf",
+    "boat painting",
+    "painting",
+    "end table",
+    "table",
+    "skull",
+    "crystal skull",
+    "full book case",
+    "full book shelf",
+    "cassette player",
+    "raven",
+  ];
 
-  const pagePossibilities = ['right', 'left', 'next room', 'previous room', 'room two', 'room four', 'write']
+  const pagePossibilities = [
+    "right",
+    "left",
+    "next room",
+    "previous room",
+    "room two",
+    "room four",
+    "write",
+  ];
 
   const matchItemToClass = {
-    'empty bookcase': 'bookCase',
-    'bookcase': 'bookCase',
-    'empty bookshelf': 'bookCase',
-    'bookshelf' : 'bookCase',
-    'boat painting': 'boatPainting',
-    'painting': 'boatPainting',
-    'end table' : 'endTable',
-    'table': 'endTable',
-    'skull': 'crystal-skull',
-    'crystal skull': 'crystal-skull',
-    'full book case': 'full-bookshelf',
-    'full book shelf': 'full-bookshelf',
-    'cassette player': 'cassettePlayer',
-    'raven' : 'ravenClosed'
-  }
-
+    "empty bookcase": "bookCase",
+    bookcase: "bookCase",
+    "empty bookshelf": "bookCase",
+    bookshelf: "bookCase",
+    "boat painting": "boatPainting",
+    painting: "boatPainting",
+    "end table": "endTable",
+    table: "endTable",
+    skull: "crystal-skull",
+    "crystal skull": "crystal-skull",
+    "full book case": "full-bookshelf",
+    "full book shelf": "full-bookshelf",
+    "cassette player": "cassettePlayer",
+    raven: "ravenClosed",
+  };
 
   const mapPageToLink = {
-    right: 'rightArrow',
-    left: 'leftArrow',
-    write: 'rightArrow',
-    'next room': 'rightArrow',
-    'previous room': 'leftArrow',
-    'room four': 'leftArrow',
-    'room two': 'rightArrow'
-  }
-
+    right: "rightArrow",
+    left: "leftArrow",
+    write: "rightArrow",
+    "next room": "rightArrow",
+    "previous room": "leftArrow",
+    "room four": "leftArrow",
+    "room two": "rightArrow",
+  };
 
   function clickImage(item) {
-    item = item.toLowerCase()
-    console.log('🧤 item', item);
-    if(clickableItems.includes(item)){
-      item = matchItemToClass[item]
-      document.getElementsByClassName(item)[0].click()
+    item = item.toLowerCase();
+    console.log("🧤 item", item);
+    if (clickableItems.includes(item)) {
+      item = matchItemToClass[item];
+      document.getElementsByClassName(item)[0].click();
     } else {
-      console.log('🧤 item', item);
-      alert(`it thinks you said ${item}, consider adding ${item} to your item list, and mapping that to the correct word/phrase. Remove this when finished testing`)
-  }
+      console.log("🧤 item", item);
+      alert(
+        `it thinks you said ${item}, consider adding ${item} to your item list, and mapping that to the correct word/phrase. Remove this when finished testing`
+      );
+    }
   }
 
   function goTo(page) {
-    console.log('🧤 what the api heard....', page);
+    console.log("🧤 what the api heard....", page);
 
-    if(pagePossibilities.includes(page)){
-      page = mapPageToLink[page]
-      document.getElementById(page).click()
+    if (pagePossibilities.includes(page)) {
+      page = mapPageToLink[page];
+      document.getElementById(page).click();
     } else {
-      alert(`it thinks you said ${page}, consider adding ${page} to your item list, and mapping that to the correct word/phrase. Remove this when finished testing`)
+      alert(
+        `it thinks you said ${page}, consider adding ${page} to your item list, and mapping that to the correct word/phrase. Remove this when finished testing`
+      );
     }
   }
-
 
   document.addEventListener("keydown", (event) => {
     if (event.code === "Space") {
       event.preventDefault();
-      if(event.repeat){return}
+      if (event.repeat) {
+        return;
+      }
       SpeechRecognition.startListening();
-      console.log('🧤 list');
-
+      console.log("🧤 list");
     }
   });
-
 
   document.addEventListener("keyup", (event) => {
     if (event.code === "Space") {
       event.preventDefault();
       SpeechRecognition.stopListening();
-      console.log('🧤 not');
+      console.log("🧤 not");
+    }
+  });
+
+  const descriptions = {
+    scene1desc1: new Howl({
+      src: [s1sounds[0].sceneOneDescription],
+      html5: true,
+    }),
+    scene1desc2: new Howl({
+      src: [s1sounds[8].sceneOneDescription2],
+      html5: true,
+    }),
+    table: new Howl({ src: [s1sounds[1].sideTable], html5: true }),
+    riddle: new Howl({ src: [s1sounds[2].riddle], html5: true }),
+    bookCaseWithDairy: new Howl({
+      src: [s1sounds[3].bookcaseWithDiary],
+      html5: true,
+    }),
+    emptyBookcase: new Howl({ src: [s1sounds[4].emptyBookcase], html5: true }),
+    fullBookcase: new Howl({ src: [s1sounds[5].fullBookcase], html5: true }),
+    cassettePlayerEmpty: new Howl({
+      src: [s1sounds[6].cassettePlayerEmpty],
+      html5: true,
+    }),
+    skull: new Howl({ src: [s1sounds[7].skull], html5: true }),
+    diaryNoKey: new Howl({ src: [s1sounds[9].diaryNoKey], html5: true }),
+    diaryMessage: new Howl({ src: [s1sounds[10].diaryMessage], html5: true }),
+    paintingDesc1: new Howl({ src: [s1sounds[11].paintingDesc1], html5: true }),
+    paintingDesc2: new Howl({ src: [s1sounds[12].paintingDesc2], html5: true }),
+    caw: new Howl({ src: [s1sounds[13].caw], html5: true }),
+  };
+
+  document.addEventListener("keydown", (event) => {
+    if (event.code === "Enter") {
+      event.preventDefault();
+      if (event.repeat) {
+        return;
+      }
+      descriptions.scene1desc1.play();
+      console.log("return key");
+    }
+  });
+
+  document.addEventListener("keyup", (event) => {
+    if (event.code === "Enter") {
+      event.preventDefault();
+      if (event.repeat) {
+        return;
+      }
+      descriptions.scene1desc1.stop();
+      console.log("return key up");
     }
   });
 
@@ -123,15 +199,9 @@ const SceneOne = () => {
     const bool = JSON.parse(window.localStorage.getItem("hasCasset"));
     if (bool) {
       window.localStorage.setItem("usedCasset", true);
-    }
-  };
-  const useKey = () => {
-    const bool = JSON.parse(window.localStorage.getItem("hasCasset"));
-    if (bool) {
       window.localStorage.setItem("usedKey", true);
     }
   };
-
 
   const assetClicked = (e) => {
     setActive(false);
@@ -145,9 +215,17 @@ const SceneOne = () => {
         if (usedKey) {
           narrationBox.innerHTML =
             "It is a lovely painting, but I don't see any orbs in it.";
+          if (!descriptions.paintingDesc2.playing()) {
+            descriptions.paintingDesc2.play();
+            console.log("playing desc2");
+          }
           break;
         }
         narrationBox.innerHTML = "What a lovely old painting.";
+        if (!descriptions.paintingDesc1.playing()) {
+          descriptions.paintingDesc1.play();
+          console.log("playing desc1");
+        }
         break;
       case "bookCase":
         narrationBox.innerHTML = hiddenDiary
@@ -157,22 +235,38 @@ const SceneOne = () => {
       case "lockedDiary":
         let hasKey = JSON.parse(window.localStorage.getItem("hasKey"));
         if (hasKey) {
-          narrationBox.innerHTML = "It seems like the key fits the lock!";
+          narrationBox.innerHTML =
+            "The message written inside the diary: 'My time has run out, but perhaps it is not too late for you. Pay close attention to my message, and your escape shall be illuminated. Midnight Orb Overhead Nightly.'";
           window.localStorage.setItem("usedKey", true);
+          if (!descriptions.diaryMessage.playing()) {
+            descriptions.diaryMessage.play();
+          }
           break;
         }
         narrationBox.innerHTML =
           "The diary is locked. Is there something in the room that can unlock it?";
+        if (!descriptions.diaryNoKey.playing()) {
+          descriptions.diaryNoKey.play();
+        }
         break;
       case "endTable":
         narrationBox.innerHTML = "Drat, nothing under here.";
+        if (!descriptions.table.playing()) {
+          descriptions.table.play();
+        }
         break;
       case "full-bookshelf":
         narrationBox.innerHTML = "There may be something useful in here.";
+        if (!descriptions.fullBookcase.playing()) {
+          descriptions.fullBookcase.play();
+        }
         break;
       case "crystal-skull":
         narrationBox.innerHTML =
           "I sure am glad that’s not my skull on the table.";
+        if (!descriptions.skull.playing()) {
+          descriptions.skull.play();
+        }
         break;
       case "cassettePlayer":
         narrationBox.innerHTML = JSON.parse(
@@ -183,23 +277,19 @@ const SceneOne = () => {
         break;
       case "ravenClosed":
         narrationBox.innerHTML = "Hi, I am Savion the Raven. I'm watching you.";
+        if (!descriptions.caw.playing()) {
+          descriptions.caw.play();
+        }
         break;
       default:
         break;
     }
-    setActive(true)
-    setTimeout(function() {setActive(false)}, 15000)
-    return
-  }
-
-
-  const descriptions = {
-    scene1desc1: new Howl({src: [s1sounds[0].sceneOneDescription], html5: true}),
-    scene1desc2: new Howl({src: [s1sounds[8].sceneOneDescription2], html5: true}),
-    table: new Howl({src: [s1sounds[1].sideTable], html5: true}),
-    riddle: new Howl({src: [s1sounds[2].riddle], html5: true}),
-    bookCaseWithDairy: new Howl({src: [s1sounds[3].bookcaseWithDiary], html5: true})
-  }
+    setActive(true);
+    setTimeout(function () {
+      setActive(false);
+    }, 15000);
+    return;
+  };
 
   return (
     <div className="sceneOne">
@@ -208,7 +298,7 @@ const SceneOne = () => {
           src={boatPainting}
           className="boatPainting"
           alt="Oil painting of four sailboats"
-          onClick={(e) => {assetClicked(e); descriptions.scene1desc1.play()}}
+          onClick={(e) => assetClicked(e)}
         />
       </div>
       <div>
@@ -216,7 +306,21 @@ const SceneOne = () => {
           src={bookCase}
           className="bookCase"
           alt="large wooden bookcase that is empty"
-          onClick={(e) => assetClicked(e)}
+          onClick={(e) => {
+            assetClicked(e);
+            let isDiary = JSON.parse(
+              window.localStorage.getItem("usedCandyBucket")
+            );
+            if (isDiary) {
+              if (!descriptions.bookCaseWithDairy.playing()) {
+                descriptions.bookCaseWithDairy.play();
+              }
+            } else {
+              if (!descriptions.emptyBookcase.playing()) {
+                descriptions.emptyBookcase.play();
+              }
+            }
+          }}
         />
       </div>
       <div>
@@ -262,6 +366,18 @@ const SceneOne = () => {
           onClick={(e) => {
             assetClicked(e);
             invokeCasset();
+            let hasCasset = JSON.parse(
+              window.localStorage.getItem("hasCasset")
+            );
+            if (hasCasset) {
+              if (!descriptions.riddle.playing()) {
+                descriptions.riddle.play();
+              }
+            } else {
+              if (!descriptions.cassettePlayerEmpty.playing()) {
+                descriptions.cassettePlayerEmpty.play();
+              }
+            }
           }}
         />
       </div>

@@ -259,6 +259,7 @@ const SceneFour = () => {
         window.localStorage.setItem("hasCasset", true);
         audioCues.cassette.play();
         audioCues.matShuffling.play();
+        window.dispatchEvent(new Event("storage"));
         document.getElementsByClassName("cassette")[0].className = "hidden";
         narrationBox.innerHTML =
           "*shuffling* Look, a cassette tape is hidden under the mat, wonder what could be on it?";
