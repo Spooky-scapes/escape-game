@@ -273,12 +273,12 @@ const SceneOne = () => {
           onClick={(e) => assetClicked(e)}
         />
       </div>
-      <Link to="/scene4">
+      <Link to="/entryway">
         <div>
           <img src={leftArrow} id="leftArrow" alt="ghost arrow pointing left" />
         </div>
       </Link>
-      <Link to="/scene2">
+      <Link to="/storage">
         <div>
           <img
             src={rightArrow}

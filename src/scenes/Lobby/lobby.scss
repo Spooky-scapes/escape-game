@@ -47,11 +47,15 @@ $shadow: rgb(252, 178, 110);
 	}
 }
 
-.playButton{
+@mixin optionButtons{
   color: white;
   font-family:Georgia, 'Times New Roman', Times, serif;
   position: absolute;
   font-size: 20px;
   left: 48%;
   top: 55%;
+}
+
+.playButton{
+  @include optionButtons();
 }

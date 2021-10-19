@@ -1,15 +1,12 @@
-import { Link } from "react-router-dom";
 import './victory.scss'
+import {useHistory} from "react-router-dom";
 
 const Victory = () => {
-
-  const theRoadHome = setTimeout(() => {document.getElementById('home').click()}, 5000)
+  const history = useHistory();
   return (
     <div className="victory">
-      <h1 className="vic-title">You've done a great job</h1>
-      <Link to='/'>
-        <button className='hidden' id='home'>home</button>
-      </Link>
+      <h1 className="vic-title">Time to Trick or Treat!</h1>
+      <h2 className = 'playAgain' onClick = {() => {history.push('/')}}>Play Again</h2>
     </div>
 
   )
