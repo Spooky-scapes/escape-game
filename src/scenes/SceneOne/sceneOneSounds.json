@@ -11,5 +11,6 @@
     {"diaryNoKey":"https://firebasestorage.googleapis.com/v0/b/spooky-scapes.appspot.com/o/Spooky%20Sounds%2FScene%201%2FScene%20one%20diary%20no%20key%20desc.m4a?alt=media&token=5ef01436-9304-4b90-86e7-a00d5446e1bd/allow-cors"},
     {"diaryMessage": "https://firebasestorage.googleapis.com/v0/b/spooky-scapes.appspot.com/o/Spooky%20Sounds%2FScene%201%2FScene%20one%20midnight%20orb%20overhead.m4a?alt=media&token=9f79f3fa-7c36-412e-873c-6a2a7210e487/allow-cors"},
     {"paintingDesc1":"https://firebasestorage.googleapis.com/v0/b/spooky-scapes.appspot.com/o/Spooky%20Sounds%2FScene%201%2FScene%20one%20painting%20desc%201.m4a?alt=media&token=d9689116-614b-4067-a8b3-3fbd1cf16aff/allow-cors"},
-    {"paintingDesc2":"https://firebasestorage.googleapis.com/v0/b/spooky-scapes.appspot.com/o/Spooky%20Sounds%2FScene%201%2FScene%20one%20painting%20desc%202.m4a?alt=media&token=6c7e4bae-da60-42af-bdbc-33b79150ca5a/allow-cors"}
+    {"paintingDesc2":"https://firebasestorage.googleapis.com/v0/b/spooky-scapes.appspot.com/o/Spooky%20Sounds%2FScene%201%2FScene%20one%20painting%20desc%202.m4a?alt=media&token=6c7e4bae-da60-42af-bdbc-33b79150ca5a/allow-cors"},
+    {"caw": "https://firebasestorage.googleapis.com/v0/b/spooky-scapes.appspot.com/o/caw.mp3?alt=media&token=cd4cc366-1a6b-47f6-912b-5b5eb21096f2/allow-cors"}
 ]
