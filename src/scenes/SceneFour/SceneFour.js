@@ -15,10 +15,13 @@ import SpeechRecognition, {
 } from "react-speech-recognition";
 import React, { useState } from "react";
 import { timeoutCollection } from "time-events-manager";
+import { useHistory } from "react-router-dom";
+import { Howl, Howler } from "howler";
+import { getStorage, ref } from "firebase/storage";
 
 const SceneFour = () => {
   const [isActive, setActive] = useState(false);
-
+  const history = useHistory();
   const commands = [
     {
       command: ["Click on *"],
@@ -35,7 +38,7 @@ const SceneFour = () => {
   const clickableItems = [
     "door",
     "window",
-    "moon painting",
+    "painting",
     "bone dog",
     "mat",
     "math",
@@ -58,7 +61,7 @@ const SceneFour = () => {
   const matchItemToClass = {
     door: "door",
     window: "Window",
-    "moon painting": "moonPainting",
+    painting: "moonPainting",
     "bone dog": "boneDog",
     mat: "mat",
     math: "mat",
@@ -114,6 +117,34 @@ const SceneFour = () => {
     }
   });
 
+  const boneDogBarking =
+    "https://firebasestorage.googleapis.com/v0/b/spooky-scapes.appspot.com/o/Scene%204%2FBonedogBarking.m4a?alt=media&token=fafc12c5-9afb-4358-943b-de6cd48b3d24";
+  const doorClicking =
+    "https://firebasestorage.googleapis.com/v0/b/spooky-scapes.appspot.com/o/Scene%204%2Fdoor-clicking.mp3?alt=media&token=456f604a-cb46-4d94-8d3b-3d977a694799";
+  const doorSwinging =
+    "https://firebasestorage.googleapis.com/v0/b/spooky-scapes.appspot.com/o/Scene%204%2Fdoor-swingin-open.mp3?alt=media&token=5edb8c79-984c-4952-a13b-37947e384226";
+  const matShuffling =
+    "https://firebasestorage.googleapis.com/v0/b/spooky-scapes.appspot.com/o/Scene%204%2Fmat-shuffling.mp3?alt=media&token=9d2b2390-d782-475b-a8ee-21927f1656ba";
+  const windowRattling =
+    "https://firebasestorage.googleapis.com/v0/b/spooky-scapes.appspot.com/o/Scene%204%2Fwindow-rattling.mp3?alt=media&token=ef44a750-4d72-456c-8b1f-170372b8b9f1";
+  const cawPath =
+    "https://firebasestorage.googleapis.com/v0/b/spooky-scapes.appspot.com/o/caw.mp3?alt=media&token=cd4cc366-1a6b-47f6-912b-5b5eb21096f2/allow-cors";
+
+  function playSound(sound) {
+    const a = new Howl({
+      src: [sound],
+      html5: true,
+    });
+    a.play();
+  }
+  function playDoor(sound) {
+    const a = new Howl({
+      src: [sound],
+      volume: 0.4,
+      html5: true,
+    });
+    a.play();
+  }
   const assetClicked = (e) => {
     timeoutCollection.removeAll();
     setActive(false);
@@ -125,8 +156,12 @@ const SceneFour = () => {
       case "door":
         let found = JSON.parse(window.localStorage.getItem("foundPainting"));
         if (found) {
+          playDoor(doorSwinging);
           narrationBox.innerHTML =
             "*door swinging open* You did what we couldn’t! Congratulations and happy Halloween!";
+          setTimeout(() => {
+            history.push("/victory");
+          }, 6000);
           break;
         }
         narrationBox.innerHTML =
@@ -135,6 +170,7 @@ const SceneFour = () => {
       case "moonPainting":
         let usedKey = JSON.parse(window.localStorage.getItem("usedKey"));
         if (usedKey) {
+          playSound(doorClicking);
           narrationBox.innerHTML = " *click* That did something!";
           window.localStorage.setItem("foundPainting", true);
           break;
@@ -143,12 +179,15 @@ const SceneFour = () => {
           "I can’t decide whether this painting is ominous or not. The farmer seems grim and yet the moon shines brightly.";
         break;
       case "closedRaven":
+        playSound(cawPath);
         narrationBox.innerHTML = " *squawk*";
         break;
       case "boneDog":
+        playSound(boneDogBarking);
         narrationBox.innerHTML = "*barking*";
         break;
       case "Window":
+        playSound(windowRattling);
         narrationBox.innerHTML =
           "*rattling* Definitely seems locked from where I’m sitting";
         break;
@@ -160,6 +199,8 @@ const SceneFour = () => {
         }
         window.localStorage.setItem("hasCasset", true);
         window.dispatchEvent(new Event("storage"));
+        playSound(matShuffling);
+        document.getElementsByClassName("cassette")[0].className = "hidden";
         narrationBox.innerHTML =
           "*shuffling* Look, a cassette tape is hidden under the mat, wonder what’s on it?";
         break;
@@ -216,12 +257,12 @@ const SceneFour = () => {
       <div className="narrationBox">
         <p id="narrationBox"></p>
       </div>
-      <Link to="/scene3">
+      <Link to="/witchDen">
         <div>
           <img src={leftArrow} id="leftArrow" alt="ghost arrow pointing left" />
         </div>
       </Link>
-      <Link to="/scene1">
+      <Link to="/parlor">
         <div>
           <img
             src={rightArrow}

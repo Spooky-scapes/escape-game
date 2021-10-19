@@ -13,6 +13,7 @@ import Chat from "./components/Chat/Chat";
 import EndFail from "./scenes/EndFail/EndFail";
 import Lobby from "./scenes/Lobby/Lobby";
 import Timer from "./components/Timer/Timer.js";
+import Tutorial from "./scenes/Tutorial/Tutorial";
 import { Route, Switch, BrowserRouter as Router } from "react-router-dom";
 
 function App() {
@@ -23,12 +24,13 @@ function App() {
         {/* <Timer /> */}
         <Switch>
           <Route exact path="/" component={Lobby} />
-          <Route exact path="/scene1" component={SceneOne} />
-          <Route exact path="/scene2" component={SceneTwo} />
-          <Route exact path="/scene3" component={SceneThree} />
-          <Route exact path="/scene4" component={SceneFour} />
+          <Route exact path="/parlor" component={SceneOne} />
+          <Route exact path="/storage" component={SceneTwo} />
+          <Route exact path="/witchDen" component={SceneThree} />
+          <Route exact path="/entryway" component={SceneFour} />
           <Route exact path="/youdied" component={EndFail} />
           <Route exact path="/victory" component={Victory} />
+          <Route exact path="/tutorial" component={Tutorial} />
         </Switch>
       </Router>
 

@@ -249,7 +249,7 @@ const SceneThree = () => {
       <div className="narrationBox">
         <p id="narrationBox"></p>
       </div>
-      <Link to="/scene4">
+      <Link to="/entryway">
         <div>
           <img
             className="arrowRight"
@@ -258,7 +258,7 @@ const SceneThree = () => {
           ></img>
         </div>
       </Link>
-      <Link to="/scene2">
+      <Link to="/storage">
         <div>
           <img
             className="arrowLeft"

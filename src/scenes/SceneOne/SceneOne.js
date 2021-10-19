@@ -12,6 +12,7 @@ import rightArrow from "../../assets/ghostArrowRight.png";
 import "./sceneone.scss";
 import "../../main.scss";
 import "../../App.scss";
+import s1sounds from "./sceneOneSounds.json";
 import { Link } from "react-router-dom";
 import { Howl, Howler } from "howler";
 import { getStorage, ref } from "firebase/storage";
@@ -143,23 +144,64 @@ const SceneOne = () => {
     }
   });
 
+  const descriptions = {
+    scene1desc1: new Howl({
+      src: [s1sounds[0].sceneOneDescription],
+      html5: true,
+    }),
+    scene1desc2: new Howl({
+      src: [s1sounds[8].sceneOneDescription2],
+      html5: true,
+    }),
+    table: new Howl({ src: [s1sounds[1].sideTable], html5: true }),
+    riddle: new Howl({ src: [s1sounds[2].riddle], html5: true }),
+    bookCaseWithDairy: new Howl({
+      src: [s1sounds[3].bookcaseWithDiary],
+      html5: true,
+    }),
+    emptyBookcase: new Howl({ src: [s1sounds[4].emptyBookcase], html5: true }),
+    fullBookcase: new Howl({ src: [s1sounds[5].fullBookcase], html5: true }),
+    cassettePlayerEmpty: new Howl({
+      src: [s1sounds[6].cassettePlayerEmpty],
+      html5: true,
+    }),
+    skull: new Howl({ src: [s1sounds[7].skull], html5: true }),
+    diaryNoKey: new Howl({ src: [s1sounds[9].diaryNoKey], html5: true }),
+    diaryMessage: new Howl({ src: [s1sounds[10].diaryMessage], html5: true }),
+    paintingDesc1: new Howl({ src: [s1sounds[11].paintingDesc1], html5: true }),
+    paintingDesc2: new Howl({ src: [s1sounds[12].paintingDesc2], html5: true }),
+    caw: new Howl({ src: [s1sounds[13].caw], html5: true }),
+  };
+
+  document.addEventListener("keydown", (event) => {
+    if (event.code === "Enter") {
+      event.preventDefault();
+      if (event.repeat) {
+        return;
+      }
+      descriptions.scene1desc1.play();
+      console.log("return key");
+    }
+  });
+
+  document.addEventListener("keyup", (event) => {
+    if (event.code === "Enter") {
+      event.preventDefault();
+      if (event.repeat) {
+        return;
+      }
+      descriptions.scene1desc1.stop();
+      console.log("return key up");
+    }
+  });
+
   const invokeCasset = () => {
     const bool = JSON.parse(window.localStorage.getItem("hasCasset"));
     if (bool) {
       window.localStorage.setItem("usedCasset", true);
-    }
-  };
-  const useKey = () => {
-    const bool = JSON.parse(window.localStorage.getItem("hasCasset"));
-    if (bool) {
       window.localStorage.setItem("usedKey", true);
     }
   };
-
-  const storage = getStorage();
-  // const caw = ref(storage, "caw.mp3");
-  const cawPath =
-    "https://firebasestorage.googleapis.com/v0/b/spooky-scapes.appspot.com/o/caw.mp3?alt=media&token=cd4cc366-1a6b-47f6-912b-5b5eb21096f2/allow-cors";
 
   const assetClicked = (e) => {
     setActive(false);
@@ -173,9 +215,17 @@ const SceneOne = () => {
         if (usedKey) {
           narrationBox.innerHTML =
             "It is a lovely painting, but I don't see any orbs in it.";
+          if (!descriptions.paintingDesc2.playing()) {
+            descriptions.paintingDesc2.play();
+            console.log("playing desc2");
+          }
           break;
         }
         narrationBox.innerHTML = "What a lovely old painting.";
+        if (!descriptions.paintingDesc1.playing()) {
+          descriptions.paintingDesc1.play();
+          console.log("playing desc1");
+        }
         break;
       case "bookCase":
         narrationBox.innerHTML = hiddenDiary
@@ -185,22 +235,38 @@ const SceneOne = () => {
       case "lockedDiary":
         let hasKey = JSON.parse(window.localStorage.getItem("hasKey"));
         if (hasKey) {
-          narrationBox.innerHTML = "It seems like the key fits the lock!";
+          narrationBox.innerHTML =
+            "The message written inside the diary: 'My time has run out, but perhaps it is not too late for you. Pay close attention to my message, and your escape shall be illuminated. Midnight Orb Overhead Nightly.'";
           window.localStorage.setItem("usedKey", true);
+          if (!descriptions.diaryMessage.playing()) {
+            descriptions.diaryMessage.play();
+          }
           break;
         }
         narrationBox.innerHTML =
           "The diary is locked. Is there something in the room that can unlock it?";
+        if (!descriptions.diaryNoKey.playing()) {
+          descriptions.diaryNoKey.play();
+        }
         break;
       case "endTable":
         narrationBox.innerHTML = "Drat, nothing under here.";
+        if (!descriptions.table.playing()) {
+          descriptions.table.play();
+        }
         break;
       case "full-bookshelf":
         narrationBox.innerHTML = "There may be something useful in here.";
+        if (!descriptions.fullBookcase.playing()) {
+          descriptions.fullBookcase.play();
+        }
         break;
       case "crystal-skull":
         narrationBox.innerHTML =
           "I sure am glad that’s not my skull on the table.";
+        if (!descriptions.skull.playing()) {
+          descriptions.skull.play();
+        }
         break;
       case "cassettePlayer":
         narrationBox.innerHTML = JSON.parse(
@@ -211,6 +277,9 @@ const SceneOne = () => {
         break;
       case "ravenClosed":
         narrationBox.innerHTML = "Hi, I am Savion the Raven. I'm watching you.";
+        if (!descriptions.caw.playing()) {
+          descriptions.caw.play();
+        }
         break;
       default:
         break;
@@ -222,14 +291,6 @@ const SceneOne = () => {
     return;
   };
 
-  function playSound(sound) {
-    var a = new Howl({
-      src: [sound],
-      html5: true,
-    });
-    a.play();
-  }
-
   return (
     <div className="sceneOne">
       <div>
@@ -237,10 +298,7 @@ const SceneOne = () => {
           src={boatPainting}
           className="boatPainting"
           alt="Oil painting of four sailboats"
-          onClick={(e) => {
-            assetClicked(e);
-            playSound(cawPath);
-          }}
+          onClick={(e) => assetClicked(e)}
         />
       </div>
       <div>
@@ -248,7 +306,21 @@ const SceneOne = () => {
           src={bookCase}
           className="bookCase"
           alt="large wooden bookcase that is empty"
-          onClick={(e) => assetClicked(e)}
+          onClick={(e) => {
+            assetClicked(e);
+            let isDiary = JSON.parse(
+              window.localStorage.getItem("usedCandyBucket")
+            );
+            if (isDiary) {
+              if (!descriptions.bookCaseWithDairy.playing()) {
+                descriptions.bookCaseWithDairy.play();
+              }
+            } else {
+              if (!descriptions.emptyBookcase.playing()) {
+                descriptions.emptyBookcase.play();
+              }
+            }
+          }}
         />
       </div>
       <div>
@@ -294,6 +366,18 @@ const SceneOne = () => {
           onClick={(e) => {
             assetClicked(e);
             invokeCasset();
+            let hasCasset = JSON.parse(
+              window.localStorage.getItem("hasCasset")
+            );
+            if (hasCasset) {
+              if (!descriptions.riddle.playing()) {
+                descriptions.riddle.play();
+              }
+            } else {
+              if (!descriptions.cassettePlayerEmpty.playing()) {
+                descriptions.cassettePlayerEmpty.play();
+              }
+            }
           }}
         />
       </div>
@@ -305,12 +389,12 @@ const SceneOne = () => {
           onClick={(e) => assetClicked(e)}
         />
       </div>
-      <Link to="/scene4">
+      <Link to="/entryway">
         <div>
           <img src={leftArrow} id="leftArrow" alt="ghost arrow pointing left" />
         </div>
       </Link>
-      <Link to="/scene2">
+      <Link to="/storage">
         <div>
           <img
             src={rightArrow}

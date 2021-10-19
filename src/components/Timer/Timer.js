@@ -1,7 +1,6 @@
 import "./Timer.scss";
 import {useHistory} from "react-router-dom";
 
-
 const Timer = () => {
   const history = useHistory()
   const startTimer = (duration, display) => {
@@ -22,16 +21,16 @@ const Timer = () => {
   };
 
   window.onload = () => {
-    const fiveMinutes = 60;
+    const fifteenMinutes = 60 * 15;
     let display = document.getElementById("timer");
     if (display){
-      startTimer(fiveMinutes, display);
+      startTimer(fifteenMinutes, display);
     }
     clearInterval(startTimer)
   };
 
-    return <div>
-      <p id="timer"> 05:00</p>
+    return <div className = 'timerContainer'>
+      <p id="timer"> 15:00</p>
       </div>
 };
 
