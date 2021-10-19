@@ -2,7 +2,7 @@ import "../../App.scss";
 import "../../main.scss";
 import "./sceneTwo.scss";
 import React, { useState } from "react";
-// import ReactDom from 'react-dom'
+
 import closedCoffin from "../../assets/SceneTwo/closed-coffin.png";
 import openCoffin from '../../assets/SceneTwo/openCasket.png';
 import stool from "../../assets/SceneTwo/stool-cabinet.png";
@@ -11,9 +11,12 @@ import wallCandle from "../../assets/SceneTwo/wall-candle.png";
 import oldChair from "../../assets/SceneTwo/old-chair.png";
 import savion from "../../assets/ravenClosedFIT.png";
 import cowPainting from "../../assets/SceneTwo/cow-painting.png";
-import { Link, Redirect } from "react-router-dom";
 import leftArrow from "../../assets/ghostArrowLeft.png";
 import rightArrow from "../../assets/ghostArrowRight.png";
+import s2Sounds from "./sceneTwoSounds.json"
+
+import { Link, Redirect } from "react-router-dom";
+import {Howl, Howler} from 'howler'
 import { timeoutCollection } from "time-events-manager";
 
 import SpeechRecognition, {
@@ -127,6 +130,7 @@ const SceneTwo = () => {
   }
 
   document.addEventListener("keydown", (event) => {
+    const bool = JSON.parse(window.localStorage.getItem("usedCasset"))
     if (event.code === "Space") {
       event.preventDefault();
       if (event.repeat) {
@@ -135,13 +139,36 @@ const SceneTwo = () => {
       SpeechRecognition.startListening();
       console.log("🧤 list");
     }
+    if(event.code === "Enter") {
+      event.preventDefault();
+      if (event.repeat){
+        return
+      }
+
+      if (!bool){
+        sceneTwoAudio.scene2FirstDescription.play()
+      }
+      else {
+        sceneTwoAudio.scene2SecondDescription.play()
+      }
+    }
   });
 
   document.addEventListener("keyup", (event) => {
+    const bool = JSON.parse(window.localStorage.getItem("usedCasset"))
     if (event.code === "Space") {
       event.preventDefault();
       SpeechRecognition.stopListening();
       console.log("🧤 not");
+    }
+
+    if(event.code === "Enter"){
+      event.preventDefault()
+      if(!bool){
+        sceneTwoAudio.scene2FirstDescription.unload()
+      } else{
+        sceneTwoAudio.scene2SecondDescription.unload()
+      }
     }
   });
 
@@ -159,17 +186,21 @@ const SceneTwo = () => {
     timeoutCollection.removeAll();
     setActive(false);
     const clicked = e.target.className;
+    console.log('🧤 e', e);
+
     const narrationBox = document.getElementById("narrationBox");
     narrationBox.innerHTML = "";
 
     switch (clicked) {
       case "coffin":
         const bool = JSON.parse(window.localStorage.getItem("usedCasset"));
+        bool ? sceneTwoAudio.openCoffinDesc.play():sceneTwoAudio.closedCoffinDesc.play()
         narrationBox.innerHTML = bool
           ? "A large coffin, it’s open but there isn’t anyone in it. The pungent smell emanating from it fills the room."
           : "A large coffin, the lid is heavy, you wonder what may be inside of it, but you’re too afraid to open it yourself.";
         break;
       case "cowPainting":
+        sceneTwoAudio.cowPaintingDesc.play()
         let usedKey = JSON.parse(window.localStorage.getItem("usedKey"));
         if (usedKey) {
           narrationBox.innerHTML =
@@ -180,22 +211,27 @@ const SceneTwo = () => {
           "A painting of a cow, what a strange painting to own.";
         break;
       case "stoolCabinet":
+        sceneTwoAudio.stoolCabinetDesc.play()
         narrationBox.innerHTML =
           "An old worn down stool cabinet that doesn’t open.";
         break;
       case "oldChair":
+        sceneTwoAudio.oldChairDesc.play()
         narrationBox.innerHTML =
           "An old worn down chair, it doesn’t look sturdy enough to sit on.";
         break;
       case "holeInWall":
+        sceneTwoAudio.holeInWallDesc.play()
         narrationBox.innerHTML =
           "The old purple wallpaper has a huge hole in it, there doesn’t seem to be anything behind that wallpaper but darkness";
         break;
       case "rightCandle":
+        sceneTwoAudio.candles.play()
         narrationBox.innerHTML =
           "A wall candle, there’s another one on the opposite side of the room. The candle is lit but who lit them?";
         break;
       case "leftCandle":
+        sceneTwoAudio.candles.play()
         narrationBox.innerHTML =
           "A wall candle, there’s another one on the opposite side of the room. The candle is lit but who lit them?";
         break;
@@ -208,6 +244,27 @@ const SceneTwo = () => {
       setActive(false);
     }, 15000);
   };
+
+  const sceneTwoAudio = {
+    scene2FirstDescription: new Howl({src: [s2Sounds[0].sceneTwoInitialDescription], html5: true}),
+
+    scene2SecondDescription: new Howl({src: [s2Sounds[1].sceneTwoSecondDescription], html5: true}),
+
+    closedCoffinDesc: new Howl({src:[s2Sounds[2].closedCoffinDesc], html5:true}),
+
+    openCoffinDesc: new Howl({src:[s2Sounds[3].openCoffinDesc], html5:true}),
+
+    stoolCabinetDesc: new Howl({src:[s2Sounds[4].stoolCabinetDesc], html5:true}),
+
+    candles: new Howl({src:[s2Sounds[5].candles], html5: true}),
+
+    holeInWallDesc: new Howl({src:[s2Sounds[6].holeInWallDesc],html5: true}),
+
+    cowPaintingDesc: new Howl({src: [s2Sounds[7].cowPaintingDesc], html5: true}),
+
+    oldChairDesc: new Howl({src: [s2Sounds[8].oldChairDesc], html5:true})
+
+  }
 
   return (
     <div className="sceneTwo">
