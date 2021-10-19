@@ -18,6 +18,7 @@ import { timeoutCollection } from "time-events-manager";
 import { useHistory } from "react-router-dom";
 import { Howl, Howler } from "howler";
 import { getStorage, ref } from "firebase/storage";
+import s4sounds from "./SceneFourSounds.json";
 
 const SceneFour = () => {
   const [isActive, setActive] = useState(false);
@@ -109,44 +110,95 @@ const SceneFour = () => {
       event.preventDefault();
       SpeechRecognition.startListening();
     }
+    const pagina = window.location.href === 'http://localhost:3000/entryway'|| window.location.href === 'https://spooky-scapes.netlify.app/entryway'
+    if(event.code === "Enter" && pagina) {
+      event.preventDefault();
+      if (event.repeat){
+        return
+      } else {
+        audioCues.sceneFourDescription.play();
+      }
+  }
   });
+
   document.addEventListener("keyup", (event) => {
     if (event.code === "Space") {
       event.preventDefault();
       SpeechRecognition.stopListening();
     }
+    const pagina = window.location.href === 'http://localhost:3000/entryway' || window.location.href === 'https://spooky-scapes.netlify.app/entryway'
+    if(event.code === "Enter" && pagina){
+      event.preventDefault()
+      audioCues.sceneFourDescription.stop();
+    }
   });
 
-  const boneDogBarking =
-    "https://firebasestorage.googleapis.com/v0/b/spooky-scapes.appspot.com/o/Scene%204%2FBonedogBarking.m4a?alt=media&token=fafc12c5-9afb-4358-943b-de6cd48b3d24";
-  const doorClicking =
-    "https://firebasestorage.googleapis.com/v0/b/spooky-scapes.appspot.com/o/Scene%204%2Fdoor-clicking.mp3?alt=media&token=456f604a-cb46-4d94-8d3b-3d977a694799";
-  const doorSwinging =
-    "https://firebasestorage.googleapis.com/v0/b/spooky-scapes.appspot.com/o/Scene%204%2Fdoor-swingin-open.mp3?alt=media&token=5edb8c79-984c-4952-a13b-37947e384226";
-  const matShuffling =
-    "https://firebasestorage.googleapis.com/v0/b/spooky-scapes.appspot.com/o/Scene%204%2Fmat-shuffling.mp3?alt=media&token=9d2b2390-d782-475b-a8ee-21927f1656ba";
-  const windowRattling =
-    "https://firebasestorage.googleapis.com/v0/b/spooky-scapes.appspot.com/o/Scene%204%2Fwindow-rattling.mp3?alt=media&token=ef44a750-4d72-456c-8b1f-170372b8b9f1";
-  const cawPath =
-    "https://firebasestorage.googleapis.com/v0/b/spooky-scapes.appspot.com/o/caw.mp3?alt=media&token=cd4cc366-1a6b-47f6-912b-5b5eb21096f2/allow-cors";
+  const audioCues = {
+    sceneFourDescription: new Howl({
+      src: [s4sounds[0].sceneFourDescription],
+      html5: true,
+    }),
+    window: new Howl({
+      src: [s4sounds[1].window],
+      html5: true,
+    }),
+    cassette: new Howl({
+      src: [s4sounds[2].cassette],
+      html5: true,
+    }),
+    lockedDoor: new Howl({
+      src: [s4sounds[3].lockedDoor],
+      html5: true,
+    }),
+    paintingDescription: new Howl({
+      src: [s4sounds[4].paintingDescription],
+      html5: true,
+    }),
+    dust: new Howl({
+      src: [s4sounds[5].dust],
+      html5: true,
+    }),
+    didSomething: new Howl({
+      src: [s4sounds[6].didSomething],
+      html5: true,
+    }),
+    victory: new Howl({
+      src: [s4sounds[7].victory],
+      html5: true,
+    }),
+    boneDogBarking: new Howl({
+      src: [s4sounds[8].boneDogBarking],
+      html5: true,
+      volume: 0.6,
+    }),
+    doorClicking: new Howl({
+      src: [s4sounds[9].doorClicking],
+      html5: true,
+    }),
+    doorSwinging: new Howl({
+      src: [s4sounds[10].doorSwinging],
+      html5: true,
+      volume: 0.5,
+    }),
+    matShuffling: new Howl({
+      src: [s4sounds[11].matShuffling],
+      html5: true,
+    }),
+    windowRattling: new Howl({
+      src: [s4sounds[12].windowRattling],
+      html5: true,
+    }),
+    caw: new Howl({
+      src: [s4sounds[13].caw],
+      html5: true,
+    }),
+    doorHandle: new Howl({
+      src: [s4sounds[14].doorHandle],
+      html5: true,
+    }),
+  };
 
-  function playSound(sound) {
-    const a = new Howl({
-      src: [sound],
-      html5: true,
-    });
-    a.play();
-  }
-  function playDoor(sound) {
-    const a = new Howl({
-      src: [sound],
-      volume: 0.4,
-      html5: true,
-    });
-    a.play();
-  }
   const assetClicked = (e) => {
-    timeoutCollection.removeAll();
     setActive(false);
     const clicked = e.target.className;
     const narrationBox = document.getElementById("narrationBox");
@@ -156,52 +208,60 @@ const SceneFour = () => {
       case "door":
         let found = JSON.parse(window.localStorage.getItem("foundPainting"));
         if (found) {
-          playDoor(doorSwinging);
+          audioCues.doorSwinging.play();
+          audioCues.victory.play();
           narrationBox.innerHTML =
             "*door swinging open* You did what we couldn’t! Congratulations and happy Halloween!";
           setTimeout(() => {
             history.push("/victory");
-          }, 6000);
+          }, 13000);
           break;
         }
+        audioCues.doorHandle.play();
+        audioCues.lockedDoor.play();
         narrationBox.innerHTML =
           "If only we could open it somehow...we could escape!";
         break;
       case "moonPainting":
         let usedKey = JSON.parse(window.localStorage.getItem("usedKey"));
         if (usedKey) {
-          playSound(doorClicking);
+          audioCues.doorClicking.play();
+          audioCues.didSomething.play();
           narrationBox.innerHTML = " *click* That did something!";
           window.localStorage.setItem("foundPainting", true);
           break;
         }
+        audioCues.paintingDescription.play();
         narrationBox.innerHTML =
           "I can’t decide whether this painting is ominous or not. The farmer seems grim and yet the moon shines brightly.";
         break;
       case "closedRaven":
-        playSound(cawPath);
+        audioCues.caw.play();
         narrationBox.innerHTML = " *squawk*";
         break;
       case "boneDog":
-        playSound(boneDogBarking);
+        audioCues.boneDogBarking.play();
         narrationBox.innerHTML = "*barking*";
         break;
       case "Window":
-        playSound(windowRattling);
+        audioCues.windowRattling.play();
+        audioCues.window.play();
         narrationBox.innerHTML =
           "*rattling* Definitely seems locked from where I’m sitting";
         break;
       case "mat":
         let hasCasset = JSON.parse(window.localStorage.getItem("hasCasset"));
         if (hasCasset) {
+          audioCues.dust.play();
           narrationBox.innerHTML = "It still smells like dust";
           break;
         }
         window.localStorage.setItem("hasCasset", true);
-        playSound(matShuffling);
+        audioCues.cassette.play();
+        audioCues.matShuffling.play();
         document.getElementsByClassName("cassette")[0].className = "hidden";
         narrationBox.innerHTML =
-          "*shuffling* Look, a cassette tape is hidden under the mat, wonder what’s on it?";
+          "*shuffling* Look, a cassette tape is hidden under the mat, wonder what could be on it?";
         break;
       default:
         break;
