@@ -12,11 +12,12 @@ import rightArrow from "../../assets/ghostArrowRight.png";
 import "./sceneone.scss";
 import "../../main.scss";
 import "../../App.scss";
-import { Link } from "react-router-dom"
-import {Howl, Howler} from 'howler';
+import { Link } from "react-router-dom";
+import { Howl, Howler } from "howler";
 import { getStorage, ref } from "firebase/storage";
-import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
-
+import SpeechRecognition, {
+  useSpeechRecognition,
+} from "react-speech-recognition";
 
 window.localStorage.setItem("hasCasset", false);
 window.localStorage.setItem("usedCasset", false);
@@ -32,89 +33,113 @@ const SceneOne = () => {
 
   const commands = [
     {
-      command: ['Click on *'],
-      callback: (item) => clickImage(item)
+      command: ["Click on *"],
+      callback: (item) => clickImage(item),
     },
     {
-      command: ['Go to *'],
-      callback: (page) => goTo(page)
-    }
-  ]
+      command: ["Go to *"],
+      callback: (page) => goTo(page),
+    },
+  ];
   useSpeechRecognition({ commands });
 
-  const clickableItems = ['empty bookcase','bookcase', 'empty bookshelf', 'bookshelf', 'boat painting', 'painting', 'end table', 'table','skull', 'crystal skull', 'full book case', 'full book shelf','cassette player','raven']
+  const clickableItems = [
+    "empty bookcase",
+    "bookcase",
+    "empty bookshelf",
+    "bookshelf",
+    "boat painting",
+    "painting",
+    "end table",
+    "table",
+    "skull",
+    "crystal skull",
+    "full book case",
+    "full book shelf",
+    "cassette player",
+    "raven",
+  ];
 
-  const pagePossibilities = ['right', 'left', 'next room', 'previous room', 'room two', 'room four', 'write']
+  const pagePossibilities = [
+    "right",
+    "left",
+    "next room",
+    "previous room",
+    "room two",
+    "room four",
+    "write",
+  ];
 
   const matchItemToClass = {
-    'empty bookcase': 'bookCase',
-    'bookcase': 'bookCase',
-    'empty bookshelf': 'bookCase',
-    'bookshelf' : 'bookCase',
-    'boat painting': 'boatPainting',
-    'painting': 'boatPainting',
-    'end table' : 'endTable',
-    'table': 'endTable',
-    'skull': 'crystal-skull',
-    'crystal skull': 'crystal-skull',
-    'full book case': 'full-bookshelf',
-    'full book shelf': 'full-bookshelf',
-    'cassette player': 'cassettePlayer',
-    'raven' : 'ravenClosed'
-  }
-
+    "empty bookcase": "bookCase",
+    bookcase: "bookCase",
+    "empty bookshelf": "bookCase",
+    bookshelf: "bookCase",
+    "boat painting": "boatPainting",
+    painting: "boatPainting",
+    "end table": "endTable",
+    table: "endTable",
+    skull: "crystal-skull",
+    "crystal skull": "crystal-skull",
+    "full book case": "full-bookshelf",
+    "full book shelf": "full-bookshelf",
+    "cassette player": "cassettePlayer",
+    raven: "ravenClosed",
+  };
 
   const mapPageToLink = {
-    right: 'rightArrow',
-    left: 'leftArrow',
-    write: 'rightArrow',
-    'next room': 'rightArrow',
-    'previous room': 'leftArrow',
-    'room four': 'leftArrow',
-    'room two': 'rightArrow'
-  }
-
+    right: "rightArrow",
+    left: "leftArrow",
+    write: "rightArrow",
+    "next room": "rightArrow",
+    "previous room": "leftArrow",
+    "room four": "leftArrow",
+    "room two": "rightArrow",
+  };
 
   function clickImage(item) {
-    item = item.toLowerCase()
-    console.log('🧤 item', item);
-    if(clickableItems.includes(item)){
-      item = matchItemToClass[item]
-      document.getElementsByClassName(item)[0].click()
+    item = item.toLowerCase();
+    console.log("🧤 item", item);
+    if (clickableItems.includes(item)) {
+      item = matchItemToClass[item];
+      document.getElementsByClassName(item)[0].click();
     } else {
-      console.log('🧤 item', item);
-      alert(`it thinks you said ${item}, consider adding ${item} to your item list, and mapping that to the correct word/phrase. Remove this when finished testing`)
-  }
+      console.log("🧤 item", item);
+      alert(
+        `it thinks you said ${item}, consider adding ${item} to your item list, and mapping that to the correct word/phrase. Remove this when finished testing`
+      );
+    }
   }
 
   function goTo(page) {
-    console.log('🧤 what the api heard....', page);
+    console.log("🧤 what the api heard....", page);
 
-    if(pagePossibilities.includes(page)){
-      page = mapPageToLink[page]
-      document.getElementById(page).click()
+    if (pagePossibilities.includes(page)) {
+      page = mapPageToLink[page];
+      document.getElementById(page).click();
     } else {
-      alert(`it thinks you said ${page}, consider adding ${page} to your item list, and mapping that to the correct word/phrase. Remove this when finished testing`)
+      alert(
+        `it thinks you said ${page}, consider adding ${page} to your item list, and mapping that to the correct word/phrase. Remove this when finished testing`
+      );
     }
   }
-
 
   document.addEventListener("keydown", (event) => {
     if (event.code === "Space") {
       event.preventDefault();
-      if(event.repeat){return}
+      if (event.repeat) {
+        return;
+      }
       SpeechRecognition.startListening();
-      console.log('🧤 list');
-
+      console.log("🧤 list");
     }
   });
-
 
   document.addEventListener("keyup", (event) => {
     if (event.code === "Space") {
       event.preventDefault();
       SpeechRecognition.stopListening();
-      console.log('🧤 not');
+      console.log("🧤 not");
     }
   });
 
@@ -133,8 +158,8 @@ const SceneOne = () => {
 
   const storage = getStorage();
   // const caw = ref(storage, "caw.mp3");
-  const cawPath = "https://firebasestorage.googleapis.com/v0/b/spooky-scapes.appspot.com/o/caw.mp3?alt=media&token=cd4cc366-1a6b-47f6-912b-5b5eb21096f2/allow-cors";
-
+  const cawPath =
+    "https://firebasestorage.googleapis.com/v0/b/spooky-scapes.appspot.com/o/caw.mp3?alt=media&token=cd4cc366-1a6b-47f6-912b-5b5eb21096f2/allow-cors";
 
   const assetClicked = (e) => {
     setActive(false);
@@ -190,15 +215,18 @@ const SceneOne = () => {
       default:
         break;
     }
-    setActive(true)
-    setTimeout(function() {setActive(false)}, 15000)
-    return
-  }
+    setActive(true);
+    setTimeout(function () {
+      setActive(false);
+    }, 15000);
+    return;
+  };
 
   function playSound(sound) {
     var a = new Howl({
       src: [sound],
-      html5: true});
+      html5: true,
+    });
     a.play();
   }
 
@@ -209,7 +237,10 @@ const SceneOne = () => {
           src={boatPainting}
           className="boatPainting"
           alt="Oil painting of four sailboats"
-          onClick={(e) => {assetClicked(e); playSound(cawPath)}}
+          onClick={(e) => {
+            assetClicked(e);
+            playSound(cawPath);
+          }}
         />
       </div>
       <div>

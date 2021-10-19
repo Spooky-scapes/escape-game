@@ -24,6 +24,7 @@ const SceneThree = () => {
     const bool = JSON.parse(window.localStorage.getItem("hasCandyBucket"));
     if (bool) {
       window.localStorage.setItem("usedCandyBucket", true);
+      window.dispatchEvent(new Event("storage"));
     }
   };
   // voice cammand
@@ -160,6 +161,7 @@ const SceneThree = () => {
           narrationBox.innerHTML =
             "Thank you for you lovely gift. I found this at the bottom of your candy bucket. I hope you make it out of here alive... *witches laugh*";
           window.localStorage.setItem("hasKey", true);
+          window.dispatchEvent(new Event("storage"));
           break;
         }
         narrationBox.innerHTML = hasCandyBucket
