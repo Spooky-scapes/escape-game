@@ -139,7 +139,11 @@ const SceneTwo = () => {
       SpeechRecognition.startListening();
       console.log("🧤 list");
     }
-    if(event.code === "Enter") {
+    const pagina = window.location.href === 'http://localhost:3000/storage'|| window.location.href === 'https://spooky-scapes.netlify.app/storage'
+
+    // console.log('🧤 pagina', pagina);
+
+    if(event.code === "Enter" && pagina) {
       event.preventDefault();
       if (event.repeat){
         return
@@ -162,12 +166,15 @@ const SceneTwo = () => {
       console.log("🧤 not");
     }
 
-    if(event.code === "Enter"){
+    const pagina = window.location.href === 'http://localhost:3000/storage' || window.location.href === 'https://spooky-scapes.netlify.app/storage'
+    if(event.code === "Enter" && pagina){
       event.preventDefault()
+      console.log('🧤 window.location.href', window.location.href);
+
       if(!bool){
-        sceneTwoAudio.scene2FirstDescription.unload()
+        sceneTwoAudio.scene2FirstDescription.stop()
       } else{
-        sceneTwoAudio.scene2SecondDescription.unload()
+        sceneTwoAudio.scene2SecondDescription.stop()
       }
     }
   });
