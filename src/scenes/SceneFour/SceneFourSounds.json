@@ -1,0 +1,17 @@
+[
+  {"sceneFourDescription":"https://firebasestorage.googleapis.com/v0/b/spooky-scapes.appspot.com/o/Spooky%20Sounds%2FScene4%2FScene%20four%20desc.m4a?alt=media&token=2eb52792-d58d-43cf-9546-f6a53bc5f7d3/allow-cors"},
+  {"window":"https://firebasestorage.googleapis.com/v0/b/spooky-scapes.appspot.com/o/Spooky%20Sounds%2FScene4%2FAvenue%20four%20locked%20door.m4a?alt=media&token=e9f703a8-1a98-4d4d-9050-9d079dc596e8/allow-cors"},
+  {"cassette":"https://firebasestorage.googleapis.com/v0/b/spooky-scapes.appspot.com/o/Spooky%20Sounds%2FScene4%2FScene%20four%20cassette%20tape.m4a?alt=media&token=b83f0172-383b-4c83-ba42-b97767e9509d/allow-cors"},
+  {"lockedDoor":"https://firebasestorage.googleapis.com/v0/b/spooky-scapes.appspot.com/o/Spooky%20Sounds%2FScene4%2FScene%20four%20door.m4a?alt=media&token=b8bb72fe-c74d-4803-8ace-7ae086bca5e3/allow-cors"},
+  {"paintingDescription":"https://firebasestorage.googleapis.com/v0/b/spooky-scapes.appspot.com/o/Spooky%20Sounds%2FScene4%2FScene%20four%20painting%20desc.m4a?alt=media&token=66bd0eff-8835-4ef3-b6f4-41b51b11e4aa/allow-cors"},
+  {"dust":"https://firebasestorage.googleapis.com/v0/b/spooky-scapes.appspot.com/o/Spooky%20Sounds%2FScene4%2FScene%20four%20smells%20like%20dust.m4a?alt=media&token=01a30950-0eec-4227-9414-c369525d8a3a/allow-cors"},
+  {"didSomething":"https://firebasestorage.googleapis.com/v0/b/spooky-scapes.appspot.com/o/Spooky%20Sounds%2FScene4%2FScene%20four%20that%20did%20something.m4a?alt=media&token=fab8f0fb-4423-4900-82ea-31eb73f0b3b7/allow-cors"},
+  {"victory":"https://firebasestorage.googleapis.com/v0/b/spooky-scapes.appspot.com/o/Spooky%20Sounds%2FScene4%2FScene%20four%20victory%20message.m4a?alt=media&token=01401f17-ba04-4ede-bf32-96f5074c9f69/allow-cors"},
+  {"boneDogBarking":"https://firebasestorage.googleapis.com/v0/b/spooky-scapes.appspot.com/o/Scene%204%2FBonedogBarking.m4a?alt=media&token=fafc12c5-9afb-4358-943b-de6cd48b3d24/allow-cors"},
+  {"doorClicking":"https://firebasestorage.googleapis.com/v0/b/spooky-scapes.appspot.com/o/Scene%204%2Fdoor-clicking.mp3?alt=media&token=456f604a-cb46-4d94-8d3b-3d977a694799/allow-cors"},
+  {"doorSwinging":"https://firebasestorage.googleapis.com/v0/b/spooky-scapes.appspot.com/o/Scene%204%2Fdoor-swingin-open.mp3?alt=media&token=5edb8c79-984c-4952-a13b-37947e384226/allow-cors"},
+  {"matShuffling":"https://firebasestorage.googleapis.com/v0/b/spooky-scapes.appspot.com/o/Scene%204%2Fmat-shuffling.mp3?alt=media&token=9d2b2390-d782-475b-a8ee-21927f1656ba/allow-cors"},
+  {"windowRattling":"https://firebasestorage.googleapis.com/v0/b/spooky-scapes.appspot.com/o/Scene%204%2Fwindow-rattling.mp3?alt=media&token=ef44a750-4d72-456c-8b1f-170372b8b9f1/allow-cors"},
+  {"caw":"https://firebasestorage.googleapis.com/v0/b/spooky-scapes.appspot.com/o/caw.mp3?alt=media&token=cd4cc366-1a6b-47f6-912b-5b5eb21096f2/allow-cors"},
+  {"doorHandle":"https://firebasestorage.googleapis.com/v0/b/spooky-scapes.appspot.com/o/Scene%204%2Fdoor-handle.mp3?alt=media&token=ecc9b08b-4265-4bdb-b5f1-29cd2ed177ab/allow-cors"}
+]

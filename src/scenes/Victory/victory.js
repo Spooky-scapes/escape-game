@@ -6,7 +6,7 @@ const Victory = () => {
   return (
     <div className="victory">
       <h1 className="vic-title">Time to Trick or Treat!</h1>
-      <h2 className = 'playAgain' onClick = {() => {history.push('/')}}>Play Again</h2>
+      <h2 className = 'playAgainWin' onClick = {() => {history.push('/')}}>Play Again</h2>
     </div>
 
   )
