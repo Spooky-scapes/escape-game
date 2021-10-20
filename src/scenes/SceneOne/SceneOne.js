@@ -128,6 +128,7 @@ const SceneOne = () => {
   }
 
   document.addEventListener("keydown", (event) => {
+    const bool = JSON.parse(window.localStorage.getItem("usedCandyBucket"))
     if (event.code === "Space") {
       event.preventDefault();
       if (event.repeat) {
@@ -136,31 +137,48 @@ const SceneOne = () => {
       SpeechRecognition.startListening();
       console.log("🧤 list");
     }
+
+    const pagina1 = window.location.href === 'http://localhost:3000/parlor'|| window.location.href === 'https://spooky-scapes.netlify.app/parlor'
+    
+    if (event.code === "Enter" && pagina1) {
+      event.preventDefault();
+      if (event.repeat) {
+        return;
+      }
+
+      if (!bool) {
+        descriptions.scene1desc1.play();
+      } else {
+        descriptions.scene1desc2.play();
+      }
+    }
   });
 
   document.addEventListener("keyup", (event) => {
+    const bool = JSON.parse(window.localStorage.getItem("usedCandyBucket"))
     if (event.code === "Space") {
       event.preventDefault();
       SpeechRecognition.stopListening();
       console.log("🧤 not");
     }
+    const pagina1 = window.location.href === 'http://localhost:3000/parlor'|| window.location.href === 'https://spooky-scapes.netlify.app/parlor'
+    
+    if (event.code === "Enter" && pagina1) {
+      event.preventDefault();
+      if (!bool) {
+        descriptions.scene1desc1.stop();
+      } else {
+        descriptions.scene1desc2.stop()
+      }
+    }
   });
 
   const descriptions = {
-    scene1desc1: new Howl({
-      src: [s1sounds[0].sceneOneDescription],
-      html5: true,
-    }),
-    scene1desc2: new Howl({
-      src: [s1sounds[8].sceneOneDescription2],
-      html5: true,
-    }),
+    scene1desc1: new Howl({ src: [s1sounds[0].sceneOneDescription], html5: true }),
+    scene1desc2: new Howl({ src: [s1sounds[8].sceneOneDescription2], html5: true }),
     table: new Howl({ src: [s1sounds[1].sideTable], html5: true }),
     riddle: new Howl({ src: [s1sounds[2].riddle], html5: true }),
-    bookCaseWithDairy: new Howl({
-      src: [s1sounds[3].bookcaseWithDiary],
-      html5: true,
-    }),
+    bookCaseWithDairy: new Howl({ src: [s1sounds[3].bookcaseWithDiary], html5: true }),
     emptyBookcase: new Howl({ src: [s1sounds[4].emptyBookcase], html5: true }),
     fullBookcase: new Howl({ src: [s1sounds[5].fullBookcase], html5: true }),
     cassettePlayerEmpty: new Howl({
@@ -187,27 +205,6 @@ const SceneOne = () => {
     }
   }
 
-  document.addEventListener("keydown", (event) => {
-    if (event.code === "Enter") {
-      event.preventDefault();
-      if (event.repeat) {
-        return;
-      }
-      descriptions.scene1desc1.play();
-      console.log("return key");
-    }
-  });
-
-  document.addEventListener("keyup", (event) => {
-    if (event.code === "Enter") {
-      event.preventDefault();
-      if (event.repeat) {
-        return;
-      }
-      descriptions.scene1desc1.stop();
-      console.log("return key up");
-    }
-  });
 
   const invokeCasset = () => {
     const bool = JSON.parse(window.localStorage.getItem("hasCasset"));
@@ -375,9 +372,14 @@ const SceneOne = () => {
           onClick={(e) => assetClicked(e)}
         />
       </div>
-      <Link to="/entryway">
+      <Link to="/entryway" onClick={(e) => {
+              e.preventDefault()
+              console.log(playingAudio)
+              stopAllAudio()
+              history.push("/entryway")
+            }}>
         <div>
-          <img src={leftArrow} id="leftArrow" alt="ghost arrow pointing left" onClick={() => {stopAllAudio()}}/>
+          <img src={leftArrow} id="leftArrow" alt="ghost arrow pointing left"/>
         </div>
       </Link>
       <Link to="/storage" onClick={(e) => {
