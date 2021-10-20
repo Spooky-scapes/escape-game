@@ -19,7 +19,7 @@ import { Howl } from "howler";
 import s4sounds from "./SceneFourSounds.json";
 
 const SceneFour = () => {
-  const [setActive] = useState(false);
+  const [isActive, setActive] = useState(false);
   const history = useHistory();
   const commands = [
     {
