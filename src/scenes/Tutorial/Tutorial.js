@@ -9,11 +9,22 @@ const Tutorial = () => {
         html5: true
     })
 
+    let playingAudio
+
+    const audioControl = (specifiedSound) => {
+        playingAudio = specifiedSound
+        !specifiedSound.playing() ? specifiedSound.play() : specifiedSound.stop() 
+    }
+
+    const stopAllAudio = () => {
+        playingAudio.stop()
+    }
+
 
     return (
         <div>
-        <button type="button" id="playTutorial" onClick={ () => {if (!tutorial.playing()){tutorial.play()}}}>Play Tutorial</button>
-        <button type="button" id="pauseTutorial" onClick={ () => {tutorial.pause()}}>Pause Tutorial</button>
+        <button type="button" id="playTutorial" onClick={ () => {audioControl(tutorial)}}>Play Tutorial</button>
+        <button type="button" id="pauseTutorial" onClick={ () => {stopAllAudio()}}>Stop Tutorial</button>
         </div>
     )
 }
