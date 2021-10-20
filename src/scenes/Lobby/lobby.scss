@@ -59,3 +59,9 @@ $shadow: rgb(252, 178, 110);
 .playButton{
   @include optionButtons();
 }
+
+.tutorialButton{
+  @include optionButtons();
+  top: 65%;
+  left: 45%;
+}
