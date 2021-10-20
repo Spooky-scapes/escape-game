@@ -4,7 +4,7 @@ import "./sceneTwo.scss";
 import React, { useState } from "react";
 
 import closedCoffin from "../../assets/SceneTwo/closed-coffin.png";
-import openCoffin from '../../assets/SceneTwo/openCasket.png';
+import openCoffin from "../../assets/SceneTwo/openCasket.png";
 import stool from "../../assets/SceneTwo/stool-cabinet.png";
 import hole from "../../assets/SceneTwo/holeinwall.png";
 import wallCandle from "../../assets/SceneTwo/wall-candle.png";
@@ -26,7 +26,6 @@ import SpeechRecognition, {
 
 const SceneTwo = () => {
   const [isActive, setActive] = useState(false);
-  // const [openCoffin, setOpen] = useState(false);
 
   const commands = [
     {
@@ -184,9 +183,9 @@ const SceneTwo = () => {
     const bool = JSON.parse(window.localStorage.getItem("usedCasset"));
     if (bool) {
       window.localStorage.setItem("hasCandyBucket", true);
-      document.getElementsByClassName('coffin')[0].src = openCoffin
-      console.log('🧤 casket', casket);
-
+      window.dispatchEvent(new Event("storage"));
+      document.getElementsByClassName("coffin")[0].src = openCoffin;
+      console.log("🧤 casket", casket);
     }
   };
 

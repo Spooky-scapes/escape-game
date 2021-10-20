@@ -16,8 +16,9 @@ import s1sounds from "./sceneOneSounds.json";
 import { Link, useHistory } from "react-router-dom"
 import {Howl, Howler} from 'howler';
 import { getStorage, ref } from "firebase/storage";
-import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
-
+import SpeechRecognition, {
+  useSpeechRecognition,
+} from "react-speech-recognition";
 
 window.localStorage.setItem("hasCasset", false);
 window.localStorage.setItem("usedCasset", false);
@@ -35,109 +36,144 @@ const SceneOne = () => {
   const history = useHistory()
   const commands = [
     {
-      command: ['Click on *'],
-      callback: (item) => clickImage(item)
+      command: ["Click on *"],
+      callback: (item) => clickImage(item),
     },
     {
-      command: ['Go to *'],
-      callback: (page) => goTo(page)
-    }
-  ]
+      command: ["Go to *"],
+      callback: (page) => goTo(page),
+    },
+  ];
   useSpeechRecognition({ commands });
 
-  const clickableItems = ['empty bookcase','bookcase', 'empty bookshelf', 'bookshelf', 'boat painting', 'painting', 'end table', 'table','skull', 'crystal skull', 'full book case', 'full book shelf','cassette player','raven']
+  const clickableItems = [
+    "empty bookcase",
+    "bookcase",
+    "empty bookshelf",
+    "bookshelf",
+    "boat painting",
+    "painting",
+    "end table",
+    "table",
+    "skull",
+    "crystal skull",
+    "full book case",
+    "full book shelf",
+    "cassette player",
+    "raven",
+  ];
 
-  const pagePossibilities = ['right', 'left', 'next room', 'previous room', 'room two', 'room four', 'write']
+  const pagePossibilities = [
+    "right",
+    "left",
+    "next room",
+    "previous room",
+    "room two",
+    "room four",
+    "write",
+  ];
 
   const matchItemToClass = {
-    'empty bookcase': 'bookCase',
-    'bookcase': 'bookCase',
-    'empty bookshelf': 'bookCase',
-    'bookshelf' : 'bookCase',
-    'boat painting': 'boatPainting',
-    'painting': 'boatPainting',
-    'end table' : 'endTable',
-    'table': 'endTable',
-    'skull': 'crystal-skull',
-    'crystal skull': 'crystal-skull',
-    'full book case': 'full-bookshelf',
-    'full book shelf': 'full-bookshelf',
-    'cassette player': 'cassettePlayer',
-    'raven' : 'ravenClosed'
-  }
-
+    "empty bookcase": "bookCase",
+    bookcase: "bookCase",
+    "empty bookshelf": "bookCase",
+    bookshelf: "bookCase",
+    "boat painting": "boatPainting",
+    painting: "boatPainting",
+    "end table": "endTable",
+    table: "endTable",
+    skull: "crystal-skull",
+    "crystal skull": "crystal-skull",
+    "full book case": "full-bookshelf",
+    "full book shelf": "full-bookshelf",
+    "cassette player": "cassettePlayer",
+    raven: "ravenClosed",
+  };
 
   const mapPageToLink = {
-    right: 'rightArrow',
-    left: 'leftArrow',
-    write: 'rightArrow',
-    'next room': 'rightArrow',
-    'previous room': 'leftArrow',
-    'room four': 'leftArrow',
-    'room two': 'rightArrow'
-  }
-
+    right: "rightArrow",
+    left: "leftArrow",
+    write: "rightArrow",
+    "next room": "rightArrow",
+    "previous room": "leftArrow",
+    "room four": "leftArrow",
+    "room two": "rightArrow",
+  };
 
   function clickImage(item) {
-    item = item.toLowerCase()
-    console.log('🧤 item', item);
-    if(clickableItems.includes(item)){
-      item = matchItemToClass[item]
-      document.getElementsByClassName(item)[0].click()
+    item = item.toLowerCase();
+    console.log("🧤 item", item);
+    if (clickableItems.includes(item)) {
+      item = matchItemToClass[item];
+      document.getElementsByClassName(item)[0].click();
     } else {
-      console.log('🧤 item', item);
-      alert(`it thinks you said ${item}, consider adding ${item} to your item list, and mapping that to the correct word/phrase. Remove this when finished testing`)
-  }
+      console.log("🧤 item", item);
+      alert(
+        `it thinks you said ${item}, consider adding ${item} to your item list, and mapping that to the correct word/phrase. Remove this when finished testing`
+      );
+    }
   }
 
   function goTo(page) {
-    console.log('🧤 what the api heard....', page);
+    console.log("🧤 what the api heard....", page);
 
-    if(pagePossibilities.includes(page)){
-      page = mapPageToLink[page]
-      document.getElementById(page).click()
+    if (pagePossibilities.includes(page)) {
+      page = mapPageToLink[page];
+      document.getElementById(page).click();
     } else {
-      alert(`it thinks you said ${page}, consider adding ${page} to your item list, and mapping that to the correct word/phrase. Remove this when finished testing`)
+      alert(
+        `it thinks you said ${page}, consider adding ${page} to your item list, and mapping that to the correct word/phrase. Remove this when finished testing`
+      );
     }
   }
-
 
   document.addEventListener("keydown", (event) => {
     if (event.code === "Space") {
       event.preventDefault();
-      if(event.repeat){return}
+      if (event.repeat) {
+        return;
+      }
       SpeechRecognition.startListening();
-      console.log('🧤 list');
-
+      console.log("🧤 list");
     }
   });
-
 
   document.addEventListener("keyup", (event) => {
     if (event.code === "Space") {
       event.preventDefault();
       SpeechRecognition.stopListening();
-      console.log('🧤 not');
+      console.log("🧤 not");
     }
   });
 
-
   const descriptions = {
-    scene1desc1: new Howl({src: [s1sounds[0].sceneOneDescription], html5: true}),
-    scene1desc2: new Howl({src: [s1sounds[8].sceneOneDescription2], html5: true}),
-    table: new Howl({src: [s1sounds[1].sideTable], html5: true}),
-    riddle: new Howl({src: [s1sounds[2].riddle], html5: true}),
-    bookCaseWithDairy: new Howl({src: [s1sounds[3].bookcaseWithDiary], html5: true}),
-    emptyBookcase: new Howl({src: [s1sounds[4].emptyBookcase], html5: true}),
-    fullBookcase: new Howl({src: [s1sounds[5].fullBookcase], html5: true}),
-    cassettePlayerEmpty: new Howl({src: [s1sounds[6].cassettePlayerEmpty], html5: true}),
-    skull: new Howl({src: [s1sounds[7].skull], html5: true}),
-    diaryNoKey: new Howl({src: [s1sounds[9].diaryNoKey], html5: true}),
-    diaryMessage: new Howl({src: [s1sounds[10].diaryMessage], html5: true}),
-    paintingDesc1: new Howl({src: [s1sounds[11].paintingDesc1], html5: true}),
-    paintingDesc2: new Howl({src: [s1sounds[12].paintingDesc2], html5: true}),
-    caw: new Howl({src: [s1sounds[13].caw], html5: true})
-  }
+    scene1desc1: new Howl({
+      src: [s1sounds[0].sceneOneDescription],
+      html5: true,
+    }),
+    scene1desc2: new Howl({
+      src: [s1sounds[8].sceneOneDescription2],
+      html5: true,
+    }),
+    table: new Howl({ src: [s1sounds[1].sideTable], html5: true }),
+    riddle: new Howl({ src: [s1sounds[2].riddle], html5: true }),
+    bookCaseWithDairy: new Howl({
+      src: [s1sounds[3].bookcaseWithDiary],
+      html5: true,
+    }),
+    emptyBookcase: new Howl({ src: [s1sounds[4].emptyBookcase], html5: true }),
+    fullBookcase: new Howl({ src: [s1sounds[5].fullBookcase], html5: true }),
+    cassettePlayerEmpty: new Howl({
+      src: [s1sounds[6].cassettePlayerEmpty],
+      html5: true,
+    }),
+    skull: new Howl({ src: [s1sounds[7].skull], html5: true }),
+    diaryNoKey: new Howl({ src: [s1sounds[9].diaryNoKey], html5: true }),
+    diaryMessage: new Howl({ src: [s1sounds[10].diaryMessage], html5: true }),
+    paintingDesc1: new Howl({ src: [s1sounds[11].paintingDesc1], html5: true }),
+    paintingDesc2: new Howl({ src: [s1sounds[12].paintingDesc2], html5: true }),
+    caw: new Howl({ src: [s1sounds[13].caw], html5: true }),
+  };
 
 
   const audioControl = (specifiedSound) => {
@@ -154,18 +190,22 @@ const SceneOne = () => {
   document.addEventListener("keydown", (event) => {
     if (event.code === "Enter") {
       event.preventDefault();
-      if(event.repeat){return}
+      if (event.repeat) {
+        return;
+      }
       descriptions.scene1desc1.play();
-      console.log('return key');
+      console.log("return key");
     }
   });
 
   document.addEventListener("keyup", (event) => {
     if (event.code === "Enter") {
       event.preventDefault();
-      if(event.repeat){return}
+      if (event.repeat) {
+        return;
+      }
       descriptions.scene1desc1.stop();
-      console.log('return key up');
+      console.log("return key up");
     }
   });
 
@@ -176,7 +216,6 @@ const SceneOne = () => {
       window.localStorage.setItem("usedKey", true);
     }
   };
-
 
   const assetClicked = (e) => {
     setActive(false);
@@ -208,7 +247,8 @@ const SceneOne = () => {
       case "lockedDiary":
         let hasKey = JSON.parse(window.localStorage.getItem("hasKey"));
         if (hasKey) {
-          narrationBox.innerHTML = "The message written inside the diary: 'My time has run out, but perhaps it is not too late for you. Pay close attention to my message, and your escape shall be illuminated. Midnight Orb Overhead Nightly.'";
+          narrationBox.innerHTML =
+            "The message written inside the diary: 'My time has run out, but perhaps it is not too late for you. Pay close attention to my message, and your escape shall be illuminated. Midnight Orb Overhead Nightly.'";
           window.localStorage.setItem("usedKey", true);
           audioControl(descriptions.diaryMessage)
           break;
@@ -244,11 +284,12 @@ const SceneOne = () => {
       default:
         break;
     }
-    setActive(true)
-    setTimeout(function() {setActive(false)}, 15000)
-    return
-  }
-
+    setActive(true);
+    setTimeout(function () {
+      setActive(false);
+    }, 15000);
+    return;
+  };
 
   return (
     <div className="sceneOne">
