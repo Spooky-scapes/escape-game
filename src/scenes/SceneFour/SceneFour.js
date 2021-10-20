@@ -14,14 +14,12 @@ import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
 import React, { useState } from "react";
-import { timeoutCollection } from "time-events-manager";
 import { useHistory } from "react-router-dom";
-import { Howl, Howler } from "howler";
-import { getStorage, ref } from "firebase/storage";
+import { Howl } from "howler";
 import s4sounds from "./SceneFourSounds.json";
 
 const SceneFour = () => {
-  const [isActive, setActive] = useState(false);
+  const [setActive] = useState(false);
   const history = useHistory();
   const commands = [
     {
@@ -211,7 +209,7 @@ const SceneFour = () => {
           audioCues.doorSwinging.play();
           audioCues.victory.play();
           narrationBox.innerHTML =
-            "*door swinging open* You did what we couldn’t! Congratulations and happy Halloween!";
+            "*door swinging open* You did what we couldn’t! Congratulations and Happy Halloween!";
           setTimeout(() => {
             history.push("/victory");
           }, 13000);
@@ -220,7 +218,7 @@ const SceneFour = () => {
         audioCues.doorHandle.play();
         audioCues.lockedDoor.play();
         narrationBox.innerHTML =
-          "If only we could open it somehow...we could escape!";
+          "*racketing* If only we could open it somehow...we could escape!";
         break;
       case "moonPainting":
         let usedKey = JSON.parse(window.localStorage.getItem("usedKey"));

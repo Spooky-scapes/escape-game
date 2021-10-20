@@ -16,12 +16,13 @@ import Timer from "./components/Timer/Timer.js";
 import Tutorial from "./scenes/Tutorial/Tutorial";
 import { Route, Switch, BrowserRouter as Router } from "react-router-dom";
 
+
 function App() {
   return (
     <div className="App">
       {/* <Chat /> */}
       <Router>
-        {/* <Timer /> */}
+        <Timer />
         <Switch>
           <Route exact path="/" component={Lobby} />
           <Route exact path="/parlor" component={SceneOne} />
