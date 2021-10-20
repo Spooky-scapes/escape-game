@@ -340,6 +340,7 @@ const SceneThree = () => {
             className="arrowRight"
             src={arrowRight}
             alt="An arrow that looks ghostly"
+            onClick={() => stopAllAudio()}
           ></img>
         </div>
       </Link>
@@ -349,6 +350,7 @@ const SceneThree = () => {
             className="arrowLeft"
             src={arrowLeft}
             alt="An arrow that looks ghostly"
+            onClick={() => stopAllAudio()}
           ></img>
         </div>
       </Link>
