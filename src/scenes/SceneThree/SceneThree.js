@@ -14,12 +14,11 @@ import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
 import { useState } from "react";
+import sceneThreeSounds from "./SceneThreeSounds.json";
+import Howl from "howler";
 
 const SceneThree = () => {
   const [isActive, setActive] = useState(false);
-  const [haveCandy, setCandy] = useState(false);
-  const [usedCandy, setUsedCandy] = useState(false);
-  const [paintingHint, setPaintingHint] = useState(false);
   const hasBucket = () => {
     const bool = JSON.parse(window.localStorage.getItem("hasCandyBucket"));
     if (bool) {
@@ -27,6 +26,68 @@ const SceneThree = () => {
       window.dispatchEvent(new Event("storage"));
     }
   };
+
+  //audio for SceneThree
+
+  const sceneThreeAudio = {
+    sceneThreeDescription: new Howl({
+      src: [sceneThreeSounds[3].sceneThreeDesc],
+      html5: true,
+    }),
+    giveCandyToWitch: new Howl({
+      src: [sceneThreeSounds[0].giveCandyToWitch],
+      html5: true,
+    }),
+    lilyCauldronOne: new Howl({
+      src: [sceneThreeSounds[1].lilyCauldronOne],
+      html5: true,
+    }),
+    clock: new Howl({ src: [sceneThreeSounds[2].clock], html5: true }),
+    paintingOne: new Howl({
+      src: [sceneThreeSounds[4].paintingOne],
+      html5: true,
+    }),
+    paintingTwo: new Howl({
+      src: [sceneThreeSounds[5].paintingTwo],
+      html5: true,
+    }),
+    woodenspoon: new Howl({
+      src: [sceneThreeSounds[6].woodenSpoon],
+      html5: true,
+    }),
+    lilyCauldronTwo: new Howl({
+      src: [sceneThreeSounds[7].lilyCauldronTwo],
+      html5: true,
+    }),
+    talkToWitchFirst: new Howl({
+      src: [sceneThreeSounds[8].talkToWitchFirst],
+      html5: true,
+    }),
+    witchLine: new Howl({ src: [sceneThreeSounds[9].witchLine], html5: true }),
+  };
+
+  document.addEventListener("keydown", (event) => {
+    if (event.code === "Enter") {
+      event.preventDefault();
+      if (event.repeat) {
+        return;
+      }
+      sceneThreeAudio.sceneThreeDescription.play();
+      console.log("return key");
+    }
+  });
+
+  document.addEventListener("keyup", (event) => {
+    if (event.code === "Enter") {
+      event.preventDefault();
+      if (event.repeat) {
+        return;
+      }
+      sceneThreeAudio.sceneThreeDescription.stop();
+      console.log("return key up");
+    }
+  });
+
   // voice cammand
   const commands = [
     {
@@ -159,7 +220,7 @@ const SceneThree = () => {
         );
         if (usedCandyBucket) {
           narrationBox.innerHTML =
-            "Thank you for you lovely gift. I found this at the bottom of your candy bucket. I hope you make it out of here alive... *witches laugh*";
+            "Thank you for your lovely gift. I found this at the bottom of your candy bucket. I hope you make it out of here alive... *witches laugh*";
           window.localStorage.setItem("hasKey", true);
           window.dispatchEvent(new Event("storage"));
           break;
