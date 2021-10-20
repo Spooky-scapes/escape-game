@@ -30,10 +30,9 @@ const SceneThree = () => {
   };
 
   //audio for SceneThree
-
   const location =
-    window.location.href === "http://localhost:3000/storage" ||
-    window.location.href === "https://spooky-scapes.netlify.app/storage";
+    window.location.href === "http://localhost:3000/witchDen" ||
+    window.location.href === "https://spooky-scapes.netlify.app/witchDen";
 
   const sceneThreeAudio = {
     sceneThreeDescription: new Howl({
@@ -73,7 +72,8 @@ const SceneThree = () => {
   };
 
   document.addEventListener("keydown", (event) => {
-    if (event.code === "Enter") {
+    console.log(location);
+    if (event.code === "Enter" && location) {
       event.preventDefault();
       if (event.repeat) {
         return;
@@ -84,13 +84,9 @@ const SceneThree = () => {
   });
 
   document.addEventListener("keyup", (event) => {
-    if (event.code === "Enter") {
+    if (event.code === "Enter" && location) {
       event.preventDefault();
-      if (event.repeat) {
-        return;
-      }
       sceneThreeAudio.sceneThreeDescription.stop();
-      console.log("return key up");
     }
   });
 
@@ -217,15 +213,20 @@ const SceneThree = () => {
     const paintingClicked = e.target.id;
     const narrationBox = document.getElementById("narrationBox");
     narrationBox.innerHTML = "";
+    stopAllAudio();
     switch (clicked || paintingClicked) {
       case "woodenSpoon":
         narrationBox.innerHTML =
           "A wooden spoon, a witch’s favorite tool. Potion stirrer and wand! What more could a witch want?";
+        audioControl(sceneThreeAudio.woodenspoon);
         break;
       case "cauldron":
         let bool = JSON.parse(window.localStorage.getItem("usedCandyBucket"));
+        bool
+          ? audioControl(sceneThreeAudio.lilyCauldronTwo)
+          : audioControl(sceneThreeAudio.lilyCauldronOne);
         narrationBox.innerHTML = bool
-          ? "The small is rather pleasant now, sweet and spicy, with a hint of something citricy.” Lily: “I was making my famous candied chilis! Now scram you oversized crow!” *squack*"
+          ? "The smell is rather pleasant now, sweet and spicy, with a hint of something citricy.” Lily: “I was making my famous candied chilis! Now scram you oversized crow!” *squack*"
           : "Lily’s cauldron. It seems to be made out of cast iron with skull motifs on four sides of it. In the witch's pot is an unholy amount of chili peppers boiling. I am not sure what she is making, but it hurts to breathe it in.";
         break;
       case "witch":
@@ -240,26 +241,32 @@ const SceneThree = () => {
             "Thank you for your lovely gift. I found this at the bottom of your candy bucket. I hope you make it out of here alive... *witches laugh*";
           window.localStorage.setItem("hasKey", true);
           window.dispatchEvent(new Event("storage"));
+          audioControl(sceneThreeAudio.witchLine);
           break;
         }
+        hasCandyBucket
+          ? audioControl(sceneThreeAudio.giveCandyToWitch)
+          : audioControl(sceneThreeAudio.talkToWitchFirst);
         narrationBox.innerHTML = hasCandyBucket
           ? "Is that candy, for me? Thank you kindly. *shuffling sound and crinkle of wrappers* *witches cackle* *savions signature explosion sound* Come and drink some of this potion sweaty. I have a feeling that you will need this in order to get out of here."
-          : "Oh hello there deary. It appears you have also been stolen into the belly of this house monster. Child, I am missing something to counteract the spiciness of my brew here and I was wondering if you could help me?";
+          : "Oh hello there deary. It appears you have also been stolen into the belly of this house monster. Child, I am missing something to counteract the spiciness of my brew here and I was wondering if you could help and old lady out?";
         break;
       case "grandFatherClock":
         narrationBox.innerHTML =
           "An old grandfather clock that has stopped working ages ago. It’s beautiful smooth dark wood has been kept in decent shape. It’s a shame that we are the only ones who get to enjoy this.";
+        audioControl(sceneThreeAudio.clock);
         break;
       case "harvestPainting":
         let usedKey = JSON.parse(window.localStorage.getItem("usedKey"));
         if (usedKey) {
           narrationBox.innerHTML =
             "The clouds do cast a shadow, but the painting is set during the day.";
+          audioControl(sceneThreeAudio.paintingTwo);
           break;
         }
-        narrationBox.innerHTML = usedKey
-          ? "Hmmm… I am not sure that is right, there aren’t any orbs in this painting."
-          : "This painting depicts three women harvesting golden wheat on a hot fall day. A fluffy cloud looms in the distance foreshadowing a muddy week ahead.";
+        narrationBox.innerHTML =
+          "This painting depicts three women harvesting golden wheat on a hot fall day. A fluffy cloud looms in the distance foreshadowing a muddy week ahead.";
+        audioControl(sceneThreeAudio.paintingOne);
         break;
 
       default:
