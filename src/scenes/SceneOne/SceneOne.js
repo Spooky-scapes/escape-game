@@ -28,7 +28,7 @@ window.localStorage.setItem("hasCandyBucket", false);
 window.localStorage.setItem("usedCandyBucket", false);
 window.localStorage.setItem("hasKey", false);
 window.localStorage.setItem("usedKey", false);
-window.localStorage.setItem("foundPainting", true);
+window.localStorage.setItem("foundPainting", false);
 
 // DEFINE GLOBAL VARIABLE TO IDENTIFY WHICH AUDIO IS CURRENTLY PLAYING
 let playingAudio = "none"
@@ -210,7 +210,7 @@ const SceneOne = () => {
 
   const audioControl = (specifiedSound) => {
       playingAudio = specifiedSound
-      !specifiedSound.playing() ? specifiedSound.play() : specifiedSound.stop() 
+      !specifiedSound.playing() ? specifiedSound.play() : specifiedSound.stop()
   }
 
   const stopAllAudio = () => {
@@ -317,7 +317,7 @@ const SceneOne = () => {
           src={bookCase}
           className="bookCase"
           alt="large wooden bookcase that is empty"
-          onClick={(e) => {assetClicked(e); 
+          onClick={(e) => {assetClicked(e);
             let isDiary = JSON.parse(window.localStorage.getItem("usedCandyBucket"));
             if(isDiary){
               audioControl(descriptions.bookCaseWithDairy)
