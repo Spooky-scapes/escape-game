@@ -30,10 +30,7 @@ const SceneThree = () => {
   };
 
   //audio for SceneThree
-
-  const location =
-    window.location.href === "http://localhost:3000/storage" ||
-    window.location.href === "https://spooky-scapes.netlify.app/storage";
+  const location = window.location.href === "http://localhost:3000/witchDen";
 
   const sceneThreeAudio = {
     sceneThreeDescription: new Howl({
@@ -73,7 +70,8 @@ const SceneThree = () => {
   };
 
   document.addEventListener("keydown", (event) => {
-    if (event.code === "Enter") {
+    console.log(location);
+    if (event.code === "Enter" && location) {
       event.preventDefault();
       if (event.repeat) {
         return;
