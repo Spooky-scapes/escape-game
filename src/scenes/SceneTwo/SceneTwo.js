@@ -377,22 +377,12 @@ const stopAllAudio = () => {
           className={isActive ? "coffin-text-active" : "coffin-text"}
         ></p>
       </div>
-      <Link to="/parlor" onClick={(e) => {
-              e.preventDefault()
-              console.log(playingAudio)
-              stopAllAudio()
-              history.push("/parlor")
-            }}>
+      <Link to="/parlor" >
         <div>
           <img src={leftArrow} id="leftArrow" onClick={() => stopAllAudio()} alt="ghost arrow pointing left" />
         </div>
       </Link>
-      <Link to="/witchDen" onClick={(e) => {
-              e.preventDefault()
-              console.log(playingAudio)
-              stopAllAudio()
-              history.push("/witchDen")
-            }}>
+      <Link to="/witchDen">
         <div>
           <img
             src={rightArrow}
