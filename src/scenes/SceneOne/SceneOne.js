@@ -138,9 +138,9 @@ const SceneOne = () => {
       console.log("🧤 list");
     }
 
-    const pagina = window.location.href === 'http://localhost:3000/parlor'|| window.location.href === 'https://spooky-scapes.netlify.app/parlor'
+    const pagina1 = window.location.href === 'http://localhost:3000/parlor'|| window.location.href === 'https://spooky-scapes.netlify.app/parlor'
     
-    if (event.code === "Enter" && pagina) {
+    if (event.code === "Enter" && pagina1) {
       event.preventDefault();
       if (event.repeat) {
         return;
@@ -161,9 +161,9 @@ const SceneOne = () => {
       SpeechRecognition.stopListening();
       console.log("🧤 not");
     }
-    const pagina = window.location.href === 'http://localhost:3000/parlor'|| window.location.href === 'https://spooky-scapes.netlify.app/parlor'
+    const pagina1 = window.location.href === 'http://localhost:3000/parlor'|| window.location.href === 'https://spooky-scapes.netlify.app/parlor'
     
-    if (event.code === "Enter" && pagina) {
+    if (event.code === "Enter" && pagina1) {
       event.preventDefault();
       if (!bool) {
         descriptions.scene1desc1.stop();
