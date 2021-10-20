@@ -212,10 +212,9 @@ const SceneTwo = () => {
           : "A large coffin, the lid is heavy, you wonder what may be inside of it, but you’re too afraid to open it yourself.";
         break;
       case "cowPainting":
-        // sceneTwoAudio.cowPaintingDesc.play()
-
         let usedKey = JSON.parse(window.localStorage.getItem("usedKey"));
         if (usedKey) {
+          audioControl(sceneTwoAudio.cowPaintingDesc2)
           narrationBox.innerHTML =
             "It is getting close to night, but not really.";
           break;
@@ -281,7 +280,9 @@ const SceneTwo = () => {
 
     cowPaintingDesc: new Howl({src: [s2Sounds[7].cowPaintingDesc], html5: true}),
 
-    oldChairDesc: new Howl({src: [s2Sounds[8].oldChairDesc], html5:true})
+    oldChairDesc: new Howl({src: [s2Sounds[8].oldChairDesc], html5:true}),
+
+    cowPaintingDesc2: new Howl({src: [s2Sounds[9].cowPaintingDesc2], html5:true})
 
   }
   const audioControl = (specifiedSound) => {
