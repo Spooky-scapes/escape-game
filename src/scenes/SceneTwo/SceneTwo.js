@@ -13,9 +13,10 @@ import savion from "../../assets/ravenClosedFIT.png";
 import cowPainting from "../../assets/SceneTwo/cow-painting.png";
 import leftArrow from "../../assets/ghostArrowLeft.png";
 import rightArrow from "../../assets/ghostArrowRight.png";
-import s2Sounds from "./sceneTwoSounds.json"
+import s2Sounds from "./sceneTwoSounds.json";
+// import { playingAudio } from "../SceneOne/SceneOne";
 
-import { Link, Redirect } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import {Howl, Howler} from 'howler'
 import { timeoutCollection } from "time-events-manager";
 
@@ -23,8 +24,12 @@ import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
 
+
+let playingAudio = "none"
+
 const SceneTwo = () => {
   const [isActive, setActive] = useState(false);
+  const history = useHistory()
 
   const commands = [
     {
@@ -196,48 +201,56 @@ const SceneTwo = () => {
 
     const narrationBox = document.getElementById("narrationBox");
     narrationBox.innerHTML = "";
+    stopAllAudio()
 
     switch (clicked) {
       case "coffin":
         const bool = JSON.parse(window.localStorage.getItem("usedCasset"));
-        bool ? sceneTwoAudio.openCoffinDesc.play():sceneTwoAudio.closedCoffinDesc.play()
+        bool ? audioControl(sceneTwoAudio.openCoffinDesc): audioControl(sceneTwoAudio.closedCoffinDesc)
         narrationBox.innerHTML = bool
           ? "A large coffin, it’s open but there isn’t anyone in it. The pungent smell emanating from it fills the room."
           : "A large coffin, the lid is heavy, you wonder what may be inside of it, but you’re too afraid to open it yourself.";
         break;
       case "cowPainting":
-        sceneTwoAudio.cowPaintingDesc.play()
+        // sceneTwoAudio.cowPaintingDesc.play()
+
         let usedKey = JSON.parse(window.localStorage.getItem("usedKey"));
         if (usedKey) {
           narrationBox.innerHTML =
             "It is getting close to night, but not really.";
           break;
         }
+        audioControl(sceneTwoAudio.cowPaintingDesc)
         narrationBox.innerHTML =
           "A painting of a cow, what a strange painting to own.";
         break;
       case "stoolCabinet":
-        sceneTwoAudio.stoolCabinetDesc.play()
+        // sceneTwoAudio.stoolCabinetDesc.play()
+        audioControl(sceneTwoAudio.stoolCabinetDesc)
         narrationBox.innerHTML =
           "An old worn down stool cabinet that doesn’t open.";
         break;
       case "oldChair":
-        sceneTwoAudio.oldChairDesc.play()
+        // sceneTwoAudio.oldChairDesc.play()
+        audioControl(sceneTwoAudio.oldChairDesc)
         narrationBox.innerHTML =
           "An old worn down chair, it doesn’t look sturdy enough to sit on.";
         break;
       case "holeInWall":
-        sceneTwoAudio.holeInWallDesc.play()
+        // sceneTwoAudio.holeInWallDesc.play()
+        audioControl(sceneTwoAudio.holeInWallDesc)
         narrationBox.innerHTML =
           "The old purple wallpaper has a huge hole in it, there doesn’t seem to be anything behind that wallpaper but darkness";
         break;
       case "rightCandle":
-        sceneTwoAudio.candles.play()
+        // sceneTwoAudio.candles.play()
+        audioControl(sceneTwoAudio.candles)
         narrationBox.innerHTML =
           "A wall candle, there’s another one on the opposite side of the room. The candle is lit but who lit them?";
         break;
       case "leftCandle":
-        sceneTwoAudio.candles.play()
+        // sceneTwoAudio.candles.play()
+        audioControl(sceneTwoAudio.candles)
         narrationBox.innerHTML =
           "A wall candle, there’s another one on the opposite side of the room. The candle is lit but who lit them?";
         break;
@@ -271,6 +284,16 @@ const SceneTwo = () => {
     oldChairDesc: new Howl({src: [s2Sounds[8].oldChairDesc], html5:true})
 
   }
+  const audioControl = (specifiedSound) => {
+    playingAudio = specifiedSound
+    !specifiedSound.playing() ? specifiedSound.play() : specifiedSound.stop()
+}
+
+const stopAllAudio = () => {
+  if(playingAudio !== "none"){
+    playingAudio.stop()
+  }
+}
 
   return (
     <div className="sceneTwo">
@@ -347,17 +370,28 @@ const SceneTwo = () => {
           className={isActive ? "coffin-text-active" : "coffin-text"}
         ></p>
       </div>
-      <Link to="/parlor">
+      <Link to="/parlor" onClick={(e) => {
+              e.preventDefault()
+              console.log(playingAudio)
+              stopAllAudio()
+              history.push("/parlor")
+            }}>
         <div>
-          <img src={leftArrow} id="leftArrow" alt="ghost arrow pointing left" />
+          <img src={leftArrow} id="leftArrow" onClick={() => stopAllAudio()} alt="ghost arrow pointing left" />
         </div>
       </Link>
-      <Link to="/witchDen">
+      <Link to="/witchDen" onClick={(e) => {
+              e.preventDefault()
+              console.log(playingAudio)
+              stopAllAudio()
+              history.push("/witchDen")
+            }}>
         <div>
           <img
             src={rightArrow}
             id="rightArrow"
             alt="ghost arrow pointing right"
+            onClick={() => stopAllAudio()}
           />
         </div>
       </Link>
