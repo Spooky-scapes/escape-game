@@ -15,7 +15,9 @@ import SpeechRecognition, {
 } from "react-speech-recognition";
 import { useState } from "react";
 import sceneThreeSounds from "./SceneThreeSounds.json";
-import Howl from "howler";
+import { Howl } from "howler";
+
+let playingAudio = "none";
 
 const SceneThree = () => {
   const [isActive, setActive] = useState(false);
@@ -28,6 +30,10 @@ const SceneThree = () => {
   };
 
   //audio for SceneThree
+
+  const location =
+    window.location.href === "http://localhost:3000/storage" ||
+    window.location.href === "https://spooky-scapes.netlify.app/storage";
 
   const sceneThreeAudio = {
     sceneThreeDescription: new Howl({
@@ -87,6 +93,17 @@ const SceneThree = () => {
       console.log("return key up");
     }
   });
+
+  const audioControl = (specifiedSound) => {
+    playingAudio = specifiedSound;
+    !specifiedSound.playing() ? specifiedSound.play() : specifiedSound.stop();
+  };
+
+  const stopAllAudio = () => {
+    if (playingAudio !== "none") {
+      playingAudio.stop();
+    }
+  };
 
   // voice cammand
   const commands = [
