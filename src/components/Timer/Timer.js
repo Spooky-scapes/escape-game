@@ -29,9 +29,11 @@ const Timer = () => {
     clearInterval(startTimer)
   };
 
-    return <div className = 'timerContainer'>
+    return  (
+    <div className = 'timerContainer'>
       <p id="timer"> 15:00</p>
-      </div>
+    </div>
+      )
 };
 
 export default Timer;
