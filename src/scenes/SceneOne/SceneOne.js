@@ -405,4 +405,3 @@ const SceneOne = () => {
 };
 
 export default SceneOne;
-// export { playingAudio };
