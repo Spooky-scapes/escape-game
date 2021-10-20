@@ -1,13 +1,17 @@
 import "./Timer.scss";
-import {useHistory} from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
+
+let interval;
 
 const Timer = () => {
-  const history = useHistory()
+  const history = useHistory();
+  const location = useLocation();
+
   const startTimer = (duration, display) => {
     let timer = duration,
       minutes,
       seconds;
-    setInterval(function () {
+    interval = setInterval(function () {
       minutes = parseInt(timer / 60, 10);
       seconds = parseInt(timer % 60, 10);
       minutes = minutes < 10 ? "0" + minutes : minutes;
@@ -15,25 +19,32 @@ const Timer = () => {
       display.textContent = minutes + ":" + seconds;
       if (timer > 0) timer--;
       else {
-        history.push('/youdied')
+        clearInterval(interval)
+        document.getElementById("timer").id = "invisible";
+        interval = undefined;
+        history.push("/youdied");
       }
     }, 1000);
   };
 
-  window.onload = () => {
-    const fifteenMinutes = 60 * 15;
-    let display = document.getElementById("timer");
-    if (display){
-      startTimer(fifteenMinutes, display);
-    }
-    clearInterval(startTimer)
-  };
+  if (location.pathname === "/victory") {
+    clearInterval(interval);
+    document.getElementById("timer").id = "invisible";
+    interval = undefined;
+  }
 
-    return  (
-    <div className = 'timerContainer'>
-      <p id="timer"> 15:00</p>
+  if (location.pathname === "/parlor" && !interval) {
+    const fifteenMinutes = 15 * 60;
+    document.getElementById("invisible").id = "timer";
+    let display = document.getElementById("timer");
+    startTimer(fifteenMinutes, display);
+  }
+
+  return (
+    <div className="timerContainer">
+      <p id="invisible"> 15:00</p>
     </div>
-      )
+  );
 };
 
 export default Timer;
