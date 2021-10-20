@@ -1,3 +1,4 @@
+// IMPORT REACT, ALL ASSETS FOR SCENE ONE, CSS, SOUNDS, AND ANY OTHER ITEMS
 import React, { useState } from "react";
 import boatPainting from "../../assets/SceneOne/boat-painting.png";
 import bookCase from "../../assets/SceneOne/empty-bookcase.jpeg";
@@ -20,6 +21,7 @@ import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
 
+// SCENE 1 IS RESPONSIBLE FOR SETTING THE INITIAL LOCAL STORAGE
 window.localStorage.setItem("hasCasset", false);
 window.localStorage.setItem("usedCasset", false);
 window.localStorage.setItem("hasCandyBucket", false);
@@ -28,12 +30,17 @@ window.localStorage.setItem("hasKey", false);
 window.localStorage.setItem("usedKey", false);
 window.localStorage.setItem("foundPainting", true);
 
+// DEFINE GLOBAL VARIABLE TO IDENTIFY WHICH AUDIO IS CURRENTLY PLAYING
 let playingAudio = "none"
 
+// DEFINE FUNCTIONAL COMPONENT
 const SceneOne = () => {
+  // SET STATES NEEDED FOR SCENE TO RUN
   const [isActive, setActive] = useState(false);
   const [hiddenDiary, setHidden] = useState(true);
   const history = useHistory()
+  
+  // THE COMMANDS ARRAY DEFINES THE TYPES OF VOICE COMMANDS THAT CAN BE GIVEN
   const commands = [
     {
       command: ["Click on *"],
@@ -44,8 +51,13 @@ const SceneOne = () => {
       callback: (page) => goTo(page),
     },
   ];
+
+  // THIS TELLS SPEECH RECOGNITION TO USE THE COMMANDS DEFINED ABOVE
   useSpeechRecognition({ commands });
 
+  // DEFINE ALL POSSIBLE VARIATIONS OF WHAT THE SPEECH TO TEXT MAY HEAR
+  // FOR EXAMPLE, "COFFIN" MAY SOUND LIKE "COFFEE" SO INCLUDE BOTH IN THE ARRAY.
+  // CLICKABLE ITEMS WILL MATCH WITH THE "CLICK ON *" COMMANDS
   const clickableItems = [
     "empty bookcase",
     "bookcase",
@@ -63,6 +75,7 @@ const SceneOne = () => {
     "raven",
   ];
 
+  // PAGE POSSIBILITIES WILL MATCH WITH THE "GO TO *" COMMANDS
   const pagePossibilities = [
     "right",
     "left",
@@ -73,6 +86,7 @@ const SceneOne = () => {
     "write",
   ];
 
+  // THIS OBJECT MATCHES WHAT THE SPEECH RECOGNITION HEARD TO AN ACTUAL CLASS IN SCENE ONE
   const matchItemToClass = {
     "empty bookcase": "bookCase",
     bookcase: "bookCase",
@@ -90,6 +104,7 @@ const SceneOne = () => {
     raven: "ravenClosed",
   };
 
+  // THIS OBJECT MATCHES WHAT THE SPEECH RECOGNITION HEARD TO EITHER THE LEFT ARROW OR THE RIGHT ARROW
   const mapPageToLink = {
     right: "rightArrow",
     left: "leftArrow",
@@ -100,14 +115,13 @@ const SceneOne = () => {
     "room two": "rightArrow",
   };
 
+  // THIS FUNCTION TAKES THE SPEECH TO TEXT AND CLICKS ON THE CORRELATED ITEM
   function clickImage(item) {
     item = item.toLowerCase();
-    console.log("🧤 item", item);
     if (clickableItems.includes(item)) {
       item = matchItemToClass[item];
       document.getElementsByClassName(item)[0].click();
     } else {
-      console.log("🧤 item", item);
       alert(
         `it thinks you said ${item}, consider adding ${item} to your item list, and mapping that to the correct word/phrase. Remove this when finished testing`
       );
@@ -405,6 +419,4 @@ const SceneOne = () => {
     </div>
   );
 };
-
 export default SceneOne;
-// export { playingAudio };
