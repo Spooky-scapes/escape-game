@@ -13,7 +13,8 @@ import savion from "../../assets/ravenClosedFIT.png";
 import cowPainting from "../../assets/SceneTwo/cow-painting.png";
 import leftArrow from "../../assets/ghostArrowLeft.png";
 import rightArrow from "../../assets/ghostArrowRight.png";
-import s2Sounds from "./sceneTwoSounds.json"
+import s2Sounds from "./sceneTwoSounds.json";
+// import { playingAudio } from "../SceneOne/SceneOne";
 
 import { Link, Redirect } from "react-router-dom";
 import {Howl, Howler} from 'howler'

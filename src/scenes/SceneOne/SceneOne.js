@@ -13,7 +13,7 @@ import "./sceneone.scss";
 import "../../main.scss";
 import "../../App.scss";
 import s1sounds from "./sceneOneSounds.json";
-import { Link } from "react-router-dom"
+import { Link, useHistory } from "react-router-dom"
 import {Howl, Howler} from 'howler';
 import { getStorage, ref } from "firebase/storage";
 import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
@@ -27,10 +27,12 @@ window.localStorage.setItem("hasKey", false);
 window.localStorage.setItem("usedKey", false);
 window.localStorage.setItem("foundPainting", false);
 
+let playingAudio = "none"
+
 const SceneOne = () => {
   const [isActive, setActive] = useState(false);
   const [hiddenDiary, setHidden] = useState(true);
-
+  const history = useHistory()
   const commands = [
     {
       command: ['Click on *'],
@@ -137,6 +139,18 @@ const SceneOne = () => {
     caw: new Howl({src: [s1sounds[13].caw], html5: true})
   }
 
+
+  const audioControl = (specifiedSound) => {
+      playingAudio = specifiedSound
+      !specifiedSound.playing() ? specifiedSound.play() : specifiedSound.stop() 
+  }
+
+  const stopAllAudio = () => {
+    if(playingAudio !== "none"){
+      playingAudio.stop()
+    }
+  }
+
   document.addEventListener("keydown", (event) => {
     if (event.code === "Enter") {
       event.preventDefault();
@@ -170,20 +184,21 @@ const SceneOne = () => {
     const narrationBox = document.getElementById("narrationBox");
     narrationBox.innerHTML = "";
 
+    stopAllAudio()
+
     switch (clicked) {
       case "boatPainting":
         let usedKey = JSON.parse(window.localStorage.getItem("usedKey"));
         if (usedKey) {
           narrationBox.innerHTML =
             "It is a lovely painting, but I don't see any orbs in it.";
-          if(!descriptions.paintingDesc2.playing()){
-              descriptions.paintingDesc2.play();
-              console.log("playing desc2")
-            }
+          audioControl(descriptions.paintingDesc2)
+          console.log("playing desc2")
           break;
         }
         narrationBox.innerHTML = "What a lovely old painting.";
-        if(!descriptions.paintingDesc1.playing()){descriptions.paintingDesc1.play(); console.log('playing desc1')}
+        audioControl(descriptions.paintingDesc1);
+        console.log('playing desc1')
         break;
       case "bookCase":
         narrationBox.innerHTML = hiddenDiary
@@ -195,25 +210,25 @@ const SceneOne = () => {
         if (hasKey) {
           narrationBox.innerHTML = "The message written inside the diary: 'My time has run out, but perhaps it is not too late for you. Pay close attention to my message, and your escape shall be illuminated. Midnight Orb Overhead Nightly.'";
           window.localStorage.setItem("usedKey", true);
-          if(!descriptions.diaryMessage.playing()){descriptions.diaryMessage.play()}
+          audioControl(descriptions.diaryMessage)
           break;
         }
         narrationBox.innerHTML =
           "The diary is locked. Is there something in the room that can unlock it?";
-          if(!descriptions.diaryNoKey.playing()){descriptions.diaryNoKey.play()};
+          audioControl(descriptions.diaryNoKey);
         break;
       case "endTable":
         narrationBox.innerHTML = "Drat, nothing under here.";
-        if(!descriptions.table.playing()){descriptions.table.play()}
+        audioControl(descriptions.table)
         break;
       case "full-bookshelf":
         narrationBox.innerHTML = "There may be something useful in here.";
-        if(!descriptions.fullBookcase.playing()){descriptions.fullBookcase.play()}
+        audioControl(descriptions.fullBookcase)
         break;
       case "crystal-skull":
         narrationBox.innerHTML =
           "I sure am glad that’s not my skull on the table.";
-          if(!descriptions.skull.playing()){descriptions.skull.play()};
+          audioControl(descriptions.skull)
         break;
       case "cassettePlayer":
         narrationBox.innerHTML = JSON.parse(
@@ -224,7 +239,7 @@ const SceneOne = () => {
         break;
       case "ravenClosed":
         narrationBox.innerHTML = "Hi, I am Savion the Raven. I'm watching you.";
-        if(!descriptions.caw.playing()){descriptions.caw.play()};
+        audioControl(descriptions.caw)
         break;
       default:
         break;
@@ -253,11 +268,10 @@ const SceneOne = () => {
           onClick={(e) => {assetClicked(e); 
             let isDiary = JSON.parse(window.localStorage.getItem("usedCandyBucket"));
             if(isDiary){
-              if(!descriptions.bookCaseWithDairy.playing()){
-                descriptions.bookCaseWithDairy.play()
-              }
+              audioControl(descriptions.bookCaseWithDairy)
             } else {
-            if(!descriptions.emptyBookcase.playing()){descriptions.emptyBookcase.play()}}}}
+              audioControl(descriptions.emptyBookcase)
+           }}}
         />
       </div>
       <div>
@@ -305,13 +319,9 @@ const SceneOne = () => {
             invokeCasset();
             let hasCasset = JSON.parse(window.localStorage.getItem("hasCasset"));
             if(hasCasset){
-              if(!descriptions.riddle.playing()){
-                descriptions.riddle.play()
-              }
+              audioControl(descriptions.riddle)
             } else {
-              if(!descriptions.cassettePlayerEmpty.playing()){
-                descriptions.cassettePlayerEmpty.play()
-              }
+              audioControl(descriptions.cassettePlayerEmpty)
             }
           }}
         />
@@ -326,10 +336,15 @@ const SceneOne = () => {
       </div>
       <Link to="/entryway">
         <div>
-          <img src={leftArrow} id="leftArrow" alt="ghost arrow pointing left" />
+          <img src={leftArrow} id="leftArrow" alt="ghost arrow pointing left" onClick={() => {stopAllAudio()}}/>
         </div>
       </Link>
-      <Link to="/storage">
+      <Link to="/storage" onClick={(e) => {
+              e.preventDefault()
+              console.log(playingAudio)
+              stopAllAudio()
+              history.push("/storage")
+            }}>
         <div>
           <img
             src={rightArrow}
@@ -349,3 +364,4 @@ const SceneOne = () => {
 };
 
 export default SceneOne;
+// export { playingAudio };
