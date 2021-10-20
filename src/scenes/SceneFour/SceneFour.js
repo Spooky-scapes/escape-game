@@ -18,8 +18,10 @@ import { useHistory } from "react-router-dom";
 import { Howl } from "howler";
 import s4sounds from "./SceneFourSounds.json";
 
+let playingAudio = "none";
+
 const SceneFour = () => {
-  const [setActive] = useState(false);
+  const [isActive, setActive] = useState(false);
   const history = useHistory();
   const commands = [
     {
@@ -108,15 +110,17 @@ const SceneFour = () => {
       event.preventDefault();
       SpeechRecognition.startListening();
     }
-    const pagina = window.location.href === 'http://localhost:3000/entryway'|| window.location.href === 'https://spooky-scapes.netlify.app/entryway'
-    if(event.code === "Enter" && pagina) {
+    const pagina =
+      window.location.href === "http://localhost:3000/entryway" ||
+      window.location.href === "https://spooky-scapes.netlify.app/entryway";
+    if (event.code === "Enter" && pagina) {
       event.preventDefault();
-      if (event.repeat){
-        return
+      if (event.repeat) {
+        return;
       } else {
         audioCues.sceneFourDescription.play();
       }
-  }
+    }
   });
 
   document.addEventListener("keyup", (event) => {
@@ -124,9 +128,11 @@ const SceneFour = () => {
       event.preventDefault();
       SpeechRecognition.stopListening();
     }
-    const pagina = window.location.href === 'http://localhost:3000/entryway' || window.location.href === 'https://spooky-scapes.netlify.app/entryway'
-    if(event.code === "Enter" && pagina){
-      event.preventDefault()
+    const pagina =
+      window.location.href === "http://localhost:3000/entryway" ||
+      window.location.href === "https://spooky-scapes.netlify.app/entryway";
+    if (event.code === "Enter" && pagina) {
+      event.preventDefault();
       audioCues.sceneFourDescription.stop();
     }
   });
@@ -195,19 +201,28 @@ const SceneFour = () => {
       html5: true,
     }),
   };
+  const audioControl = (specifiedSound) => {
+    playingAudio = specifiedSound;
+    !specifiedSound.playing() ? specifiedSound.play() : specifiedSound.stop();
+  };
 
+  const stopAllAudio = () => {
+    if (playingAudio !== "none") {
+      playingAudio.stop();
+    }
+  };
   const assetClicked = (e) => {
     setActive(false);
     const clicked = e.target.className;
     const narrationBox = document.getElementById("narrationBox");
     narrationBox.innerHTML = "";
-
+    stopAllAudio();
     switch (clicked) {
       case "door":
         let found = JSON.parse(window.localStorage.getItem("foundPainting"));
         if (found) {
-          audioCues.doorSwinging.play();
-          audioCues.victory.play();
+          audioControl(audioCues.doorSwinging);
+          audioControl(audioCues.victory);
           narrationBox.innerHTML =
             "*door swinging open* You did what we couldn’t! Congratulations and Happy Halloween!";
           setTimeout(() => {
@@ -215,48 +230,48 @@ const SceneFour = () => {
           }, 13000);
           break;
         }
-        audioCues.doorHandle.play();
-        audioCues.lockedDoor.play();
+        audioControl(audioCues.doorHandle);
+        audioControl(audioCues.lockedDoor);
         narrationBox.innerHTML =
           "*racketing* If only we could open it somehow...we could escape!";
         break;
       case "moonPainting":
         let usedKey = JSON.parse(window.localStorage.getItem("usedKey"));
         if (usedKey) {
-          audioCues.doorClicking.play();
-          audioCues.didSomething.play();
+          audioControl(audioCues.doorClicking);
+          audioControl(audioCues.didSomething);
           narrationBox.innerHTML = " *click* That did something!";
           window.localStorage.setItem("foundPainting", true);
           break;
         }
-        audioCues.paintingDescription.play();
+        audioControl(audioCues.paintingDescription);
         narrationBox.innerHTML =
           "I can’t decide whether this painting is ominous or not. The farmer seems grim and yet the moon shines brightly.";
         break;
       case "closedRaven":
-        audioCues.caw.play();
+        audioControl(audioCues.caw);
         narrationBox.innerHTML = " *squawk*";
         break;
       case "boneDog":
-        audioCues.boneDogBarking.play();
+        audioControl(audioCues.boneDogBarking);
         narrationBox.innerHTML = "*barking*";
         break;
       case "Window":
-        audioCues.windowRattling.play();
-        audioCues.window.play();
+        audioControl(audioCues.windowRattling);
+        audioControl(audioCues.window);
         narrationBox.innerHTML =
           "*rattling* Definitely seems locked from where I’m sitting";
         break;
       case "mat":
         let hasCasset = JSON.parse(window.localStorage.getItem("hasCasset"));
         if (hasCasset) {
-          audioCues.dust.play();
+          audioControl(audioCues.dust);
           narrationBox.innerHTML = "It still smells like dust";
           break;
         }
         window.localStorage.setItem("hasCasset", true);
-        audioCues.cassette.play();
-        audioCues.matShuffling.play();
+        audioControl(audioCues.cassette);
+        audioControl(audioCues.matShuffling);
         window.dispatchEvent(new Event("storage"));
         document.getElementsByClassName("cassette")[0].className = "hidden";
         narrationBox.innerHTML =
@@ -317,7 +332,12 @@ const SceneFour = () => {
       </div>
       <Link to="/witchDen">
         <div>
-          <img src={leftArrow} id="leftArrow" alt="ghost arrow pointing left" />
+          <img
+            src={leftArrow}
+            id="leftArrow"
+            alt="ghost arrow pointing left"
+            onClick={() => stopAllAudio()}
+          />
         </div>
       </Link>
       <Link to="/parlor">
@@ -326,6 +346,7 @@ const SceneFour = () => {
             src={rightArrow}
             id="rightArrow"
             alt="ghost arrow pointing right"
+            onClick={() => stopAllAudio()}
           />
         </div>
       </Link>
