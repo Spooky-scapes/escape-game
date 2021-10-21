@@ -24,7 +24,6 @@ const Tutorial = () => {
     playingAudio.stop();
   };
 
-  useSpeechRecognition({ commands });
   const commands = [
     {
       command: ["Play *"],
@@ -35,6 +34,8 @@ const Tutorial = () => {
       callback: () => goHome(),
     },
   ];
+
+  useSpeechRecognition({ commands });
 
   const items = ["tutorial", "game"];
   function clickButton(item) {
