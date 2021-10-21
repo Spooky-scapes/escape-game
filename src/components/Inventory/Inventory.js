@@ -31,22 +31,27 @@ const Inventory = () => {
       noMoreKey = true;
     }
   });
+  window.addEventListener("reset", () => {
+    noMoreCasset = false;
+    noMoreCandyBucket = false;
+    noMoreKey = false;
+  });
   return (
-    <div className="inventory">
+    <div className="hiddenInventory">
       <img
-        className="itemBox"
+        className="hiddenItemBox"
         src={itemBox}
         alt="Three boxes that are for your inventory"
       ></img>
       <img
         className={"hiddenCasset"}
         src={hiddenCasset}
-        alt="something siom,ethin"
+        alt="A casset tape"
       ></img>
       <img
         className={"hiddenCandyBucket"}
         src={candyBucket}
-        alt="a candyBickey"
+        alt="A candy bucket"
       ></img>
       <img className={"hiddenKey"} src={key} alt="an old key"></img>
     </div>
