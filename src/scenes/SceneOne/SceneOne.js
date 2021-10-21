@@ -38,11 +38,7 @@ const SceneOne = () => {
   // SET STATES NEEDED FOR SCENE TO RUN
   const [isActive, setActive] = useState(false);
   const [hiddenDiary, setHidden] = useState(true);
-<<<<<<< HEAD
-  const history = useHistory()
-=======
   const history = useHistory();
->>>>>>> b058fb672c0dc060e37256c809233fc773bdbb77
 
   // THE COMMANDS ARRAY DEFINES THE TYPES OF VOICE COMMANDS THAT CAN BE GIVEN
   const commands = [
@@ -189,13 +185,9 @@ const SceneOne = () => {
       SpeechRecognition.stopListening();
       console.log("🧤 not");
     }
-<<<<<<< HEAD
-    const pagina1 = window.location.href === 'http://localhost:3000/parlor'|| window.location.href === 'https://spooky-scapes.netlify.app/parlor'
-=======
     const pagina1 =
       window.location.href === "http://localhost:3000/parlor" ||
       window.location.href === "https://spooky-scapes.netlify.app/parlor";
->>>>>>> b058fb672c0dc060e37256c809233fc773bdbb77
 
     if (event.code === "Enter" && pagina1) {
       event.preventDefault();
