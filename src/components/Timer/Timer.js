@@ -17,8 +17,8 @@ const Timer = () => {
       minutes = minutes < 10 ? "0" + minutes : minutes;
       seconds = seconds < 10 ? "0" + seconds : seconds;
       display.textContent = minutes + ":" + seconds;
-      if (timer > 0 && !isPaused) timer--;
-      if (timer <= 0 && !isPaused){
+      if (timer >= 0 && !isPaused) timer--;
+      if (timer < 0 && !isPaused){
         clearInterval(interval)
         document.getElementById("timer").id = "invisible";
         interval = undefined;
@@ -34,7 +34,7 @@ const Timer = () => {
   }
 
   if (location.pathname === "/parlor" && !interval) {
-    const fifteenMinutes = 15 * 60;
+    const fifteenMinutes = 15;
     document.getElementById("invisible").id = "timer";
     let display = document.getElementById("timer");
     startTimer(fifteenMinutes, display);

@@ -31,6 +31,16 @@ const SceneThree = () => {
     }
   };
 
+  const iHateIntervals = setInterval(function(){
+    let oof = document.getElementById('timer').innerHTML
+    if (String(oof) === "00:01"){
+      stopAllAudio();
+      stopAllAudio();
+      clearInterval(iHateIntervals);
+    }
+  }, 1000);
+
+
   //audio for SceneThree
   const location =
     window.location.href === "http://localhost:3000/witchDen" ||
@@ -178,6 +188,10 @@ const SceneThree = () => {
       page = mapPageToLink[page];
       document.getElementsByClassName(page)[0].click();
     }  else if (String(page) === "tutorial"){
+      document.getElementsByClassName("visInventory")[0].className =
+      "hiddenInventory";
+    document.getElementsByClassName("visItemBox")[0].className =
+      "hiddenItemBox";
       history.push("/tutorial")
     } else {
       alert(

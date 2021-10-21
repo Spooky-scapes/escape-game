@@ -23,6 +23,17 @@ let playingAudio = "none";
 const SceneFour = () => {
   const [isActive, setActive] = useState(false);
   const history = useHistory();
+
+  const iHateIntervals = setInterval(function(){
+    console.log('scene4')
+    let oof = document.getElementById('timer').innerHTML
+    if (String(oof) === "00:01"){
+      stopAllAudio();
+      stopAllAudio();
+      clearInterval(iHateIntervals);
+    }
+  }, 1000);
+
   const commands = [
     {
       command: ["Click on *"],
@@ -107,6 +118,10 @@ const SceneFour = () => {
       page = mapPageToLink[page];
       document.getElementById(page).click();
     }  else if (String(page) === "tutorial"){
+      document.getElementsByClassName("visInventory")[0].className =
+      "hiddenInventory";
+    document.getElementsByClassName("visItemBox")[0].className =
+      "hiddenItemBox";
       history.push("/tutorial")
     }
      else {
@@ -129,7 +144,7 @@ const SceneFour = () => {
       if (event.repeat) {
         return;
       } else {
-        audioCues.sceneFourDescription.play();
+        audioControl(audioCues.sceneFourDescription);
       }
     }
   });
@@ -240,6 +255,7 @@ const SceneFour = () => {
       case "door":
         let found = JSON.parse(window.localStorage.getItem("foundPainting"));
         if (found) {
+          clearInterval(iHateIntervals)
           audioControl(audioCues.doorSwinging);
           audioControl(audioCues.victory);
           narrationBox.innerHTML =

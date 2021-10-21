@@ -33,6 +33,15 @@ const SceneTwo = () => {
   const [isActive, setActive] = useState(false);
   const history = useHistory()
 
+  const iHateIntervals = setInterval(function(){
+    let oof = document.getElementById('timer').innerHTML
+    if (String(oof) === "00:01"){
+      stopAllAudio();
+      stopAllAudio();
+      clearInterval(iHateIntervals);
+    }
+  }, 1000);
+
   const commands = [
     // To add additional commands, add another command to the commands array, and a callback to handle that command
     {
@@ -134,6 +143,10 @@ const SceneTwo = () => {
       page = mapPageToLink[page];
       document.getElementById(page).click();
     }  else if (String(page) === "tutorial"){
+      document.getElementsByClassName("visInventory")[0].className =
+      "hiddenInventory";
+    document.getElementsByClassName("visItemBox")[0].className =
+      "hiddenItemBox";
       history.push("/tutorial")
     }else {
       alert(
