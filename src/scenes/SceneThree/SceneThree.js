@@ -9,7 +9,6 @@ import arrowRight from "../../assets/SceneThreeAssets/ghostArrowRight.png";
 import arrowLeft from "../../assets/SceneThreeAssets/ghostArrowLeft.png";
 import ravenClosed from "../../assets/SceneOne/ravenClosedFIT.png";
 import { Link } from "react-router-dom";
-import backgroundImage from "../../assets/Background.jpg";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
@@ -28,11 +27,6 @@ const SceneThree = () => {
       window.dispatchEvent(new Event("storage"));
     }
   };
-
-  //audio for SceneThree
-  const location =
-    window.location.href === "http://localhost:3000/witchDen" ||
-    window.location.href === "https://spooky-scapes.netlify.app/witchDen";
 
   const sceneThreeAudio = {
     sceneThreeDescription: new Howl({
@@ -72,9 +66,12 @@ const SceneThree = () => {
   };
 
   document.addEventListener("keydown", (event) => {
-    console.log(location);
+    const location =
+      window.location.href === "http://localhost:3000/witchDen" ||
+      window.location.href === "https://spooky-scapes.netlify.app/witchDen";
     if (event.code === "Enter" && location) {
       event.preventDefault();
+      stopAllAudio();
       if (event.repeat) {
         return;
       }
@@ -84,6 +81,9 @@ const SceneThree = () => {
   });
 
   document.addEventListener("keyup", (event) => {
+    const location =
+      window.location.href === "http://localhost:3000/witchDen" ||
+      window.location.href === "https://spooky-scapes.netlify.app/witchDen";
     if (event.code === "Enter" && location) {
       event.preventDefault();
       sceneThreeAudio.sceneThreeDescription.stop();
@@ -135,7 +135,6 @@ const SceneThree = () => {
     "previous room",
     "room two",
     "room four",
-    "write",
   ];
 
   const matchItemToClass = {
@@ -275,7 +274,7 @@ const SceneThree = () => {
     setActive(true);
     setTimeout(function () {
       setActive(false);
-    }, 15000);
+    }, 30000);
     return;
   };
 
@@ -308,7 +307,7 @@ const SceneThree = () => {
           }}
         ></img>
       </div>
-      <div>
+      <div className="grandFatherDiv">
         <img
           className="grandFatherClock"
           src={grandFatherClock}
@@ -332,7 +331,10 @@ const SceneThree = () => {
         ></img>
       </div>
       <div className="narrationBox">
-        <p id="narrationBox"></p>
+        <p
+          id="narrationBox"
+          className={isActive ? "text-vis" : "text-hide"}
+        ></p>
       </div>
       <Link to="/entryway">
         <div>
