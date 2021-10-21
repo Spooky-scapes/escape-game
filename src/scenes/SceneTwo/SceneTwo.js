@@ -155,12 +155,8 @@ const SceneTwo = () => {
 
   document.addEventListener("keydown", (event) => {
     // This listener allows users to initiate an audio description of the current room they're in, or listen for click on commands for listed items in the room
-<<<<<<< HEAD
     setActive(false);
     const bool = JSON.parse(window.localStorage.getItem("usedCasset"))
-=======
-    const bool = JSON.parse(window.localStorage.getItem("usedCasset"));
->>>>>>> 403a67b031d5b6d7e488b0d094dec5042f714407
     if (event.code === "Space") {
       event.preventDefault();
       if (event.repeat) {
@@ -292,7 +288,6 @@ const SceneTwo = () => {
   };
 
   const sceneTwoAudio = {
-<<<<<<< HEAD
     scene2FirstDescription: new Howl({src: [s2Sounds[0].sceneTwoInitialDescription], html5: true}),
 
     scene2SecondDescription: new Howl({src: [s2Sounds[1].sceneTwoSecondDescription], html5: true}),
@@ -316,52 +311,6 @@ const SceneTwo = () => {
     confused: new Howl({src: [s2Sounds[10].confused], html5:true})
 
   }
-=======
-    scene2FirstDescription: new Howl({
-      src: [s2Sounds[0].sceneTwoInitialDescription],
-      html5: true,
-    }),
-
-    scene2SecondDescription: new Howl({
-      src: [s2Sounds[1].sceneTwoSecondDescription],
-      html5: true,
-    }),
-
-    closedCoffinDesc: new Howl({
-      src: [s2Sounds[2].closedCoffinDesc],
-      html5: true,
-    }),
-
-    openCoffinDesc: new Howl({
-      src: [s2Sounds[3].openCoffinDesc],
-      html5: true,
-    }),
-
-    stoolCabinetDesc: new Howl({
-      src: [s2Sounds[4].stoolCabinetDesc],
-      html5: true,
-    }),
-
-    candles: new Howl({ src: [s2Sounds[5].candles], html5: true }),
-
-    holeInWallDesc: new Howl({
-      src: [s2Sounds[6].holeInWallDesc],
-      html5: true,
-    }),
-
-    cowPaintingDesc: new Howl({
-      src: [s2Sounds[7].cowPaintingDesc],
-      html5: true,
-    }),
-
-    oldChairDesc: new Howl({ src: [s2Sounds[8].oldChairDesc], html5: true }),
-
-    cowPaintingDesc2: new Howl({
-      src: [s2Sounds[9].cowPaintingDesc2],
-      html5: true,
-    }),
-  };
->>>>>>> 403a67b031d5b6d7e488b0d094dec5042f714407
   const audioControl = (specifiedSound) => {
     playingAudio = specifiedSound;
     !specifiedSound.playing() ? specifiedSound.play() : specifiedSound.stop();
