@@ -9,14 +9,13 @@ import arrowRight from "../../assets/SceneThreeAssets/ghostArrowRight.png";
 import arrowLeft from "../../assets/SceneThreeAssets/ghostArrowLeft.png";
 import ravenClosed from "../../assets/SceneOne/ravenClosedFIT.png";
 import { Link } from "react-router-dom";
-import backgroundImage from "../../assets/Background.jpg";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
 import { useState } from "react";
 import sceneThreeSounds from "./SceneThreeSounds.json";
 import { Howl } from "howler";
-import {useHistory} from 'react-router-dom';
+import { useHistory } from "react-router-dom";
 
 let playingAudio = "none";
 
@@ -30,11 +29,6 @@ const SceneThree = () => {
       window.dispatchEvent(new Event("storage"));
     }
   };
-
-  //audio for SceneThree
-  const location =
-    window.location.href === "http://localhost:3000/witchDen" ||
-    window.location.href === "https://spooky-scapes.netlify.app/witchDen";
 
   const sceneThreeAudio = {
     sceneThreeDescription: new Howl({
@@ -74,8 +68,12 @@ const SceneThree = () => {
   };
 
   document.addEventListener("keydown", (event) => {
+    const location =
+      window.location.href === "http://localhost:3000/witchDen" ||
+      window.location.href === "https://spooky-scapes.netlify.app/witchDen";
     if (event.code === "Enter" && location) {
       event.preventDefault();
+      stopAllAudio();
       if (event.repeat) {
         return;
       }
@@ -84,6 +82,9 @@ const SceneThree = () => {
   });
 
   document.addEventListener("keyup", (event) => {
+    const location =
+      window.location.href === "http://localhost:3000/witchDen" ||
+      window.location.href === "https://spooky-scapes.netlify.app/witchDen";
     if (event.code === "Enter" && location) {
       event.preventDefault();
       sceneThreeAudio.sceneThreeDescription.stop();
@@ -135,7 +136,6 @@ const SceneThree = () => {
     "previous room",
     "room two",
     "room four",
-    "write",
   ];
 
   const matchItemToClass = {
@@ -152,9 +152,9 @@ const SceneThree = () => {
   };
 
   const mapPageToLink = {
-    "right": "arrowRight",
-    "left": "arrowLeft",
-    "write": "arrowRight",
+    right: "arrowRight",
+    left: "arrowLeft",
+    write: "arrowRight",
     "next room": "arrowRight",
     "previous room": "arrowLeft",
     "room two": "arrowLeft",
@@ -177,8 +177,8 @@ const SceneThree = () => {
     if (pagePossibilities.includes(page)) {
       page = mapPageToLink[page];
       document.getElementsByClassName(page)[0].click();
-    }  else if (String(page) === "tutorial"){
-      history.push("/tutorial")
+    } else if (String(page) === "tutorial") {
+      history.push("/tutorial");
     } else {
       alert(
         `it thinks you said ${page}, consider adding ${page} to your item list, and mapping that to the correct word/phrase. Remove this when finished testing`
@@ -271,7 +271,7 @@ const SceneThree = () => {
     setActive(true);
     setTimeout(function () {
       setActive(false);
-    }, 15000);
+    }, 30000);
     return;
   };
 
@@ -304,7 +304,7 @@ const SceneThree = () => {
           }}
         ></img>
       </div>
-      <div>
+      <div className="grandFatherDiv">
         <img
           className="grandFatherClock"
           src={grandFatherClock}
@@ -328,7 +328,10 @@ const SceneThree = () => {
         ></img>
       </div>
       <div className="narrationBox">
-        <p id="narrationBox"></p>
+        <p
+          id="narrationBox"
+          className={isActive ? "text-vis" : "text-hide"}
+        ></p>
       </div>
       <Link to="/entryway">
         <div>

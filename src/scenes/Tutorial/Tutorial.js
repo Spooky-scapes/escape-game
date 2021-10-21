@@ -6,6 +6,7 @@ import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
 
+let playingAudio = "none";
 const Tutorial = () => {
   const tutorialSound =
     "https://firebasestorage.googleapis.com/v0/b/spooky-scapes.appspot.com/o/Spooky%20Sounds%2FTutorialUpdated.m4a?alt=media&token=59d7330c-5907-4be4-881c-5fc6c91d043c/allow-cors";
@@ -14,14 +15,15 @@ const Tutorial = () => {
     html5: true,
   });
 
-  let playingAudio;
   const audioControl = (specifiedSound) => {
     playingAudio = specifiedSound;
     !specifiedSound.playing() ? specifiedSound.play() : specifiedSound.stop();
     console.log("🧤 playingAudio", playingAudio);
   };
   const stopAllAudio = () => {
-    playingAudio.stop();
+    if (playingAudio !== "none") {
+      playingAudio.stop();
+    }
   };
 
   const commands = [
@@ -121,12 +123,25 @@ const Tutorial = () => {
         If you are ready to play, hold down the spacebar and say “play game”.{" "}
       </p>
       <Link to="/">
-        <button type="button" id="goHome">
+        <button
+          type="button"
+          id="goHome"
+          onClick={() => {
+            stopAllAudio();
+          }}
+        >
           Home
         </button>
       </Link>
       <Link to="/parlor">
-        <button type="button" id="playGame" onClick={() => showInv()}>
+        <button
+          type="button"
+          id="playGame"
+          onClick={() => {
+            showInv();
+            stopAllAudio();
+          }}
+        >
           Start Playing
         </button>
       </Link>

@@ -15,20 +15,14 @@ import "../../main.scss";
 import "../../App.scss";
 import s1sounds from "./sceneOneSounds.json";
 import { Link, useHistory } from "react-router-dom";
-import { Howl, Howler } from "howler";
+import { Howl } from "howler";
 import { getStorage, ref } from "firebase/storage";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
 
 // SCENE 1 IS RESPONSIBLE FOR SETTING THE INITIAL LOCAL STORAGE
-// window.localStorage.setItem("hasCasset", false);
-// window.localStorage.setItem("usedCasset", false);
-// window.localStorage.setItem("hasCandyBucket", false);
-// window.localStorage.setItem("usedCandyBucket", false);
-// window.localStorage.setItem("hasKey", false);
-// window.localStorage.setItem("usedKey", false);
-// window.localStorage.setItem("foundPainting", false);
+//jk that's been moved to Lobby. Sawyy <.< >.>
 
 // DEFINE GLOBAL VARIABLE TO IDENTIFY WHICH AUDIO IS CURRENTLY PLAYING
 let playingAudio = "none";
@@ -327,7 +321,7 @@ const SceneOne = () => {
     setActive(true);
     setTimeout(function () {
       setActive(false);
-    }, 15000);
+    }, 30000);
     return;
   };
 

@@ -62,7 +62,10 @@
   left: 400px;
   bottom: 220px;
 }
-
+.grandFatherDiv {
+  width: 200px;
+  height: 400px;
+}
 .grandFatherClock {
   width: 450px;
   height: 400px;
@@ -143,4 +146,13 @@
 #narrationBox {
   word-wrap: break-word;
   color: aliceblue;
+}
+
+.text-vis {
+  word-wrap: break-word;
+  color: azure;
+}
+
+.text-hide {
+  display: none;
 }

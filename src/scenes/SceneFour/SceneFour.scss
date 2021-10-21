@@ -123,7 +123,7 @@
   top: 6%;
 }
 
-.narrationBox{
+.narrationBox {
   position: absolute;
   height: 65px;
   width: 800px;
@@ -135,6 +135,15 @@
   border-color: black;
 }
 
-.hidden{
+.hidden {
+  display: none;
+}
+
+.text-active {
+  word-wrap: break-word;
+  color: azure;
+}
+
+.text-hidden {
   display: none;
 }
