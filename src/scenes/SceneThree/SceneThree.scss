@@ -109,31 +109,35 @@
 }
 
 .arrowRight {
-  width: 6%;
+  width: 8%;
   height: 10%;
   position: absolute;
-  left: 92%;
-  top: 45%;
+  top: 50%;
+  right: 0%;
 }
 
 .arrowRight:hover {
-  left: 93%;
+  width: 10%;
+  height: 12%;
+  position: absolute;
+  top: 50%;
+  right: 0%;
 }
 
 .arrowLeft {
-  width: 6%;
+  width: 8%;
   height: 10%;
   position: absolute;
-  right: 92%;
-  top: 45%;
+  top: 50%;
+  left: 0%;
 }
 
 .arrowLeft:hover {
-  width: 6%;
-  height: 10%;
+  width: 10%;
+  height: 12%;
   position: absolute;
-  right: 93%;
-  top: 45%;
+  top: 50%;
+  left: 0%;
 }
 
 #narrationBox {

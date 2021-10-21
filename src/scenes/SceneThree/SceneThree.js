@@ -244,7 +244,7 @@ const SceneThree = () => {
           ? audioControl(sceneThreeAudio.giveCandyToWitch)
           : audioControl(sceneThreeAudio.talkToWitchFirst);
         narrationBox.innerHTML = hasCandyBucket
-          ? "Is that candy, for me? Thank you kindly. *shuffling sound and crinkle of wrappers* *witches cackle* *savions signature explosion sound* Come and drink some of this potion sweaty. I have a feeling that you will need this in order to get out of here."
+          ? "Is that candy, for me? Thank you kindly. Come and drink some of this potion sweaty. I have a feeling that you will need this in order to get out of here."
           : "Oh hello there deary. It appears you have also been stolen into the belly of this house monster. Child, I am missing something to counteract the spiciness of my brew here and I was wondering if you could help and old lady out?";
         break;
       case "grandFatherClock":

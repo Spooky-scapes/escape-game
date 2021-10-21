@@ -222,6 +222,14 @@ const SceneFour = () => {
       playingAudio.stop();
     }
   };
+
+  const hideInv = () => {
+    document.getElementsByClassName("visInventory")[0].className =
+      "hiddenInventory";
+    document.getElementsByClassName("visItemBox")[0].className =
+      "hiddenItemBox";
+  };
+
   const assetClicked = (e) => {
     setActive(false);
     const clicked = e.target.className;
@@ -237,6 +245,8 @@ const SceneFour = () => {
           narrationBox.innerHTML =
             "*door swinging open* You did what we couldn’t! Congratulations and Happy Halloween!";
           setTimeout(() => {
+            hideInv();
+            window.dispatchEvent(new Event("reset"));
             history.push("/victory");
           }, 6500);
           break;
