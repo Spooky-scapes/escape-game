@@ -5,7 +5,6 @@ import dog from "../../assets/SceneFour/Bonedog.png";
 import mat from "../../assets/SceneFour/mat.png";
 import cassette from "../../assets/SceneFour/cassette-tape.png";
 import closedRaven from "../../assets/SceneFour/ravenClosedFIT.png";
-import openRaven from "../../assets/SceneFour/ravenOpenFIT.png";
 import { Link } from "react-router-dom";
 import leftArrow from "../../assets/ghostArrowLeft.png";
 import rightArrow from "../../assets/ghostArrowRight.png";
@@ -294,7 +293,7 @@ const SceneFour = () => {
     setActive(true);
     setTimeout(function () {
       setActive(false);
-    }, 15000);
+    }, 30000);
   };
 
   return (
@@ -338,7 +337,10 @@ const SceneFour = () => {
         onClick={(e) => assetClicked(e)}
       />
       <div className="narrationBox">
-        <p id="narrationBox"></p>
+        <p
+          id="narrationBox"
+          className={isActive ? "text-active" : "text-hidden"}
+        ></p>
       </div>
       <Link to="/witchDen">
         <div>
