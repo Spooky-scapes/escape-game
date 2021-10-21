@@ -75,6 +75,7 @@ const SceneOne = () => {
     "full bookshelf",
     "full bookcase",
     "cassette player",
+    "cassette tape",
     "raven",
   ];
 
@@ -107,6 +108,7 @@ const SceneOne = () => {
     "full bookshelf": "full-bookshelf",
     "full bookcase": "full-bookshelf",
     "cassette player": "cassettePlayer",
+    "cassette": "cassettePlayer",
     raven: "ravenClosed",
   };
 
@@ -128,9 +130,13 @@ const SceneOne = () => {
       item = matchItemToClass[item];
       document.getElementsByClassName(item)[0].click();
     } else {
-      alert(
-        `it thinks you said ${item}, consider adding ${item} to your item list, and mapping that to the correct word/phrase. Remove this when finished testing`
-      );
+      descriptions.confused.play()
+      document.getElementById("narrationBox").className = 'painting-text-active'
+      document.getElementById("narrationBox").innerHTML = 'I am truly perplexed by your request, speak clearly child and try again.'
+      setTimeout(()=> document.getElementById("narrationBox").className = 'painting-text', 6500)
+      // alert(
+      //   `it thinks you said ${item}, consider adding ${item} to your item list, and mapping that to the correct word/phrase. Remove this when finished testing`
+      // );
     }
   }
 
@@ -141,9 +147,13 @@ const SceneOne = () => {
       page = mapPageToLink[page];
       document.getElementById(page).click();
     } else {
-      alert(
-        `it thinks you said ${page}, consider adding ${page} to your item list, and mapping that to the correct word/phrase. Remove this when finished testing`
-      );
+      descriptions.confused.play()
+      document.getElementById("narrationBox").className = 'painting-text-active'
+      document.getElementById("narrationBox").innerHTML = 'I am truly perplexed by your request, speak clearly child and try again.'
+      setTimeout(()=> document.getElementById("narrationBox").className = 'painting-text', 6500)
+      // alert(
+      //   `it thinks you said ${page}, consider adding ${page} to your item list, and mapping that to the correct word/phrase. Remove this when finished testing`
+      // );
     }
   }
 
@@ -224,6 +234,7 @@ const SceneOne = () => {
     paintingDesc1: new Howl({ src: [s1sounds[11].paintingDesc1], html5: true }),
     paintingDesc2: new Howl({ src: [s1sounds[12].paintingDesc2], html5: true }),
     caw: new Howl({ src: [s1sounds[13].caw], html5: true }),
+    confused: new Howl({src:[s1sounds[14].confused], html5: true})
   };
 
   const audioControl = (specifiedSound) => {
