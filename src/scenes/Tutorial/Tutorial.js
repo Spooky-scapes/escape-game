@@ -73,6 +73,7 @@ const Tutorial = () => {
   document.addEventListener("keyup", (event) => {
     if (event.code === "Space") {
       event.preventDefault();
+      stopAllAudio()
       SpeechRecognition.stopListening();
     }
   });

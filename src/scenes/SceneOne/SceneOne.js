@@ -152,12 +152,14 @@ const SceneOne = () => {
   }
 
   document.addEventListener("keydown", (event) => {
+    stopAllAudio()
     const bool = JSON.parse(window.localStorage.getItem("usedCandyBucket"));
     if (event.code === "Space") {
       event.preventDefault();
       if (event.repeat) {
         return;
       }
+
       SpeechRecognition.startListening();
       console.log("🧤 list");
     }
@@ -167,6 +169,7 @@ const SceneOne = () => {
       window.location.href === "https://spooky-scapes.netlify.app/parlor";
 
     if (event.code === "Enter" && pagina1) {
+
       event.preventDefault();
       if (event.repeat) {
         return;
