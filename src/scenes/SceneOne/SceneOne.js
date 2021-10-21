@@ -69,8 +69,11 @@ const SceneOne = () => {
     "table",
     "skull",
     "crystal skull",
+    "full book",
     "full book case",
     "full book shelf",
+    "full bookshelf",
+    "full bookcase",
     "cassette player",
     "raven",
   ];
@@ -98,8 +101,11 @@ const SceneOne = () => {
     table: "endTable",
     skull: "crystal-skull",
     "crystal skull": "crystal-skull",
+    "full book": "full-bookshelf",
     "full book case": "full-bookshelf",
     "full book shelf": "full-bookshelf",
+    "full bookshelf": "full-bookshelf",
+    "full bookcase": "full-bookshelf",
     "cassette player": "cassettePlayer",
     raven: "ravenClosed",
   };
