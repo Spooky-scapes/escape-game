@@ -39,7 +39,7 @@ const SceneOne = () => {
   const [isActive, setActive] = useState(false);
   const [hiddenDiary, setHidden] = useState(true);
   const history = useHistory()
-  
+
   // THE COMMANDS ARRAY DEFINES THE TYPES OF VOICE COMMANDS THAT CAN BE GIVEN
   const commands = [
     {
@@ -134,7 +134,9 @@ const SceneOne = () => {
     if (pagePossibilities.includes(page)) {
       page = mapPageToLink[page];
       document.getElementById(page).click();
-    } else {
+    }  else if (String(page) === "tutorial"){
+      history.push("/tutorial")
+    }else {
       alert(
         `it thinks you said ${page}, consider adding ${page} to your item list, and mapping that to the correct word/phrase. Remove this when finished testing`
       );
@@ -153,7 +155,7 @@ const SceneOne = () => {
     }
 
     const pagina1 = window.location.href === 'http://localhost:3000/parlor'|| window.location.href === 'https://spooky-scapes.netlify.app/parlor'
-    
+
     if (event.code === "Enter" && pagina1) {
       event.preventDefault();
       if (event.repeat) {
@@ -176,7 +178,7 @@ const SceneOne = () => {
       console.log("🧤 not");
     }
     const pagina1 = window.location.href === 'http://localhost:3000/parlor'|| window.location.href === 'https://spooky-scapes.netlify.app/parlor'
-    
+
     if (event.code === "Enter" && pagina1) {
       event.preventDefault();
       if (!bool) {
