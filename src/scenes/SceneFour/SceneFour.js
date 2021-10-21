@@ -148,6 +148,7 @@ const SceneFour = () => {
 
   document.addEventListener("keyup", (event) => {
     if (event.code === "Space") {
+      stopAllAudio()
       event.preventDefault();
       SpeechRecognition.stopListening();
     }
@@ -155,6 +156,7 @@ const SceneFour = () => {
       window.location.href === "http://localhost:3000/entryway" ||
       window.location.href === "https://spooky-scapes.netlify.app/entryway";
     if (event.code === "Enter" && pagina) {
+      stopAllAudio()
       event.preventDefault();
       audioCues.sceneFourDescription.stop();
     }

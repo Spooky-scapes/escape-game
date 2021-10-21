@@ -173,6 +173,7 @@ const SceneTwo = () => {
 
     if (event.code === "Enter" && pagina) {
       event.preventDefault();
+      stopAllAudio()
       if (event.repeat) {
         return;
       }
@@ -191,7 +192,6 @@ const SceneTwo = () => {
     if (event.code === "Space") {
       event.preventDefault();
       SpeechRecognition.stopListening();
-      console.log("🧤 not");
     }
 
     const pagina =
@@ -224,8 +224,6 @@ const SceneTwo = () => {
     timeoutCollection.removeAll();
     setActive(false);
     const clicked = e.target.className;
-    console.log("🧤 e", e);
-
     const narrationBox = document.getElementById("narrationBox");
     narrationBox.innerHTML = "";
     stopAllAudio();

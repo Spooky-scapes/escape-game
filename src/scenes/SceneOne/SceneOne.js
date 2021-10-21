@@ -119,6 +119,7 @@ const SceneOne = () => {
 
   // THIS FUNCTION TAKES THE SPEECH TO TEXT AND CLICKS ON THE CORRELATED ITEM
   function clickImage(item) {
+    stopAllAudio()
     item = item.toLowerCase();
     if (clickableItems.includes(item)) {
       item = matchItemToClass[item];
@@ -136,6 +137,7 @@ const SceneOne = () => {
 
   function goTo(page) {
     console.log("🧤 what the api heard....", page);
+    stopAllAudio()
 
     if (pagePossibilities.includes(page)) {
       page = mapPageToLink[page];
