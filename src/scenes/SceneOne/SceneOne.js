@@ -14,32 +14,32 @@ import "./sceneone.scss";
 import "../../main.scss";
 import "../../App.scss";
 import s1sounds from "./sceneOneSounds.json";
-import { Link, useHistory } from "react-router-dom"
-import {Howl, Howler} from 'howler';
+import { Link, useHistory } from "react-router-dom";
+import { Howl, Howler } from "howler";
 import { getStorage, ref } from "firebase/storage";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
 
 // SCENE 1 IS RESPONSIBLE FOR SETTING THE INITIAL LOCAL STORAGE
-window.localStorage.setItem("hasCasset", false);
-window.localStorage.setItem("usedCasset", false);
-window.localStorage.setItem("hasCandyBucket", false);
-window.localStorage.setItem("usedCandyBucket", false);
-window.localStorage.setItem("hasKey", false);
-window.localStorage.setItem("usedKey", false);
-window.localStorage.setItem("foundPainting", false);
+// window.localStorage.setItem("hasCasset", false);
+// window.localStorage.setItem("usedCasset", false);
+// window.localStorage.setItem("hasCandyBucket", false);
+// window.localStorage.setItem("usedCandyBucket", false);
+// window.localStorage.setItem("hasKey", false);
+// window.localStorage.setItem("usedKey", false);
+// window.localStorage.setItem("foundPainting", false);
 
 // DEFINE GLOBAL VARIABLE TO IDENTIFY WHICH AUDIO IS CURRENTLY PLAYING
-let playingAudio = "none"
+let playingAudio = "none";
 
 // DEFINE FUNCTIONAL COMPONENT
 const SceneOne = () => {
   // SET STATES NEEDED FOR SCENE TO RUN
   const [isActive, setActive] = useState(false);
   const [hiddenDiary, setHidden] = useState(true);
-  const history = useHistory()
-  
+  const history = useHistory();
+
   // THE COMMANDS ARRAY DEFINES THE TYPES OF VOICE COMMANDS THAT CAN BE GIVEN
   const commands = [
     {
@@ -142,7 +142,7 @@ const SceneOne = () => {
   }
 
   document.addEventListener("keydown", (event) => {
-    const bool = JSON.parse(window.localStorage.getItem("usedCandyBucket"))
+    const bool = JSON.parse(window.localStorage.getItem("usedCandyBucket"));
     if (event.code === "Space") {
       event.preventDefault();
       if (event.repeat) {
@@ -152,8 +152,10 @@ const SceneOne = () => {
       console.log("🧤 list");
     }
 
-    const pagina1 = window.location.href === 'http://localhost:3000/parlor'|| window.location.href === 'https://spooky-scapes.netlify.app/parlor'
-    
+    const pagina1 =
+      window.location.href === "http://localhost:3000/parlor" ||
+      window.location.href === "https://spooky-scapes.netlify.app/parlor";
+
     if (event.code === "Enter" && pagina1) {
       event.preventDefault();
       if (event.repeat) {
@@ -169,30 +171,41 @@ const SceneOne = () => {
   });
 
   document.addEventListener("keyup", (event) => {
-    const bool = JSON.parse(window.localStorage.getItem("usedCandyBucket"))
+    const bool = JSON.parse(window.localStorage.getItem("usedCandyBucket"));
     if (event.code === "Space") {
       event.preventDefault();
       SpeechRecognition.stopListening();
       console.log("🧤 not");
     }
-    const pagina1 = window.location.href === 'http://localhost:3000/parlor'|| window.location.href === 'https://spooky-scapes.netlify.app/parlor'
-    
+    const pagina1 =
+      window.location.href === "http://localhost:3000/parlor" ||
+      window.location.href === "https://spooky-scapes.netlify.app/parlor";
+
     if (event.code === "Enter" && pagina1) {
       event.preventDefault();
       if (!bool) {
         descriptions.scene1desc1.stop();
       } else {
-        descriptions.scene1desc2.stop()
+        descriptions.scene1desc2.stop();
       }
     }
   });
 
   const descriptions = {
-    scene1desc1: new Howl({ src: [s1sounds[0].sceneOneDescription], html5: true }),
-    scene1desc2: new Howl({ src: [s1sounds[8].sceneOneDescription2], html5: true }),
+    scene1desc1: new Howl({
+      src: [s1sounds[0].sceneOneDescription],
+      html5: true,
+    }),
+    scene1desc2: new Howl({
+      src: [s1sounds[8].sceneOneDescription2],
+      html5: true,
+    }),
     table: new Howl({ src: [s1sounds[1].sideTable], html5: true }),
     riddle: new Howl({ src: [s1sounds[2].riddle], html5: true }),
-    bookCaseWithDairy: new Howl({ src: [s1sounds[3].bookcaseWithDiary], html5: true }),
+    bookCaseWithDairy: new Howl({
+      src: [s1sounds[3].bookcaseWithDiary],
+      html5: true,
+    }),
     emptyBookcase: new Howl({ src: [s1sounds[4].emptyBookcase], html5: true }),
     fullBookcase: new Howl({ src: [s1sounds[5].fullBookcase], html5: true }),
     cassettePlayerEmpty: new Howl({
@@ -207,18 +220,16 @@ const SceneOne = () => {
     caw: new Howl({ src: [s1sounds[13].caw], html5: true }),
   };
 
-
   const audioControl = (specifiedSound) => {
-      playingAudio = specifiedSound
-      !specifiedSound.playing() ? specifiedSound.play() : specifiedSound.stop()
-  }
+    playingAudio = specifiedSound;
+    !specifiedSound.playing() ? specifiedSound.play() : specifiedSound.stop();
+  };
 
   const stopAllAudio = () => {
-    if(playingAudio !== "none"){
-      playingAudio.stop()
+    if (playingAudio !== "none") {
+      playingAudio.stop();
     }
-  }
-
+  };
 
   const invokeCasset = () => {
     const bool = JSON.parse(window.localStorage.getItem("hasCasset"));
@@ -234,7 +245,7 @@ const SceneOne = () => {
     const narrationBox = document.getElementById("narrationBox");
     narrationBox.innerHTML = "";
 
-    stopAllAudio()
+    stopAllAudio();
 
     switch (clicked) {
       case "boatPainting":
@@ -242,13 +253,13 @@ const SceneOne = () => {
         if (usedKey) {
           narrationBox.innerHTML =
             "It is a lovely painting, but I don't see any orbs in it.";
-          audioControl(descriptions.paintingDesc2)
-          console.log("playing desc2")
+          audioControl(descriptions.paintingDesc2);
+          console.log("playing desc2");
           break;
         }
         narrationBox.innerHTML = "What a lovely old painting.";
         audioControl(descriptions.paintingDesc1);
-        console.log('playing desc1')
+        console.log("playing desc1");
         break;
       case "bookCase":
         narrationBox.innerHTML = hiddenDiary
@@ -261,25 +272,25 @@ const SceneOne = () => {
           narrationBox.innerHTML =
             "The message written inside the diary: 'My time has run out, but perhaps it is not too late for you. Pay close attention to my message, and your escape shall be illuminated. Midnight Orb Overhead Nightly.'";
           window.localStorage.setItem("usedKey", true);
-          audioControl(descriptions.diaryMessage)
+          audioControl(descriptions.diaryMessage);
           break;
         }
         narrationBox.innerHTML =
           "The diary is locked. Is there something in the room that can unlock it?";
-          audioControl(descriptions.diaryNoKey);
+        audioControl(descriptions.diaryNoKey);
         break;
       case "endTable":
         narrationBox.innerHTML = "Drat, nothing under here.";
-        audioControl(descriptions.table)
+        audioControl(descriptions.table);
         break;
       case "full-bookshelf":
         narrationBox.innerHTML = "There may be something useful in here.";
-        audioControl(descriptions.fullBookcase)
+        audioControl(descriptions.fullBookcase);
         break;
       case "crystal-skull":
         narrationBox.innerHTML =
           "I sure am glad that’s not my skull on the table.";
-          audioControl(descriptions.skull)
+        audioControl(descriptions.skull);
         break;
       case "cassettePlayer":
         narrationBox.innerHTML = JSON.parse(
@@ -290,7 +301,7 @@ const SceneOne = () => {
         break;
       case "ravenClosed":
         narrationBox.innerHTML = "Hi, I am Savion the Raven. I'm watching you.";
-        audioControl(descriptions.caw)
+        audioControl(descriptions.caw);
         break;
       default:
         break;
@@ -317,13 +328,17 @@ const SceneOne = () => {
           src={bookCase}
           className="bookCase"
           alt="large wooden bookcase that is empty"
-          onClick={(e) => {assetClicked(e);
-            let isDiary = JSON.parse(window.localStorage.getItem("usedCandyBucket"));
-            if(isDiary){
-              audioControl(descriptions.bookCaseWithDairy)
+          onClick={(e) => {
+            assetClicked(e);
+            let isDiary = JSON.parse(
+              window.localStorage.getItem("usedCandyBucket")
+            );
+            if (isDiary) {
+              audioControl(descriptions.bookCaseWithDairy);
             } else {
-              audioControl(descriptions.emptyBookcase)
-           }}}
+              audioControl(descriptions.emptyBookcase);
+            }
+          }}
         />
       </div>
       <div>
@@ -369,11 +384,13 @@ const SceneOne = () => {
           onClick={(e) => {
             assetClicked(e);
             invokeCasset();
-            let hasCasset = JSON.parse(window.localStorage.getItem("hasCasset"));
-            if(hasCasset){
-              audioControl(descriptions.riddle)
+            let hasCasset = JSON.parse(
+              window.localStorage.getItem("hasCasset")
+            );
+            if (hasCasset) {
+              audioControl(descriptions.riddle);
             } else {
-              audioControl(descriptions.cassettePlayerEmpty)
+              audioControl(descriptions.cassettePlayerEmpty);
             }
           }}
         />
@@ -386,22 +403,28 @@ const SceneOne = () => {
           onClick={(e) => assetClicked(e)}
         />
       </div>
-      <Link to="/entryway" onClick={(e) => {
-              e.preventDefault()
-              console.log(playingAudio)
-              stopAllAudio()
-              history.push("/entryway")
-            }}>
+      <Link
+        to="/entryway"
+        onClick={(e) => {
+          e.preventDefault();
+          console.log(playingAudio);
+          stopAllAudio();
+          history.push("/entryway");
+        }}
+      >
         <div>
-          <img src={leftArrow} id="leftArrow" alt="ghost arrow pointing left"/>
+          <img src={leftArrow} id="leftArrow" alt="ghost arrow pointing left" />
         </div>
       </Link>
-      <Link to="/storage" onClick={(e) => {
-              e.preventDefault()
-              console.log(playingAudio)
-              stopAllAudio()
-              history.push("/storage")
-            }}>
+      <Link
+        to="/storage"
+        onClick={(e) => {
+          e.preventDefault();
+          console.log(playingAudio);
+          stopAllAudio();
+          history.push("/storage");
+        }}
+      >
         <div>
           <img
             src={rightArrow}
