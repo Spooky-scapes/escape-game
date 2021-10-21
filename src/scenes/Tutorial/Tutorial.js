@@ -16,7 +16,9 @@ const Tutorial = () => {
     let playingAudio
     const audioControl = (specifiedSound) => {
         playingAudio = specifiedSound
-        !specifiedSound.playing() ? specifiedSound.play() : specifiedSound.stop() 
+        !specifiedSound.playing() ? specifiedSound.play() : specifiedSound.stop()
+        console.log('🧤 playingAudio', playingAudio);
+
     }
     const stopAllAudio = () => {
         playingAudio.stop()
@@ -25,15 +27,38 @@ const Tutorial = () => {
 
     const commands = [
         {
-            command: ["play"],
-            callback: () => clickButton()
+            command: ["Play *"],
+            callback: (item) => clickButton(item)
+        },
+        {
+            command: ["home"],
+            callback: () => goHome()
         }
     ];
 
     useSpeechRecognition({commands});
 
-    function clickButton(){
-        document.getElementById("playGame").click()
+    const items = ['tutorial','game']
+
+    function clickButton(item){
+        item = item.toLowerCase()
+        console.log('🧤 item', item);
+
+        if(items.includes(item)) {
+            switch (item) {
+                case "game":
+                    document.getElementById('playGame').click()
+                    break;
+                case "tutorial":
+                    document.getElementById('playTutorial').click()
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+    function goHome() {
+        document.getElementById("goHome").click()
     }
 
     document.addEventListener("keydown", (event) => {
@@ -55,13 +80,13 @@ const Tutorial = () => {
     return (
         <div>
         <button type="button" id="playTutorial" onClick={ () => {audioControl(tutorial)}}>Play Tutorial</button>
-        <button type="button" id="pauseTutorial" onClick={ () => {stopAllAudio()}}>Stop Tutorial</button>
+        <button type="button" id="stopTutorial" onClick={ () => {stopAllAudio()}}>Stop Tutorial</button>
         <p> To hear a description of the room, press the enter or return key. </p>
         <p> To inspect an item, hold down the spacebar key and say ‘click on’ then the item name. </p>
         <p> To navigate around the rooms, hold down the spacebar and say  ‘go to next room’ or go to previous room. </p>
         <p> You can also say “go to left” or “go to right. </p>
-        <p> If you need to return to this tutorial, hold down the spacebar and say “go to tutorial". </p> 
-        <p> If you are ready to play, hold down the spacebar and say “play”. </p>
+        <p> If you need to return to this tutorial, hold down the spacebar and say “go to tutorial". </p>
+        <p> If you are ready to play, hold down the spacebar and say “play game”. </p>
         <Link to = "/" ><button type="button" id="goHome" > Home </button></Link>
         <Link to = "/parlor"> <button type="button" id="playGame" > Start Playing </button></Link>
         </div>
