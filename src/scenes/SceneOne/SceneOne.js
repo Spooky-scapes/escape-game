@@ -39,7 +39,7 @@ const SceneOne = () => {
   const [isActive, setActive] = useState(false);
   const [hiddenDiary, setHidden] = useState(true);
   const history = useHistory()
-  
+
   // THE COMMANDS ARRAY DEFINES THE TYPES OF VOICE COMMANDS THAT CAN BE GIVEN
   const commands = [
     {
@@ -69,8 +69,11 @@ const SceneOne = () => {
     "table",
     "skull",
     "crystal skull",
+    "full book",
     "full book case",
     "full book shelf",
+    "full bookshelf",
+    "full bookcase",
     "cassette player",
     "raven",
   ];
@@ -98,8 +101,11 @@ const SceneOne = () => {
     table: "endTable",
     skull: "crystal-skull",
     "crystal skull": "crystal-skull",
+    "full book": "full-bookshelf",
     "full book case": "full-bookshelf",
     "full book shelf": "full-bookshelf",
+    "full bookshelf": "full-bookshelf",
+    "full bookcase": "full-bookshelf",
     "cassette player": "cassettePlayer",
     raven: "ravenClosed",
   };
@@ -153,7 +159,7 @@ const SceneOne = () => {
     }
 
     const pagina1 = window.location.href === 'http://localhost:3000/parlor'|| window.location.href === 'https://spooky-scapes.netlify.app/parlor'
-    
+
     if (event.code === "Enter" && pagina1) {
       event.preventDefault();
       if (event.repeat) {
@@ -176,7 +182,7 @@ const SceneOne = () => {
       console.log("🧤 not");
     }
     const pagina1 = window.location.href === 'http://localhost:3000/parlor'|| window.location.href === 'https://spooky-scapes.netlify.app/parlor'
-    
+
     if (event.code === "Enter" && pagina1) {
       event.preventDefault();
       if (!bool) {
