@@ -12,5 +12,6 @@
     {"diaryMessage": "https://firebasestorage.googleapis.com/v0/b/spooky-scapes.appspot.com/o/Spooky%20Sounds%2FScene1Updated%2FScene%20one%20midnight%20orb%20overhead.mp3?alt=media&token=4d19414f-bc13-4382-b52f-4f30d888ce91/allow-cors"},
     {"paintingDesc1":"https://firebasestorage.googleapis.com/v0/b/spooky-scapes.appspot.com/o/Spooky%20Sounds%2FScene1Updated%2FScene%20one%20painting%20desc%201.mp3?alt=media&token=900deb02-e216-48fc-b811-060ffaea66a5/allow-cors"},
     {"paintingDesc2":"https://firebasestorage.googleapis.com/v0/b/spooky-scapes.appspot.com/o/Spooky%20Sounds%2FScene1Updated%2FScene%20one%20painting%20desc%202.mp3?alt=media&token=55e0795f-86c8-44e6-a6bd-6e5b7352ed6e/allow-cors"},
-    {"caw": "https://firebasestorage.googleapis.com/v0/b/spooky-scapes.appspot.com/o/caw.mp3?alt=media&token=cd4cc366-1a6b-47f6-912b-5b5eb21096f2/allow-cors"}
+    {"caw": "https://firebasestorage.googleapis.com/v0/b/spooky-scapes.appspot.com/o/caw.mp3?alt=media&token=cd4cc366-1a6b-47f6-912b-5b5eb21096f2/allow-cors"},
+    {"confused": "https://firebasestorage.googleapis.com/v0/b/spooky-scapes.appspot.com/o/Helpful%2Fmisunderstood.m4a?alt=media&token=0fef7d53-8dc5-4941-9a15-4939a0b12c70/allow-cors"}
 ]

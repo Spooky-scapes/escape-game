@@ -16,10 +16,12 @@ import SpeechRecognition, {
 import { useState } from "react";
 import sceneThreeSounds from "./SceneThreeSounds.json";
 import { Howl } from "howler";
+import {useHistory} from 'react-router-dom';
 
 let playingAudio = "none";
 
 const SceneThree = () => {
+  const history = useHistory();
   const [isActive, setActive] = useState(false);
   const hasBucket = () => {
     const bool = JSON.parse(window.localStorage.getItem("hasCandyBucket"));
@@ -72,14 +74,12 @@ const SceneThree = () => {
   };
 
   document.addEventListener("keydown", (event) => {
-    console.log(location);
     if (event.code === "Enter" && location) {
       event.preventDefault();
       if (event.repeat) {
         return;
       }
       sceneThreeAudio.sceneThreeDescription.play();
-      console.log("return key");
     }
   });
 
@@ -152,23 +152,21 @@ const SceneThree = () => {
   };
 
   const mapPageToLink = {
-    right: "rightArrow",
-    left: "leftArrow",
-    write: "rightArrow",
-    "next room": "rightArrow",
-    "previous room": "leftArrow",
-    "room two": "leftArrow",
-    "room four": "rightArrow",
+    "right": "arrowRight",
+    "left": "arrowLeft",
+    "write": "arrowRight",
+    "next room": "arrowRight",
+    "previous room": "arrowLeft",
+    "room two": "arrowLeft",
+    "room four": "arrowRight",
   };
 
   function clickImage(item) {
     item = item.toLowerCase();
-    console.log("🧤 item", item);
     if (clickableItems.includes(item)) {
       item = matchItemToClass[item];
       document.getElementsByClassName(item)[0].click();
     } else {
-      console.log("🧤 item", item);
       alert(
         `it thinks you said ${item}, consider adding ${item} to your item list, and mapping that to the correct word/phrase. Remove this when finished testing`
       );
@@ -176,11 +174,11 @@ const SceneThree = () => {
   }
 
   function goTo(page) {
-    console.log("🧤 what the api heard....", page);
-
     if (pagePossibilities.includes(page)) {
       page = mapPageToLink[page];
-      document.getElementById(page).click();
+      document.getElementsByClassName(page)[0].click();
+    }  else if (String(page) === "tutorial"){
+      history.push("/tutorial")
     } else {
       alert(
         `it thinks you said ${page}, consider adding ${page} to your item list, and mapping that to the correct word/phrase. Remove this when finished testing`
@@ -195,7 +193,6 @@ const SceneThree = () => {
         return;
       }
       SpeechRecognition.startListening();
-      console.log("🧤 list");
     }
   });
 
@@ -203,7 +200,6 @@ const SceneThree = () => {
     if (event.code === "Space") {
       event.preventDefault();
       SpeechRecognition.stopListening();
-      console.log("🧤 not");
     }
   });
 
@@ -248,7 +244,7 @@ const SceneThree = () => {
           ? audioControl(sceneThreeAudio.giveCandyToWitch)
           : audioControl(sceneThreeAudio.talkToWitchFirst);
         narrationBox.innerHTML = hasCandyBucket
-          ? "Is that candy, for me? Thank you kindly. *shuffling sound and crinkle of wrappers* *witches cackle* *savions signature explosion sound* Come and drink some of this potion sweaty. I have a feeling that you will need this in order to get out of here."
+          ? "Is that candy, for me? Thank you kindly. Come and drink some of this potion sweaty. I have a feeling that you will need this in order to get out of here."
           : "Oh hello there deary. It appears you have also been stolen into the belly of this house monster. Child, I am missing something to counteract the spiciness of my brew here and I was wondering if you could help and old lady out?";
         break;
       case "grandFatherClock":
@@ -340,6 +336,7 @@ const SceneThree = () => {
             className="arrowRight"
             src={arrowRight}
             alt="An arrow that looks ghostly"
+            onClick={() => stopAllAudio()}
           ></img>
         </div>
       </Link>
@@ -349,6 +346,7 @@ const SceneThree = () => {
             className="arrowLeft"
             src={arrowLeft}
             alt="An arrow that looks ghostly"
+            onClick={() => stopAllAudio()}
           ></img>
         </div>
       </Link>

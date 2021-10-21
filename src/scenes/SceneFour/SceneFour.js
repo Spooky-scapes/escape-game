@@ -47,6 +47,10 @@ const SceneFour = () => {
     "matt",
     "raven",
     "reva",
+    "laugh",
+    "bone",
+    "bone.",
+    "mac",
   ];
 
   const pagePossibilities = [
@@ -60,22 +64,26 @@ const SceneFour = () => {
   ];
 
   const matchItemToClass = {
-    door: "door",
-    window: "Window",
-    painting: "moonPainting",
+    "door": "door",
+    "window": "Window",
+    "painting": "moonPainting",
     "bone dog": "boneDog",
-    mat: "mat",
-    math: "mat",
-    map: "mat",
-    matt: "mat",
-    raven: "closedRaven",
-    reva: "closedRaven",
+    "bone": "boneDog",
+    "bone.": "boneDog",
+    "mat": "mat",
+    "math": "mat",
+    "map": "mat",
+    "matt": "mat",
+    "mac": "mat",
+    "raven": "closedRaven",
+    "reva": "closedRaven",
   };
 
   const mapPageToLink = {
-    right: "rightArrow",
-    left: "leftArrow",
-    write: "rightArrow",
+    "right": "rightArrow",
+    "left": "leftArrow",
+    "laugh": "leftArrow",
+    "write": "rightArrow",
     "next room": "rightArrow",
     "previous room": "leftArrow",
     "room three": "leftArrow",
@@ -98,7 +106,10 @@ const SceneFour = () => {
     if (pagePossibilities.includes(page)) {
       page = mapPageToLink[page];
       document.getElementById(page).click();
-    } else {
+    }  else if (String(page) === "tutorial"){
+      history.push("/tutorial")
+    }
+     else {
       alert(
         `it thinks you said ${page}, consider adding ${page} to your item list, and mapping that to the correct word/phrase. Remove this when finished testing`
       );
@@ -211,6 +222,14 @@ const SceneFour = () => {
       playingAudio.stop();
     }
   };
+
+  const hideInv = () => {
+    document.getElementsByClassName("visInventory")[0].className =
+      "hiddenInventory";
+    document.getElementsByClassName("visItemBox")[0].className =
+      "hiddenItemBox";
+  };
+
   const assetClicked = (e) => {
     setActive(false);
     const clicked = e.target.className;
@@ -226,8 +245,10 @@ const SceneFour = () => {
           narrationBox.innerHTML =
             "*door swinging open* You did what we couldn’t! Congratulations and Happy Halloween!";
           setTimeout(() => {
+            hideInv();
+            window.dispatchEvent(new Event("reset"));
             history.push("/victory");
-          }, 13000);
+          }, 6500);
           break;
         }
         audioControl(audioCues.doorHandle);
@@ -264,19 +285,20 @@ const SceneFour = () => {
         break;
       case "mat":
         let hasCasset = JSON.parse(window.localStorage.getItem("hasCasset"));
-        if (hasCasset) {
-          audioControl(audioCues.dust);
-          narrationBox.innerHTML = "It still smells like dust";
+        if (!hasCasset) {
+          window.localStorage.setItem("hasCasset", true);
+          audioControl(audioCues.matShuffling);
+          audioControl(audioCues.cassette);
+          window.dispatchEvent(new Event("storage"));
+          document.getElementsByClassName("cassette")[0].className = "hidden";
+          narrationBox.innerHTML =
+            "*shuffling* Look, a cassette tape is hidden under the mat, wonder what could be on it?";
           break;
         }
-        window.localStorage.setItem("hasCasset", true);
-        audioControl(audioCues.cassette);
-        audioControl(audioCues.matShuffling);
-        window.dispatchEvent(new Event("storage"));
-        document.getElementsByClassName("cassette")[0].className = "hidden";
-        narrationBox.innerHTML =
-          "*shuffling* Look, a cassette tape is hidden under the mat, wonder what could be on it?";
-        break;
+        audioControl(audioCues.dust);
+          narrationBox.innerHTML = "It still smells like dust";
+          break;
+
       default:
         break;
     }
@@ -314,7 +336,7 @@ const SceneFour = () => {
         alt="cute little bonedog"
         onClick={(e) => assetClicked(e)}
       />
-      <img className="cassette" src={cassette} alt="hidden cassette tape" />
+      <img className={JSON.parse(window.localStorage.getItem("hasCasset"))? "hidden": "cassette"} src={cassette} alt="hidden cassette tape" />
       <img
         className="mat"
         src={mat}

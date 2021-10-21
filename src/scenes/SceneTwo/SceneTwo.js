@@ -1,8 +1,10 @@
+// SCSS Imports
+
 import "../../App.scss";
 import "../../main.scss";
 import "./sceneTwo.scss";
-import React, { useState } from "react";
 
+// Asset Imports
 import closedCoffin from "../../assets/SceneTwo/closed-coffin.png";
 import openCoffin from "../../assets/SceneTwo/openCasket.png";
 import stool from "../../assets/SceneTwo/stool-cabinet.png";
@@ -14,12 +16,12 @@ import cowPainting from "../../assets/SceneTwo/cow-painting.png";
 import leftArrow from "../../assets/ghostArrowLeft.png";
 import rightArrow from "../../assets/ghostArrowRight.png";
 import s2Sounds from "./sceneTwoSounds.json";
-// import { playingAudio } from "../SceneOne/SceneOne";
 
-import { Link, useHistory } from "react-router-dom";
-import {Howl, Howler} from 'howler'
+// Library Imports
+import React, { useState } from "react";
+import { Link, useHistory} from "react-router-dom";
+import {Howl} from 'howler'
 import { timeoutCollection } from "time-events-manager";
-
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
@@ -32,6 +34,7 @@ const SceneTwo = () => {
   const history = useHistory()
 
   const commands = [
+    // To add additional commands, add another command to the commands array, and a callback to handle that command
     {
       command: ["Click on *"],
       callback: (item) => clickImage(item),
@@ -46,6 +49,7 @@ const SceneTwo = () => {
   let casket = false;
 
   const clickableItems = [
+    // An array of items that may be said by a user, these are the only words we listen for with the Click on command
     "coffin",
     "coughing",
     "coffee",
@@ -92,7 +96,7 @@ const SceneTwo = () => {
     "cow painting": "cowPainting",
   };
 
-  // ^^^ this object will map the item as spoken, to the items class name as written, there are other ways to accomplish this ^^^
+  // ^^^ this object will map the item as spoken, to the items class name as written ^^^
 
   const mapPageToLink = {
     right: "rightArrow",
@@ -107,13 +111,14 @@ const SceneTwo = () => {
   // ^^^ should need no adjustment, if adjusted we should all match the adjustment^^^
 
   function clickImage(item) {
+    // this function is used as the callback for the click on command
+
     item = item.toLowerCase();
-    console.log("🧤 item", item);
     if (clickableItems.includes(item)) {
       item = matchItemToClass[item];
       document.getElementsByClassName(item)[0].click();
     } else {
-      console.log("🧤 item", item);
+      // this alert is left for developers, note that it shows the item received from the spoken command, and displays it.
       alert(
         `it thinks you said ${item}, consider adding ${item} to your item list, and mapping that to the correct word/phrase. Remove this when finished testing`
       );
@@ -121,12 +126,16 @@ const SceneTwo = () => {
   }
 
   function goTo(page) {
-    console.log("🧤 what the api heard....", page);
+    // this function is used as the callback for the go to command, in the event that you need to debug you may use the console.log below
+
+    // console.log("🧤 what the api heard....", page);
 
     if (pagePossibilities.includes(page)) {
       page = mapPageToLink[page];
       document.getElementById(page).click();
-    } else {
+    }  else if (String(page) === "tutorial"){
+      history.push("/tutorial")
+    }else {
       alert(
         `it thinks you said ${page}, consider adding ${page} to your item list, and mapping that to the correct word/phrase. Remove this when finished testing`
       );
@@ -134,6 +143,7 @@ const SceneTwo = () => {
   }
 
   document.addEventListener("keydown", (event) => {
+    // This listener allows users to initiate an audio description of the current room they're in, or listen for click on commands for listed items in the room
     const bool = JSON.parse(window.localStorage.getItem("usedCasset"))
     if (event.code === "Space") {
       event.preventDefault();
@@ -143,9 +153,9 @@ const SceneTwo = () => {
       SpeechRecognition.startListening();
       console.log("🧤 list");
     }
+    //
     const pagina = window.location.href === 'http://localhost:3000/storage'|| window.location.href === 'https://spooky-scapes.netlify.app/storage'
 
-    // console.log('🧤 pagina', pagina);
 
     if(event.code === "Enter" && pagina) {
       event.preventDefault();
@@ -163,6 +173,7 @@ const SceneTwo = () => {
   });
 
   document.addEventListener("keyup", (event) => {
+    // this listen
     const bool = JSON.parse(window.localStorage.getItem("usedCasset"))
     if (event.code === "Space") {
       event.preventDefault();
@@ -170,7 +181,9 @@ const SceneTwo = () => {
       console.log("🧤 not");
     }
 
-    const pagina = window.location.href === 'http://localhost:3000/storage' || window.location.href === 'https://spooky-scapes.netlify.app/storage'
+  const pagina = window.location.href === 'http://localhost:3000/storage' || window.location.href === 'https://spooky-scapes.netlify.app/storage'
+
+
     if(event.code === "Enter" && pagina){
       event.preventDefault()
       console.log('🧤 window.location.href', window.location.href);
@@ -224,31 +237,26 @@ const SceneTwo = () => {
           "A painting of a cow, what a strange painting to own.";
         break;
       case "stoolCabinet":
-        // sceneTwoAudio.stoolCabinetDesc.play()
         audioControl(sceneTwoAudio.stoolCabinetDesc)
         narrationBox.innerHTML =
           "An old worn down stool cabinet that doesn’t open.";
         break;
       case "oldChair":
-        // sceneTwoAudio.oldChairDesc.play()
         audioControl(sceneTwoAudio.oldChairDesc)
         narrationBox.innerHTML =
           "An old worn down chair, it doesn’t look sturdy enough to sit on.";
         break;
       case "holeInWall":
-        // sceneTwoAudio.holeInWallDesc.play()
         audioControl(sceneTwoAudio.holeInWallDesc)
         narrationBox.innerHTML =
           "The old purple wallpaper has a huge hole in it, there doesn’t seem to be anything behind that wallpaper but darkness";
         break;
       case "rightCandle":
-        // sceneTwoAudio.candles.play()
         audioControl(sceneTwoAudio.candles)
         narrationBox.innerHTML =
           "A wall candle, there’s another one on the opposite side of the room. The candle is lit but who lit them?";
         break;
       case "leftCandle":
-        // sceneTwoAudio.candles.play()
         audioControl(sceneTwoAudio.candles)
         narrationBox.innerHTML =
           "A wall candle, there’s another one on the opposite side of the room. The candle is lit but who lit them?";
@@ -371,22 +379,12 @@ const stopAllAudio = () => {
           className={isActive ? "coffin-text-active" : "coffin-text"}
         ></p>
       </div>
-      <Link to="/parlor" onClick={(e) => {
-              e.preventDefault()
-              console.log(playingAudio)
-              stopAllAudio()
-              history.push("/parlor")
-            }}>
+      <Link to="/parlor" >
         <div>
           <img src={leftArrow} id="leftArrow" onClick={() => stopAllAudio()} alt="ghost arrow pointing left" />
         </div>
       </Link>
-      <Link to="/witchDen" onClick={(e) => {
-              e.preventDefault()
-              console.log(playingAudio)
-              stopAllAudio()
-              history.push("/witchDen")
-            }}>
+      <Link to="/witchDen">
         <div>
           <img
             src={rightArrow}
