@@ -245,6 +245,7 @@ const SceneOne = () => {
   const stopAllAudio = () => {
     if (playingAudio !== "none") {
       playingAudio.stop();
+      playingAudio.unload();
     }
   };
 
@@ -329,6 +330,14 @@ const SceneOne = () => {
     }, 15000);
     return;
   };
+
+  // let interval = setInterval(function(){
+  //   let time = document.getElementById("timer").innerHTML;
+  //   console.log("i am time", time)
+  //   if(time === 00:01){
+  //     stopAllAudio()
+  //   }
+  // }, 1000)
 
   return (
     <div className="sceneOne">
