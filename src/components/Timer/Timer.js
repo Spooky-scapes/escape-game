@@ -2,7 +2,7 @@ import "./Timer.scss";
 import { useHistory, useLocation } from "react-router-dom";
 
 let interval;
-
+let isPaused;
 const Timer = () => {
   const history = useHistory();
   const location = useLocation();
@@ -17,8 +17,8 @@ const Timer = () => {
       minutes = minutes < 10 ? "0" + minutes : minutes;
       seconds = seconds < 10 ? "0" + seconds : seconds;
       display.textContent = minutes + ":" + seconds;
-      if (timer > 0) timer--;
-      else {
+      if (timer > 0 && !isPaused) timer--;
+      if (timer <= 0 && !isPaused){
         clearInterval(interval)
         document.getElementById("timer").id = "invisible";
         interval = undefined;
@@ -38,6 +38,13 @@ const Timer = () => {
     document.getElementById("invisible").id = "timer";
     let display = document.getElementById("timer");
     startTimer(fifteenMinutes, display);
+  }
+  if (location.pathname === "/parlor" && interval){
+    isPaused = false;
+  }
+
+  if (location.pathname === "/tutorial" && interval){
+    isPaused = true;
   }
 
   return (

@@ -9,7 +9,7 @@ import SpeechRecognition, {
 let playingAudio = "none";
 const Tutorial = () => {
   const tutorialSound =
-    "https://firebasestorage.googleapis.com/v0/b/spooky-scapes.appspot.com/o/Spooky%20Sounds%2FSpookyTutorial.m4a?alt=media&token=26542141-47e3-460b-a2c5-57726893829b/allow-cors";
+    "https://firebasestorage.googleapis.com/v0/b/spooky-scapes.appspot.com/o/Spooky%20Sounds%2FTutorialUpdated.m4a?alt=media&token=59d7330c-5907-4be4-881c-5fc6c91d043c/allow-cors";
   const tutorial = new Howl({
     src: [tutorialSound],
     html5: true,

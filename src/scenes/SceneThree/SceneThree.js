@@ -15,10 +15,12 @@ import SpeechRecognition, {
 import { useState } from "react";
 import sceneThreeSounds from "./SceneThreeSounds.json";
 import { Howl } from "howler";
+import { useHistory } from "react-router-dom";
 
 let playingAudio = "none";
 
 const SceneThree = () => {
+  const history = useHistory();
   const [isActive, setActive] = useState(false);
   const hasBucket = () => {
     const bool = JSON.parse(window.localStorage.getItem("hasCandyBucket"));
@@ -76,7 +78,6 @@ const SceneThree = () => {
         return;
       }
       sceneThreeAudio.sceneThreeDescription.play();
-      console.log("return key");
     }
   });
 
@@ -151,23 +152,21 @@ const SceneThree = () => {
   };
 
   const mapPageToLink = {
-    right: "rightArrow",
-    left: "leftArrow",
-    write: "rightArrow",
-    "next room": "rightArrow",
-    "previous room": "leftArrow",
-    "room two": "leftArrow",
-    "room four": "rightArrow",
+    right: "arrowRight",
+    left: "arrowLeft",
+    write: "arrowRight",
+    "next room": "arrowRight",
+    "previous room": "arrowLeft",
+    "room two": "arrowLeft",
+    "room four": "arrowRight",
   };
 
   function clickImage(item) {
     item = item.toLowerCase();
-    console.log("🧤 item", item);
     if (clickableItems.includes(item)) {
       item = matchItemToClass[item];
       document.getElementsByClassName(item)[0].click();
     } else {
-      console.log("🧤 item", item);
       alert(
         `it thinks you said ${item}, consider adding ${item} to your item list, and mapping that to the correct word/phrase. Remove this when finished testing`
       );
@@ -175,11 +174,11 @@ const SceneThree = () => {
   }
 
   function goTo(page) {
-    console.log("🧤 what the api heard....", page);
-
     if (pagePossibilities.includes(page)) {
       page = mapPageToLink[page];
-      document.getElementById(page).click();
+      document.getElementsByClassName(page)[0].click();
+    } else if (String(page) === "tutorial") {
+      history.push("/tutorial");
     } else {
       alert(
         `it thinks you said ${page}, consider adding ${page} to your item list, and mapping that to the correct word/phrase. Remove this when finished testing`
@@ -194,7 +193,6 @@ const SceneThree = () => {
         return;
       }
       SpeechRecognition.startListening();
-      console.log("🧤 list");
     }
   });
 
@@ -202,7 +200,6 @@ const SceneThree = () => {
     if (event.code === "Space") {
       event.preventDefault();
       SpeechRecognition.stopListening();
-      console.log("🧤 not");
     }
   });
 
