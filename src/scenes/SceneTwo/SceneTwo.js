@@ -118,10 +118,16 @@ const SceneTwo = () => {
       item = matchItemToClass[item];
       document.getElementsByClassName(item)[0].click();
     } else {
+      sceneTwoAudio.confused.play()
+      document.getElementById("narrationBox").innerHTML= 'I am truly perplexed by your request, speak clearly child and try again.'
+      setActive(true);
+      setTimeout(function () {
+      setActive(false);
+      }, 6500);
       // this alert is left for developers, note that it shows the item received from the spoken command, and displays it.
-      alert(
-        `it thinks you said ${item}, consider adding ${item} to your item list, and mapping that to the correct word/phrase. Remove this when finished testing`
-      );
+      // alert(
+      //   `it thinks you said ${item}, consider adding ${item} to your item list, and mapping that to the correct word/phrase. Remove this when finished testing`
+      // );
     }
   }
 
@@ -136,20 +142,28 @@ const SceneTwo = () => {
     }  else if (String(page) === "tutorial"){
       history.push("/tutorial")
     }else {
-      alert(
-        `it thinks you said ${page}, consider adding ${page} to your item list, and mapping that to the correct word/phrase. Remove this when finished testing`
-      );
+      sceneTwoAudio.confused.play()
+      document.getElementById("narrationBox").innerHTML= 'I am truly perplexed by your request, speak clearly child and try again.'
+      setActive(true);
+      setTimeout(function () {
+      setActive(false);
+      }, 6500);
+      // alert(
+      //   `it thinks you said ${page}, consider adding ${page} to your item list, and mapping that to the correct word/phrase. Remove this when finished testing`
+      // );
     }
   }
 
   document.addEventListener("keydown", (event) => {
     // This listener allows users to initiate an audio description of the current room they're in, or listen for click on commands for listed items in the room
+    setActive(false);
     const bool = JSON.parse(window.localStorage.getItem("usedCasset"))
     if (event.code === "Space") {
       event.preventDefault();
       if (event.repeat) {
         return;
       }
+      stopAllAudio()
       SpeechRecognition.startListening();
       console.log("🧤 list");
     }
@@ -290,7 +304,9 @@ const SceneTwo = () => {
 
     oldChairDesc: new Howl({src: [s2Sounds[8].oldChairDesc], html5:true}),
 
-    cowPaintingDesc2: new Howl({src: [s2Sounds[9].cowPaintingDesc2], html5:true})
+    cowPaintingDesc2: new Howl({src: [s2Sounds[9].cowPaintingDesc2], html5:true}),
+
+    confused: new Howl({src: [s2Sounds[10].confused], html5:true})
 
   }
   const audioControl = (specifiedSound) => {

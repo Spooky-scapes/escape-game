@@ -13,5 +13,6 @@
   {"matShuffling":"https://firebasestorage.googleapis.com/v0/b/spooky-scapes.appspot.com/o/Scene%204%2Fmat-shuffling.mp3?alt=media&token=9d2b2390-d782-475b-a8ee-21927f1656ba/allow-cors"},
   {"windowRattling":"https://firebasestorage.googleapis.com/v0/b/spooky-scapes.appspot.com/o/Scene%204%2Fwindow-rattling.mp3?alt=media&token=ef44a750-4d72-456c-8b1f-170372b8b9f1/allow-cors"},
   {"caw":"https://firebasestorage.googleapis.com/v0/b/spooky-scapes.appspot.com/o/caw.mp3?alt=media&token=cd4cc366-1a6b-47f6-912b-5b5eb21096f2/allow-cors"},
-  {"doorHandle":"https://firebasestorage.googleapis.com/v0/b/spooky-scapes.appspot.com/o/Scene%204%2Fdoor-handle.mp3?alt=media&token=ecc9b08b-4265-4bdb-b5f1-29cd2ed177ab/allow-cors"}
+  {"doorHandle":"https://firebasestorage.googleapis.com/v0/b/spooky-scapes.appspot.com/o/Scene%204%2Fdoor-handle.mp3?alt=media&token=ecc9b08b-4265-4bdb-b5f1-29cd2ed177ab/allow-cors"},
+  {"confused": "https://firebasestorage.googleapis.com/v0/b/spooky-scapes.appspot.com/o/Helpful%2Fmisunderstood.m4a?alt=media&token=0fef7d53-8dc5-4941-9a15-4939a0b12c70/allow-cors"}
 ]

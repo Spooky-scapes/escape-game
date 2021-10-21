@@ -96,9 +96,15 @@ const SceneFour = () => {
       item = matchItemToClass[item];
       document.getElementsByClassName(item)[0].click();
     } else {
-      alert(
-        `it thinks you said ${item}, consider adding ${item} to your item list, and mapping that to the correct word/phrase. Remove this when finished testing`
-      );
+      audioControl(audioCues.confused)
+      setActive(true);
+      document.getElementById('narrationBox').innerHTML = 'I am truly perplexed by your request, speak clearly child and try again.'
+      setTimeout(function () {
+        setActive(false);
+      }, 6500);
+      // alert(
+      //   `it thinks you said ${item}, consider adding ${item} to your item list, and mapping that to the correct word/phrase. Remove this when finished testing`
+      // );
     }
   }
 
@@ -110,15 +116,22 @@ const SceneFour = () => {
       history.push("/tutorial")
     }
      else {
-      alert(
-        `it thinks you said ${page}, consider adding ${page} to your item list, and mapping that to the correct word/phrase. Remove this when finished testing`
-      );
+       audioControl(audioCues.confused)
+       setActive(true);
+       document.getElementById('narrationBox').innerHTML = 'I am truly perplexed by your request, speak clearly child and try again.'
+       setTimeout(function () {
+         setActive(false);
+       }, 6500);
+      // alert(
+      //   `it thinks you said ${page}, consider adding ${page} to your item list, and mapping that to the correct word/phrase. Remove this when finished testing`
+      // );
     }
   }
 
   document.addEventListener("keydown", (event) => {
     if (event.code === "Space") {
       event.preventDefault();
+      stopAllAudio()
       SpeechRecognition.startListening();
     }
     const pagina =
@@ -211,6 +224,10 @@ const SceneFour = () => {
       src: [s4sounds[14].doorHandle],
       html5: true,
     }),
+    confused: new Howl({
+      src: [s4sounds[15].confused],
+      html5: true
+    })
   };
   const audioControl = (specifiedSound) => {
     playingAudio = specifiedSound;

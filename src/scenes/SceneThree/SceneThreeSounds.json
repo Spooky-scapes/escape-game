@@ -8,5 +8,6 @@
     {"woodenSpoon" : "https://firebasestorage.googleapis.com/v0/b/spooky-scapes.appspot.com/o/Spooky%20Sounds%2FScene3%2FScene%20three%20wooden%20spoon(1).m4a?alt=media&token=516c3121-7aac-4383-8ace-184f772df5de/allow-cors"},
     {"lilyCauldronTwo":"https://firebasestorage.googleapis.com/v0/b/spooky-scapes.appspot.com/o/Spooky%20Sounds%2FScene3%2FScram%20crow.wav?alt=media&token=4ceeb8e1-1389-4ffe-95de-327449c0a51d/allow=cors"},
     {"talkToWitchFirst": "https://firebasestorage.googleapis.com/v0/b/spooky-scapes.appspot.com/o/Spooky%20Sounds%2FScene3%2FTalk%20to%20witch%20first.wav?alt=media&token=8a8c9610-6be2-4dad-875b-a400a9f6d52e/allow-cors"},
-    {"witchLine": "https://firebasestorage.googleapis.com/v0/b/spooky-scapes.appspot.com/o/Spooky%20Sounds%2FScene3%2FWitch%20line.wav?alt=media&token=d6b428af-a4b5-4847-b39b-fd3819a05cb9/allow-cors"}
+    {"witchLine": "https://firebasestorage.googleapis.com/v0/b/spooky-scapes.appspot.com/o/Spooky%20Sounds%2FScene3%2FWitch%20line.wav?alt=media&token=d6b428af-a4b5-4847-b39b-fd3819a05cb9/allow-cors"},
+    {"confused": "https://firebasestorage.googleapis.com/v0/b/spooky-scapes.appspot.com/o/Helpful%2Fmisunderstood.m4a?alt=media&token=0fef7d53-8dc5-4941-9a15-4939a0b12c70/allow-cors"}
 ]
