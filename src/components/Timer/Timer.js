@@ -46,7 +46,7 @@ const Timer = () => {
   }
 
   if (location.pathname === "/parlor" && !interval) {
-    const fifteenMinutes = 5;
+    const fifteenMinutes = 15 * 60;
     document.getElementById("invisible").id = "timer";
     let display = document.getElementById("timer");
     startTimer(fifteenMinutes, display);
