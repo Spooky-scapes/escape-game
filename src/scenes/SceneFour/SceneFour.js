@@ -5,7 +5,6 @@ import dog from "../../assets/SceneFour/Bonedog.png";
 import mat from "../../assets/SceneFour/mat.png";
 import cassette from "../../assets/SceneFour/cassette-tape.png";
 import closedRaven from "../../assets/SceneFour/ravenClosedFIT.png";
-import openRaven from "../../assets/SceneFour/ravenOpenFIT.png";
 import { Link } from "react-router-dom";
 import leftArrow from "../../assets/ghostArrowLeft.png";
 import rightArrow from "../../assets/ghostArrowRight.png";
@@ -108,9 +107,15 @@ const SceneFour = () => {
       item = matchItemToClass[item];
       document.getElementsByClassName(item)[0].click();
     } else {
-      alert(
-        `it thinks you said ${item}, consider adding ${item} to your item list, and mapping that to the correct word/phrase. Remove this when finished testing`
-      );
+      audioControl(audioCues.confused)
+      setActive(true);
+      document.getElementById('narrationBox').innerHTML = 'I am truly perplexed by your request, speak clearly child and try again.'
+      setTimeout(function () {
+        setActive(false);
+      }, 6500);
+      // alert(
+      //   `it thinks you said ${item}, consider adding ${item} to your item list, and mapping that to the correct word/phrase. Remove this when finished testing`
+      // );
     }
   }
 
@@ -126,15 +131,22 @@ const SceneFour = () => {
       history.push("/tutorial")
     }
      else {
-      alert(
-        `it thinks you said ${page}, consider adding ${page} to your item list, and mapping that to the correct word/phrase. Remove this when finished testing`
-      );
+       audioControl(audioCues.confused)
+       setActive(true);
+       document.getElementById('narrationBox').innerHTML = 'I am truly perplexed by your request, speak clearly child and try again.'
+       setTimeout(function () {
+         setActive(false);
+       }, 6500);
+      // alert(
+      //   `it thinks you said ${page}, consider adding ${page} to your item list, and mapping that to the correct word/phrase. Remove this when finished testing`
+      // );
     }
   }
 
   document.addEventListener("keydown", (event) => {
     if (event.code === "Space") {
       event.preventDefault();
+      stopAllAudio()
       SpeechRecognition.startListening();
     }
     const pagina =
@@ -152,6 +164,7 @@ const SceneFour = () => {
 
   document.addEventListener("keyup", (event) => {
     if (event.code === "Space") {
+      stopAllAudio()
       event.preventDefault();
       SpeechRecognition.stopListening();
     }
@@ -159,6 +172,7 @@ const SceneFour = () => {
       window.location.href === "http://localhost:3000/entryway" ||
       window.location.href === "https://spooky-scapes.netlify.app/entryway";
     if (event.code === "Enter" && pagina) {
+      stopAllAudio()
       event.preventDefault();
       audioCues.sceneFourDescription.stop();
     }
@@ -227,6 +241,10 @@ const SceneFour = () => {
       src: [s4sounds[14].doorHandle],
       html5: true,
     }),
+    confused: new Howl({
+      src: [s4sounds[15].confused],
+      html5: true
+    })
   };
   const audioControl = (specifiedSound) => {
     playingAudio = specifiedSound;
@@ -324,7 +342,7 @@ const SceneFour = () => {
     setActive(true);
     setTimeout(function () {
       setActive(false);
-    }, 15000);
+    }, 30000);
   };
 
   return (
@@ -368,7 +386,10 @@ const SceneFour = () => {
         onClick={(e) => assetClicked(e)}
       />
       <div className="narrationBox">
-        <p id="narrationBox"></p>
+        <p
+          id="narrationBox"
+          className={isActive ? "text-active" : "text-hidden"}
+        ></p>
       </div>
       <Link to="/witchDen">
         <div>

@@ -9,14 +9,13 @@ import arrowRight from "../../assets/SceneThreeAssets/ghostArrowRight.png";
 import arrowLeft from "../../assets/SceneThreeAssets/ghostArrowLeft.png";
 import ravenClosed from "../../assets/SceneOne/ravenClosedFIT.png";
 import { Link } from "react-router-dom";
-import backgroundImage from "../../assets/Background.jpg";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
 import { useState } from "react";
 import sceneThreeSounds from "./SceneThreeSounds.json";
 import { Howl } from "howler";
-import {useHistory} from 'react-router-dom';
+import { useHistory } from "react-router-dom";
 
 let playingAudio = "none";
 
@@ -41,11 +40,6 @@ const SceneThree = () => {
     } else clearInterval(iHateIntervals)
   }, 1000);
 
-
-  //audio for SceneThree
-  const location =
-    window.location.href === "http://localhost:3000/witchDen" ||
-    window.location.href === "https://spooky-scapes.netlify.app/witchDen";
 
   const sceneThreeAudio = {
     sceneThreeDescription: new Howl({
@@ -82,19 +76,31 @@ const SceneThree = () => {
       html5: true,
     }),
     witchLine: new Howl({ src: [sceneThreeSounds[9].witchLine], html5: true }),
+    confused: new Howl({
+      src: [sceneThreeSounds[10].confused],
+      html5: true
+    })
   };
 
   document.addEventListener("keydown", (event) => {
+    const location =
+      window.location.href === "http://localhost:3000/witchDen" ||
+      window.location.href === "https://spooky-scapes.netlify.app/witchDen";
     if (event.code === "Enter" && location) {
       event.preventDefault();
+      stopAllAudio();
       if (event.repeat) {
         return;
       }
+      stopAllAudio()
       sceneThreeAudio.sceneThreeDescription.play();
     }
   });
 
   document.addEventListener("keyup", (event) => {
+    const location =
+      window.location.href === "http://localhost:3000/witchDen" ||
+      window.location.href === "https://spooky-scapes.netlify.app/witchDen";
     if (event.code === "Enter" && location) {
       event.preventDefault();
       sceneThreeAudio.sceneThreeDescription.stop();
@@ -146,7 +152,6 @@ const SceneThree = () => {
     "previous room",
     "room two",
     "room four",
-    "write",
   ];
 
   const matchItemToClass = {
@@ -163,9 +168,9 @@ const SceneThree = () => {
   };
 
   const mapPageToLink = {
-    "right": "arrowRight",
-    "left": "arrowLeft",
-    "write": "arrowRight",
+    right: "arrowRight",
+    left: "arrowLeft",
+    write: "arrowRight",
     "next room": "arrowRight",
     "previous room": "arrowLeft",
     "room two": "arrowLeft",
@@ -173,18 +178,25 @@ const SceneThree = () => {
   };
 
   function clickImage(item) {
+    stopAllAudio()
     item = item.toLowerCase();
     if (clickableItems.includes(item)) {
       item = matchItemToClass[item];
       document.getElementsByClassName(item)[0].click();
     } else {
-      alert(
-        `it thinks you said ${item}, consider adding ${item} to your item list, and mapping that to the correct word/phrase. Remove this when finished testing`
-      );
+     document.getElementById("narrationBox").innerHTML = "I am truly perplexed by your request, speak clearly child and try again."
+      setActive(true);
+      setTimeout(function () {
+        setActive(false);
+      }, 6500);
+      // alert(
+      //   `it thinks you said ${item}, consider adding ${item} to your item list, and mapping that to the correct word/phrase. Remove this when finished testing`
+      // );
     }
   }
 
   function goTo(page) {
+    stopAllAudio()
     if (pagePossibilities.includes(page)) {
       page = mapPageToLink[page];
       document.getElementsByClassName(page)[0].click();
@@ -195,9 +207,16 @@ const SceneThree = () => {
       "hiddenItemBox";
       history.push("/tutorial")
     } else {
-      alert(
-        `it thinks you said ${page}, consider adding ${page} to your item list, and mapping that to the correct word/phrase. Remove this when finished testing`
-      );
+      setActive(true);
+      audioControl(sceneThreeAudio.confused)
+      document.getElementById("narrationBox").innerHTML = "I am truly perplexed by your request, speak clearly child and try again."
+
+      setTimeout(function () {
+        setActive(false);
+      }, 6500);
+      // alert(
+      //   `it thinks you said ${page}, consider adding ${page} to your item list, and mapping that to the correct word/phrase. Remove this when finished testing`
+      // );
     }
   }
 
@@ -207,6 +226,7 @@ const SceneThree = () => {
       if (event.repeat) {
         return;
       }
+      stopAllAudio()
       SpeechRecognition.startListening();
     }
   });
@@ -286,7 +306,7 @@ const SceneThree = () => {
     setActive(true);
     setTimeout(function () {
       setActive(false);
-    }, 15000);
+    }, 30000);
     return;
   };
 
@@ -319,7 +339,7 @@ const SceneThree = () => {
           }}
         ></img>
       </div>
-      <div>
+      <div className="grandFatherDiv">
         <img
           className="grandFatherClock"
           src={grandFatherClock}
@@ -343,7 +363,10 @@ const SceneThree = () => {
         ></img>
       </div>
       <div className="narrationBox">
-        <p id="narrationBox"></p>
+        <p
+          id="narrationBox"
+          className={isActive ? "text-vis" : "text-hide"}
+        ></p>
       </div>
       <Link to="/entryway">
         <div>

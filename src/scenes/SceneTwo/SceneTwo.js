@@ -19,19 +19,18 @@ import s2Sounds from "./sceneTwoSounds.json";
 
 // Library Imports
 import React, { useState } from "react";
-import { Link, useHistory} from "react-router-dom";
-import {Howl} from 'howler'
+import { Link, useHistory } from "react-router-dom";
+import { Howl } from "howler";
 import { timeoutCollection } from "time-events-manager";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
 
-
-let playingAudio = "none"
+let playingAudio = "none";
 
 const SceneTwo = () => {
   const [isActive, setActive] = useState(false);
-  const history = useHistory()
+  const history = useHistory();
 
   const iHateIntervals = setInterval(function(){
     if (document.getElementById('timer')){
@@ -129,10 +128,16 @@ const SceneTwo = () => {
       item = matchItemToClass[item];
       document.getElementsByClassName(item)[0].click();
     } else {
+      sceneTwoAudio.confused.play()
+      document.getElementById("narrationBox").innerHTML= 'I am truly perplexed by your request, speak clearly child and try again.'
+      setActive(true);
+      setTimeout(function () {
+      setActive(false);
+      }, 6500);
       // this alert is left for developers, note that it shows the item received from the spoken command, and displays it.
-      alert(
-        `it thinks you said ${item}, consider adding ${item} to your item list, and mapping that to the correct word/phrase. Remove this when finished testing`
-      );
+      // alert(
+      //   `it thinks you said ${item}, consider adding ${item} to your item list, and mapping that to the correct word/phrase. Remove this when finished testing`
+      // );
     }
   }
 
@@ -151,62 +156,71 @@ const SceneTwo = () => {
       "hiddenItemBox";
       history.push("/tutorial")
     }else {
-      alert(
-        `it thinks you said ${page}, consider adding ${page} to your item list, and mapping that to the correct word/phrase. Remove this when finished testing`
-      );
+      sceneTwoAudio.confused.play()
+      document.getElementById("narrationBox").innerHTML= 'I am truly perplexed by your request, speak clearly child and try again.'
+      setActive(true);
+      setTimeout(function () {
+      setActive(false);
+      }, 6500);
+      // alert(
+      //   `it thinks you said ${page}, consider adding ${page} to your item list, and mapping that to the correct word/phrase. Remove this when finished testing`
+      // );
     }
   }
 
   document.addEventListener("keydown", (event) => {
     // This listener allows users to initiate an audio description of the current room they're in, or listen for click on commands for listed items in the room
+    setActive(false);
     const bool = JSON.parse(window.localStorage.getItem("usedCasset"))
     if (event.code === "Space") {
       event.preventDefault();
       if (event.repeat) {
         return;
       }
+      stopAllAudio()
       SpeechRecognition.startListening();
       console.log("🧤 list");
     }
     //
-    const pagina = window.location.href === 'http://localhost:3000/storage'|| window.location.href === 'https://spooky-scapes.netlify.app/storage'
+    const pagina =
+      window.location.href === "http://localhost:3000/storage" ||
+      window.location.href === "https://spooky-scapes.netlify.app/storage";
 
-
-    if(event.code === "Enter" && pagina) {
+    if (event.code === "Enter" && pagina) {
       event.preventDefault();
-      if (event.repeat){
-        return
+      stopAllAudio()
+      if (event.repeat) {
+        return;
       }
 
-      if (!bool){
-        sceneTwoAudio.scene2FirstDescription.play()
-      }
-      else {
-        sceneTwoAudio.scene2SecondDescription.play()
+      if (!bool) {
+        sceneTwoAudio.scene2FirstDescription.play();
+      } else {
+        sceneTwoAudio.scene2SecondDescription.play();
       }
     }
   });
 
   document.addEventListener("keyup", (event) => {
     // this listen
-    const bool = JSON.parse(window.localStorage.getItem("usedCasset"))
+    const bool = JSON.parse(window.localStorage.getItem("usedCasset"));
     if (event.code === "Space") {
       event.preventDefault();
       SpeechRecognition.stopListening();
-      console.log("🧤 not");
     }
 
-  const pagina = window.location.href === 'http://localhost:3000/storage' || window.location.href === 'https://spooky-scapes.netlify.app/storage'
+    const pagina =
+      window.location.href === "http://localhost:3000/storage" ||
+      window.location.href === "https://spooky-scapes.netlify.app/storage";
 
+    if (event.code === "Enter" && pagina) {
+      event.preventDefault();
+      console.log("🧤 window.location.href", window.location.href);
 
-    if(event.code === "Enter" && pagina){
-      event.preventDefault()
-      console.log('🧤 window.location.href', window.location.href);
-
-      if(!bool){
-        sceneTwoAudio.scene2FirstDescription.stop()
-      } else{
-        sceneTwoAudio.scene2SecondDescription.stop()
+      if (!bool) {
+        sceneTwoAudio.scene2FirstDescription.stop();
+      } else {
+        sceneTwoAudio.scene2SecondDescription.stop();
       }
     }
   });
@@ -225,16 +239,16 @@ const SceneTwo = () => {
     timeoutCollection.removeAll();
     setActive(false);
     const clicked = e.target.className;
-    console.log('🧤 e', e);
-
     const narrationBox = document.getElementById("narrationBox");
     narrationBox.innerHTML = "";
-    stopAllAudio()
+    stopAllAudio();
 
     switch (clicked) {
       case "coffin":
         const bool = JSON.parse(window.localStorage.getItem("usedCasset"));
-        bool ? audioControl(sceneTwoAudio.openCoffinDesc): audioControl(sceneTwoAudio.closedCoffinDesc)
+        bool
+          ? audioControl(sceneTwoAudio.openCoffinDesc)
+          : audioControl(sceneTwoAudio.closedCoffinDesc);
         narrationBox.innerHTML = bool
           ? "A large coffin, it’s open but there isn’t anyone in it. The pungent smell emanating from it fills the room."
           : "A large coffin, the lid is heavy, you wonder what may be inside of it, but you’re too afraid to open it yourself.";
@@ -242,37 +256,37 @@ const SceneTwo = () => {
       case "cowPainting":
         let usedKey = JSON.parse(window.localStorage.getItem("usedKey"));
         if (usedKey) {
-          audioControl(sceneTwoAudio.cowPaintingDesc2)
+          audioControl(sceneTwoAudio.cowPaintingDesc2);
           narrationBox.innerHTML =
             "It is getting close to night, but not really.";
           break;
         }
-        audioControl(sceneTwoAudio.cowPaintingDesc)
+        audioControl(sceneTwoAudio.cowPaintingDesc);
         narrationBox.innerHTML =
           "A painting of a cow, what a strange painting to own.";
         break;
       case "stoolCabinet":
-        audioControl(sceneTwoAudio.stoolCabinetDesc)
+        audioControl(sceneTwoAudio.stoolCabinetDesc);
         narrationBox.innerHTML =
           "An old worn down stool cabinet that doesn’t open.";
         break;
       case "oldChair":
-        audioControl(sceneTwoAudio.oldChairDesc)
+        audioControl(sceneTwoAudio.oldChairDesc);
         narrationBox.innerHTML =
           "An old worn down chair, it doesn’t look sturdy enough to sit on.";
         break;
       case "holeInWall":
-        audioControl(sceneTwoAudio.holeInWallDesc)
+        audioControl(sceneTwoAudio.holeInWallDesc);
         narrationBox.innerHTML =
           "The old purple wallpaper has a huge hole in it, there doesn’t seem to be anything behind that wallpaper but darkness";
         break;
       case "rightCandle":
-        audioControl(sceneTwoAudio.candles)
+        audioControl(sceneTwoAudio.candles);
         narrationBox.innerHTML =
           "A wall candle, there’s another one on the opposite side of the room. The candle is lit but who lit them?";
         break;
       case "leftCandle":
-        audioControl(sceneTwoAudio.candles)
+        audioControl(sceneTwoAudio.candles);
         narrationBox.innerHTML =
           "A wall candle, there’s another one on the opposite side of the room. The candle is lit but who lit them?";
         break;
@@ -283,7 +297,7 @@ const SceneTwo = () => {
     setActive(true);
     setTimeout(function () {
       setActive(false);
-    }, 15000);
+    }, 30000);
   };
 
   const sceneTwoAudio = {
@@ -305,19 +319,21 @@ const SceneTwo = () => {
 
     oldChairDesc: new Howl({src: [s2Sounds[8].oldChairDesc], html5:true}),
 
-    cowPaintingDesc2: new Howl({src: [s2Sounds[9].cowPaintingDesc2], html5:true})
+    cowPaintingDesc2: new Howl({src: [s2Sounds[9].cowPaintingDesc2], html5:true}),
+
+    confused: new Howl({src: [s2Sounds[10].confused], html5:true})
 
   }
   const audioControl = (specifiedSound) => {
-    playingAudio = specifiedSound
-    !specifiedSound.playing() ? specifiedSound.play() : specifiedSound.stop()
-}
+    playingAudio = specifiedSound;
+    !specifiedSound.playing() ? specifiedSound.play() : specifiedSound.stop();
+  };
 
-const stopAllAudio = () => {
-  if(playingAudio !== "none"){
-    playingAudio.stop()
-  }
-}
+  const stopAllAudio = () => {
+    if (playingAudio !== "none") {
+      playingAudio.stop();
+    }
+  };
 
   return (
     <div className="sceneTwo">
@@ -394,9 +410,14 @@ const stopAllAudio = () => {
           className={isActive ? "coffin-text-active" : "coffin-text"}
         ></p>
       </div>
-      <Link to="/parlor" >
+      <Link to="/parlor">
         <div>
-          <img src={leftArrow} id="leftArrow" onClick={() => stopAllAudio()} alt="ghost arrow pointing left" />
+          <img
+            src={leftArrow}
+            id="leftArrow"
+            onClick={() => stopAllAudio()}
+            alt="ghost arrow pointing left"
+          />
         </div>
       </Link>
       <Link to="/witchDen">
