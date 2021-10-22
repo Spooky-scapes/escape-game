@@ -16,13 +16,9 @@ import "../../App.scss";
 import s1sounds from "./sceneOneSounds.json";
 import { Link, useHistory } from "react-router-dom";
 import { Howl } from "howler";
-import { getStorage, ref } from "firebase/storage";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
-
-// SCENE 1 IS RESPONSIBLE FOR SETTING THE INITIAL LOCAL STORAGE
-//jk that's been moved to Lobby. Sawyy <.< >.>
 
 // DEFINE GLOBAL VARIABLE TO IDENTIFY WHICH AUDIO IS CURRENTLY PLAYING
 let playingAudio = "none";
@@ -31,7 +27,6 @@ let playingAudio = "none";
 const SceneOne = () => {
   // SET STATES NEEDED FOR SCENE TO RUN
   const [isActive, setActive] = useState(false);
-  const [hiddenDiary, setHidden] = useState(true);
   const history = useHistory();
 
   // THE COMMANDS ARRAY DEFINES THE TYPES OF VOICE COMMANDS THAT CAN BE GIVEN
@@ -202,26 +197,14 @@ const SceneOne = () => {
   });
 
   const descriptions = {
-    scene1desc1: new Howl({
-      src: [s1sounds[0].sceneOneDescription],
-      html5: true,
-    }),
-    scene1desc2: new Howl({
-      src: [s1sounds[8].sceneOneDescription2],
-      html5: true,
-    }),
+    scene1desc1: new Howl({ src: [s1sounds[0].sceneOneDescription], html5: true, }),
+    scene1desc2: new Howl({ src: [s1sounds[8].sceneOneDescription2], html5: true, }),
     table: new Howl({ src: [s1sounds[1].sideTable], html5: true }),
     riddle: new Howl({ src: [s1sounds[2].riddle], html5: true }),
-    bookCaseWithDairy: new Howl({
-      src: [s1sounds[3].bookcaseWithDiary],
-      html5: true,
-    }),
+    bookCaseWithDairy: new Howl({ src: [s1sounds[3].bookcaseWithDiary], html5: true, }),
     emptyBookcase: new Howl({ src: [s1sounds[4].emptyBookcase], html5: true }),
     fullBookcase: new Howl({ src: [s1sounds[5].fullBookcase], html5: true }),
-    cassettePlayerEmpty: new Howl({
-      src: [s1sounds[6].cassettePlayerEmpty],
-      html5: true,
-    }),
+    cassettePlayerEmpty: new Howl({ src: [s1sounds[6].cassettePlayerEmpty], html5: true, }),
     skull: new Howl({ src: [s1sounds[7].skull], html5: true }),
     diaryNoKey: new Howl({ src: [s1sounds[9].diaryNoKey], html5: true }),
     diaryMessage: new Howl({ src: [s1sounds[10].diaryMessage], html5: true }),
@@ -274,9 +257,14 @@ const SceneOne = () => {
         console.log("playing desc1");
         break;
       case "bookCase":
-        narrationBox.innerHTML = hiddenDiary
-          ? "This bookcase is empty. I wonder if it could be hiding something."
-          : "There is a locked diary here now. Do you have anything that can unlock it?";
+        let usedBucket = JSON.parse(window.localStorage.getItem("usedCandyBucket"))
+        if(usedBucket){
+          narrationBox.innerHTML = "There is a locked diary here now. Do you have anything that can unlock it?"
+          audioControl(descriptions.bookCaseWithDairy);
+          break
+        }
+        narrationBox.innerHTML = "This bookcase is empty. I wonder if it could be hiding something."
+        audioControl(descriptions.emptyBookcase)
         break;
       case "lockedDiary":
         let hasKey = JSON.parse(window.localStorage.getItem("hasKey"));
@@ -325,13 +313,6 @@ const SceneOne = () => {
     return;
   };
 
-  // let interval = setInterval(function(){
-  //   let time = document.getElementById("timer").innerHTML;
-  //   console.log("i am time", time)
-  //   if(time === 00:01){
-  //     stopAllAudio()
-  //   }
-  // }, 1000)
 
   return (
     <div className="sceneOne">
@@ -350,15 +331,8 @@ const SceneOne = () => {
           alt="large wooden bookcase that is empty"
           onClick={(e) => {
             assetClicked(e);
-            let isDiary = JSON.parse(
-              window.localStorage.getItem("usedCandyBucket")
-            );
-            if (isDiary) {
-              audioControl(descriptions.bookCaseWithDairy);
-            } else {
-              audioControl(descriptions.emptyBookcase);
             }
-          }}
+          }
         />
       </div>
       <div>
