@@ -34,12 +34,14 @@ const SceneTwo = () => {
   const history = useHistory()
 
   const iHateIntervals = setInterval(function(){
-    let oof = document.getElementById('timer').innerHTML
-    if (String(oof) === "00:01"){
-      stopAllAudio();
-      stopAllAudio();
-      clearInterval(iHateIntervals);
-    }
+    if (document.getElementById('timer')){
+      let oof = document.getElementById('timer').innerHTML
+      if (String(oof) === "00:01"){
+        stopAllAudio();
+        stopAllAudio();
+        clearInterval(iHateIntervals);
+      }
+    } else clearInterval(iHateIntervals)
   }, 1000);
 
   const commands = [

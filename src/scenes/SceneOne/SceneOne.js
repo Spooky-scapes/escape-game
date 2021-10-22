@@ -41,12 +41,14 @@ const SceneOne = () => {
   const history = useHistory();
 
   const iHateIntervals = setInterval(function(){
-    let oof = document.getElementById('timer').innerHTML
-    if (String(oof) === "00:01"){
-      stopAllAudio();
-      stopAllAudio();
-      clearInterval(iHateIntervals);
-    }
+    if (document.getElementById('timer')){
+      let oof = document.getElementById('timer').innerHTML
+      if (String(oof) === "00:01"){
+        stopAllAudio();
+        stopAllAudio();
+        clearInterval(iHateIntervals);
+      }
+    } else clearInterval(iHateIntervals)
   }, 1000);
 
   // THE COMMANDS ARRAY DEFINES THE TYPES OF VOICE COMMANDS THAT CAN BE GIVEN

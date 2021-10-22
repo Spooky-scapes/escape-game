@@ -10,8 +10,8 @@ const Lobby = () => {
   window.localStorage.setItem("hasCandyBucket", false);
   window.localStorage.setItem("usedCandyBucket", false);
   window.localStorage.setItem("hasKey", false);
-  window.localStorage.setItem("usedKey", false);
-  window.localStorage.setItem("foundPainting", true);
+  window.localStorage.setItem("usedKey", true);
+  window.localStorage.setItem("foundPainting", false);
 
   const commands = [
     {

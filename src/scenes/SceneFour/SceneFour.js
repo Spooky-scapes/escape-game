@@ -25,13 +25,14 @@ const SceneFour = () => {
   const history = useHistory();
 
   const iHateIntervals = setInterval(function(){
-    console.log('scene4')
-    let oof = document.getElementById('timer').innerHTML
-    if (String(oof) === "00:01"){
-      stopAllAudio();
-      stopAllAudio();
-      clearInterval(iHateIntervals);
-    }
+    if (document.getElementById('timer')){
+      let oof = document.getElementById('timer').innerHTML
+      if (String(oof) === "00:01"){
+        stopAllAudio();
+        stopAllAudio();
+        clearInterval(iHateIntervals);
+      }
+    } else clearInterval(iHateIntervals)
   }, 1000);
 
   const commands = [
@@ -261,10 +262,11 @@ const SceneFour = () => {
           narrationBox.innerHTML =
             "*door swinging open* You did what we couldn’t! Congratulations and Happy Halloween!";
           setTimeout(() => {
+            clearInterval(iHateIntervals)
             hideInv();
             window.dispatchEvent(new Event("reset"));
             history.push("/victory");
-          }, 6500);
+          }, 13000);
           break;
         }
         audioControl(audioCues.doorHandle);
@@ -277,7 +279,7 @@ const SceneFour = () => {
         if (usedKey) {
           audioControl(audioCues.doorClicking);
           audioControl(audioCues.didSomething);
-          narrationBox.innerHTML = " *click* That did something!";
+          narrationBox.innerHTML = " *door clicking* That did something!";
           window.localStorage.setItem("foundPainting", true);
           break;
         }

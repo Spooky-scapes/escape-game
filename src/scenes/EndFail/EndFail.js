@@ -14,7 +14,10 @@ const EndFail = () => {
     document.getElementsByClassName("visItemBox")[0].className =
       "hiddenItemBox";
   };
-  hideInv();
+  if (document.getElementsByClassName('visInventory')[0]){
+    hideInv();
+  }
+
   const commands = [
     {
       command: ["play again"],
@@ -55,15 +58,16 @@ const EndFail = () => {
     html5: true,
   })
 
-  failAudio.play();
-  failSoundEffect.play();
+
   return (
     <div className="youFail">
       <h1 className="deadText">You Died</h1>
       <h2
-        alt = "Oh no! You ran out of time! To try again, hold down the spacebar key and say play again"
+        alt = "Oh no! You ran out of time! To try again, click on play again or hold down the spacebar key and say play again"
         className="playAgain"
         onClick={() => {
+          failAudio.stop();
+          failSoundEffect.stop();
           history.push("/");
         }}
       >
