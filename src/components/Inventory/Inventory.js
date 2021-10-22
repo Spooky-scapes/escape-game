@@ -3,7 +3,7 @@ import itemBox from "./inventory.png";
 import hiddenCasset from "../../assets/SceneFour/cassette-tape.png";
 import key from "./key.png";
 import candyBucket from "./veryFullBucket.png";
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 //create a function that sets the classes to thier respective inv classes.
 

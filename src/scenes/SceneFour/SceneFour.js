@@ -254,6 +254,7 @@ const SceneFour = () => {
   const stopAllAudio = () => {
     if (playingAudio !== "none") {
       playingAudio.stop();
+      playingAudio.unload();
     }
   };
 
