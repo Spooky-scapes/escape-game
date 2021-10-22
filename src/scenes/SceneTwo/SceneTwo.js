@@ -32,6 +32,17 @@ const SceneTwo = () => {
   const [isActive, setActive] = useState(false);
   const history = useHistory();
 
+  const iHateIntervals = setInterval(function(){
+    if (document.getElementById('timer')){
+      let oof = document.getElementById('timer').innerHTML
+      if (String(oof) === "00:01"){
+        stopAllAudio();
+        stopAllAudio();
+        clearInterval(iHateIntervals);
+      }
+    } else clearInterval(iHateIntervals)
+  }, 1000);
+
   const commands = [
     // To add additional commands, add another command to the commands array, and a callback to handle that command
     {
@@ -117,10 +128,16 @@ const SceneTwo = () => {
       item = matchItemToClass[item];
       document.getElementsByClassName(item)[0].click();
     } else {
+      sceneTwoAudio.confused.play()
+      document.getElementById("narrationBox").innerHTML= 'I am truly perplexed by your request, speak clearly child and try again.'
+      setActive(true);
+      setTimeout(function () {
+      setActive(false);
+      }, 6500);
       // this alert is left for developers, note that it shows the item received from the spoken command, and displays it.
-      alert(
-        `it thinks you said ${item}, consider adding ${item} to your item list, and mapping that to the correct word/phrase. Remove this when finished testing`
-      );
+      // alert(
+      //   `it thinks you said ${item}, consider adding ${item} to your item list, and mapping that to the correct word/phrase. Remove this when finished testing`
+      // );
     }
   }
 
@@ -133,22 +150,34 @@ const SceneTwo = () => {
       page = mapPageToLink[page];
       document.getElementById(page).click();
     }  else if (String(page) === "tutorial"){
+      document.getElementsByClassName("visInventory")[0].className =
+      "hiddenInventory";
+    document.getElementsByClassName("visItemBox")[0].className =
+      "hiddenItemBox";
       history.push("/tutorial")
     }else {
-      alert(
-        `it thinks you said ${page}, consider adding ${page} to your item list, and mapping that to the correct word/phrase. Remove this when finished testing`
-      );
+      sceneTwoAudio.confused.play()
+      document.getElementById("narrationBox").innerHTML= 'I am truly perplexed by your request, speak clearly child and try again.'
+      setActive(true);
+      setTimeout(function () {
+      setActive(false);
+      }, 6500);
+      // alert(
+      //   `it thinks you said ${page}, consider adding ${page} to your item list, and mapping that to the correct word/phrase. Remove this when finished testing`
+      // );
     }
   }
 
   document.addEventListener("keydown", (event) => {
     // This listener allows users to initiate an audio description of the current room they're in, or listen for click on commands for listed items in the room
-    const bool = JSON.parse(window.localStorage.getItem("usedCasset"));
+    setActive(false);
+    const bool = JSON.parse(window.localStorage.getItem("usedCasset"))
     if (event.code === "Space") {
       event.preventDefault();
       if (event.repeat) {
         return;
       }
+      stopAllAudio()
       SpeechRecognition.startListening();
       console.log("🧤 list");
     }
@@ -159,6 +188,7 @@ const SceneTwo = () => {
 
     if (event.code === "Enter" && pagina) {
       event.preventDefault();
+      stopAllAudio()
       if (event.repeat) {
         return;
       }
@@ -177,7 +207,6 @@ const SceneTwo = () => {
     if (event.code === "Space") {
       event.preventDefault();
       SpeechRecognition.stopListening();
-      console.log("🧤 not");
     }
 
     const pagina =
@@ -210,8 +239,6 @@ const SceneTwo = () => {
     timeoutCollection.removeAll();
     setActive(false);
     const clicked = e.target.className;
-    console.log("🧤 e", e);
-
     const narrationBox = document.getElementById("narrationBox");
     narrationBox.innerHTML = "";
     stopAllAudio();
@@ -274,50 +301,29 @@ const SceneTwo = () => {
   };
 
   const sceneTwoAudio = {
-    scene2FirstDescription: new Howl({
-      src: [s2Sounds[0].sceneTwoInitialDescription],
-      html5: true,
-    }),
+    scene2FirstDescription: new Howl({src: [s2Sounds[0].sceneTwoInitialDescription], html5: true}),
 
-    scene2SecondDescription: new Howl({
-      src: [s2Sounds[1].sceneTwoSecondDescription],
-      html5: true,
-    }),
+    scene2SecondDescription: new Howl({src: [s2Sounds[1].sceneTwoSecondDescription], html5: true}),
 
-    closedCoffinDesc: new Howl({
-      src: [s2Sounds[2].closedCoffinDesc],
-      html5: true,
-    }),
+    closedCoffinDesc: new Howl({src:[s2Sounds[2].closedCoffinDesc], html5:true}),
 
-    openCoffinDesc: new Howl({
-      src: [s2Sounds[3].openCoffinDesc],
-      html5: true,
-    }),
+    openCoffinDesc: new Howl({src:[s2Sounds[3].openCoffinDesc], html5:true}),
 
-    stoolCabinetDesc: new Howl({
-      src: [s2Sounds[4].stoolCabinetDesc],
-      html5: true,
-    }),
+    stoolCabinetDesc: new Howl({src:[s2Sounds[4].stoolCabinetDesc], html5:true}),
 
-    candles: new Howl({ src: [s2Sounds[5].candles], html5: true }),
+    candles: new Howl({src:[s2Sounds[5].candles], html5: true}),
 
-    holeInWallDesc: new Howl({
-      src: [s2Sounds[6].holeInWallDesc],
-      html5: true,
-    }),
+    holeInWallDesc: new Howl({src:[s2Sounds[6].holeInWallDesc],html5: true}),
 
-    cowPaintingDesc: new Howl({
-      src: [s2Sounds[7].cowPaintingDesc],
-      html5: true,
-    }),
+    cowPaintingDesc: new Howl({src: [s2Sounds[7].cowPaintingDesc], html5: true}),
 
-    oldChairDesc: new Howl({ src: [s2Sounds[8].oldChairDesc], html5: true }),
+    oldChairDesc: new Howl({src: [s2Sounds[8].oldChairDesc], html5:true}),
 
-    cowPaintingDesc2: new Howl({
-      src: [s2Sounds[9].cowPaintingDesc2],
-      html5: true,
-    }),
-  };
+    cowPaintingDesc2: new Howl({src: [s2Sounds[9].cowPaintingDesc2], html5:true}),
+
+    confused: new Howl({src: [s2Sounds[10].confused], html5:true})
+
+  }
   const audioControl = (specifiedSound) => {
     playingAudio = specifiedSound;
     !specifiedSound.playing() ? specifiedSound.play() : specifiedSound.stop();

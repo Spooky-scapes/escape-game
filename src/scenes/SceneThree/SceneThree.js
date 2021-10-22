@@ -29,6 +29,17 @@ const SceneThree = () => {
       window.dispatchEvent(new Event("storage"));
     }
   };
+  const iHateIntervals = setInterval(function(){
+    if (document.getElementById('timer')){
+      let oof = document.getElementById('timer').innerHTML
+      if (String(oof) === "00:01"){
+        stopAllAudio();
+        stopAllAudio();
+        clearInterval(iHateIntervals);
+      }
+    } else clearInterval(iHateIntervals)
+  }, 1000);
+
 
   const sceneThreeAudio = {
     sceneThreeDescription: new Howl({
@@ -65,6 +76,10 @@ const SceneThree = () => {
       html5: true,
     }),
     witchLine: new Howl({ src: [sceneThreeSounds[9].witchLine], html5: true }),
+    confused: new Howl({
+      src: [sceneThreeSounds[10].confused],
+      html5: true
+    })
   };
 
   document.addEventListener("keydown", (event) => {
@@ -77,6 +92,7 @@ const SceneThree = () => {
       if (event.repeat) {
         return;
       }
+      stopAllAudio()
       sceneThreeAudio.sceneThreeDescription.play();
     }
   });
@@ -163,27 +179,45 @@ const SceneThree = () => {
   };
 
   function clickImage(item) {
+    stopAllAudio()
     item = item.toLowerCase();
     if (clickableItems.includes(item)) {
       item = matchItemToClass[item];
       document.getElementsByClassName(item)[0].click();
     } else {
-      alert(
-        `it thinks you said ${item}, consider adding ${item} to your item list, and mapping that to the correct word/phrase. Remove this when finished testing`
-      );
+     document.getElementById("narrationBox").innerHTML = "I am truly perplexed by your request, speak clearly child and try again."
+      setActive(true);
+      setTimeout(function () {
+        setActive(false);
+      }, 6500);
+      // alert(
+      //   `it thinks you said ${item}, consider adding ${item} to your item list, and mapping that to the correct word/phrase. Remove this when finished testing`
+      // );
     }
   }
 
   function goTo(page) {
+    stopAllAudio()
     if (pagePossibilities.includes(page)) {
       page = mapPageToLink[page];
       document.getElementsByClassName(page)[0].click();
-    } else if (String(page) === "tutorial") {
-      history.push("/tutorial");
+    }  else if (String(page) === "tutorial"){
+      document.getElementsByClassName("visInventory")[0].className =
+      "hiddenInventory";
+    document.getElementsByClassName("visItemBox")[0].className =
+      "hiddenItemBox";
+      history.push("/tutorial")
     } else {
-      alert(
-        `it thinks you said ${page}, consider adding ${page} to your item list, and mapping that to the correct word/phrase. Remove this when finished testing`
-      );
+      setActive(true);
+      audioControl(sceneThreeAudio.confused)
+      document.getElementById("narrationBox").innerHTML = "I am truly perplexed by your request, speak clearly child and try again."
+
+      setTimeout(function () {
+        setActive(false);
+      }, 6500);
+      // alert(
+      //   `it thinks you said ${page}, consider adding ${page} to your item list, and mapping that to the correct word/phrase. Remove this when finished testing`
+      // );
     }
   }
 
@@ -193,6 +227,7 @@ const SceneThree = () => {
       if (event.repeat) {
         return;
       }
+      stopAllAudio()
       SpeechRecognition.startListening();
     }
   });
