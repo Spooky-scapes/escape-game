@@ -29,6 +29,17 @@ const SceneThree = () => {
       window.dispatchEvent(new Event("storage"));
     }
   };
+  const iHateIntervals = setInterval(function(){
+    if (document.getElementById('timer')){
+      let oof = document.getElementById('timer').innerHTML
+      if (String(oof) === "00:01"){
+        stopAllAudio();
+        stopAllAudio();
+        clearInterval(iHateIntervals);
+      }
+    } else clearInterval(iHateIntervals)
+  }, 1000);
+
 
   const sceneThreeAudio = {
     sceneThreeDescription: new Howl({
@@ -189,8 +200,12 @@ const SceneThree = () => {
     if (pagePossibilities.includes(page)) {
       page = mapPageToLink[page];
       document.getElementsByClassName(page)[0].click();
-    } else if (String(page) === "tutorial") {
-      history.push("/tutorial");
+    }  else if (String(page) === "tutorial"){
+      document.getElementsByClassName("visInventory")[0].className =
+      "hiddenInventory";
+    document.getElementsByClassName("visItemBox")[0].className =
+      "hiddenItemBox";
+      history.push("/tutorial")
     } else {
       setActive(true);
       audioControl(sceneThreeAudio.confused)

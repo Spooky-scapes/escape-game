@@ -34,6 +34,17 @@ const SceneOne = () => {
   const [hiddenDiary, setHidden] = useState(true);
   const history = useHistory();
 
+  const iHateIntervals = setInterval(function(){
+    if (document.getElementById('timer')){
+      let oof = document.getElementById('timer').innerHTML
+      if (String(oof) === "00:01"){
+        stopAllAudio();
+        stopAllAudio();
+        clearInterval(iHateIntervals);
+      }
+    } else clearInterval(iHateIntervals)
+  }, 1000);
+
   // THE COMMANDS ARRAY DEFINES THE TYPES OF VOICE COMMANDS THAT CAN BE GIVEN
   const commands = [
     {
@@ -142,7 +153,13 @@ const SceneOne = () => {
     if (pagePossibilities.includes(page)) {
       page = mapPageToLink[page];
       document.getElementById(page).click();
-    } else {
+    } else if (String(page) === "tutorial"){
+        document.getElementsByClassName("visInventory")[0].className =
+          "hiddenInventory";
+        document.getElementsByClassName("visItemBox")[0].className =
+          "hiddenItemBox";
+      history.push("/tutorial")
+    }else {
       descriptions.confused.play()
       document.getElementById("narrationBox").className = 'painting-text-active'
       document.getElementById("narrationBox").innerHTML = 'I am truly perplexed by your request, speak clearly child and try again.'

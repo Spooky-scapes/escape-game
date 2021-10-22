@@ -1,5 +1,8 @@
 import "./victory.scss";
 import { useHistory } from "react-router-dom";
+import SpeechRecognition, {
+  useSpeechRecognition,
+} from "react-speech-recognition";
 
 const Victory = () => {
   const history = useHistory();
@@ -16,11 +19,40 @@ const Victory = () => {
       "hiddenCandyBucket";
     document.getElementsByClassName("invKey")[0].className = "hiddenKey";
   };
+  const commands = [
+    {
+      command: ["play again"],
+      callback: () => playAgain(),
+    },
 
+  ];
+  useSpeechRecognition({ commands });
+
+  const playAgain = () => {
+    document.getElementsByClassName("playAgainWin")[0].click();
+  }
+
+  document.addEventListener("keydown", (event) => {
+    if (event.code === "Space") {
+      event.preventDefault();
+      if (event.repeat) {
+        return;
+      }
+      SpeechRecognition.startListening();
+    }
+  });
+
+  document.addEventListener("keyup", (event) => {
+    if (event.code === "Space") {
+      event.preventDefault();
+      SpeechRecognition.stopListening();
+    }
+  });
   return (
     <div className="victory">
       <h1 className="vic-title">Time to Trick or Treat!</h1>
       <h2
+        alt = "Good job! To play again, hold down the spacebar key and say play again"
         className="playAgainWin"
         onClick={() => {
           history.push("/");
