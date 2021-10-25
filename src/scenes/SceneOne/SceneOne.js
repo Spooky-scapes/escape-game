@@ -1,4 +1,4 @@
-// IMPORT REACT, ALL ASSETS FOR SCENE ONE, CSS, SOUNDS, AND ANY OTHER ITEMS
+// ******** Import all assets ********
 import React, { useState } from "react";
 import boatPainting from "../../assets/SceneOne/boat-painting.png";
 import bookCase from "../../assets/SceneOne/empty-bookcase.jpeg";
@@ -20,15 +20,16 @@ import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
 
-// DEFINE GLOBAL VARIABLE TO IDENTIFY WHICH AUDIO IS CURRENTLY PLAYING
+// ******** Define the global variable "playingAudio" to identify which audio description is currently playing ********
 let playingAudio = "none";
 
-// DEFINE FUNCTIONAL COMPONENT
+// ******** Define the functional component for Scene 1 ********
 const SceneOne = () => {
-  // SET STATES NEEDED FOR SCENE TO RUN
+  // ******** isActive runs the text box display ********
   const [isActive, setActive] = useState(false);
   const history = useHistory();
 
+  // ******** This tracks the timer and stops all audio from playing when time runs out. ********
   const timerTracker = setInterval(function(){
     if (document.getElementById('timer')){
       let element = document.getElementById('timer').innerHTML
@@ -40,28 +41,28 @@ const SceneOne = () => {
     } else clearInterval(timerTracker)
   }, 1000);
 
-  // THE COMMANDS ARRAY DEFINES THE TYPES OF VOICE COMMANDS THAT CAN BE GIVEN
+  // ******** Defines the types of voice commands that can be given ********
   const commands = [
     {
-      command: ["Click on *"],
+      command: ["Click on *"], // *** For clicking individual items in the room ***
       callback: (item) => clickImage(item),
     },
     {
-      command: ["Go to *"],
+      command: ["Go to *"], // *** For navigation ***
       callback: (page) => goTo(page),
     },
-   { command: ["Read the room"],
+   { command: ["Read the room"], // *** For full room description ***
      callback: () => readRoom()
   }
 
   ];
 
-  // THIS TELLS SPEECH RECOGNITION TO USE THE COMMANDS DEFINED ABOVE
+  // ******** Connects the commands above to Speech Recognition ********
   useSpeechRecognition({ commands });
 
-  // DEFINE ALL POSSIBLE VARIATIONS OF WHAT THE SPEECH TO TEXT MAY HEAR
-  // FOR EXAMPLE, "COFFIN" MAY SOUND LIKE "COFFEE" SO INCLUDE BOTH IN THE ARRAY.
-  // CLICKABLE ITEMS WILL MATCH WITH THE "CLICK ON *" COMMANDS
+  // ******** Defines all possible variations of what the Speech To Text may hear. ********
+  // For example, "coffin" may sound like "coffee", so both should be accounted for.
+  // ******** This matches specifically to "Click on *" commands. ********
   const clickableItems = [
     "empty bookcase",
     "bookcase",
@@ -83,7 +84,7 @@ const SceneOne = () => {
     "raven",
   ];
 
-  // PAGE POSSIBILITIES WILL MATCH WITH THE "GO TO *" COMMANDS
+  // ******** This matches specifically to "Go to *" commands. ********
   const pagePossibilities = [
     "right",
     "left",
@@ -94,7 +95,7 @@ const SceneOne = () => {
     "write",
   ];
 
-  // THIS OBJECT MATCHES WHAT THE SPEECH RECOGNITION HEARD TO AN ACTUAL CLASS IN SCENE ONE
+  // ******** Match possible audio commands defined above to existing classes rendered on the page. Specific to "click on" commands. ********
   const matchItemToClass = {
     "empty bookcase": "bookCase",
     bookcase: "bookCase",
@@ -116,7 +117,7 @@ const SceneOne = () => {
     raven: "ravenClosed",
   };
 
-  // THIS OBJECT MATCHES WHAT THE SPEECH RECOGNITION HEARD TO EITHER THE LEFT ARROW OR THE RIGHT ARROW
+  // ******** Match possible audio commands defined above to existing classes rendered on the page. Specific to "go to" commands. ********
   const mapPageToLink = {
     right: "rightArrow",
     left: "leftArrow",
@@ -127,26 +128,24 @@ const SceneOne = () => {
     "room two": "rightArrow",
   };
 
-  // THIS FUNCTION TAKES THE SPEECH TO TEXT AND CLICKS ON THE CORRELATED ITEM
+  // ******** Audio Command Click On Function - Takes STT and clicks on correlated item. ********
   function clickImage(item) {
-    stopAllAudio()
+    stopAllAudio() // Uses hoisting. This function stops any audio that may already be playing. Defined lower down.
     item = item.toLowerCase();
     if (clickableItems.includes(item)) {
-      item = matchItemToClass[item];
+      item = matchItemToClass[item]; // This removes the spaces and matches what STT heard to the correct class
       document.getElementsByClassName(item)[0].click();
-    } else {
+    } else { // Error handling
       descriptions.confused.play()
       document.getElementById("narrationBox").className = 'painting-text-active'
       document.getElementById("narrationBox").innerHTML = 'I am truly perplexed by your request, speak clearly child and try again.'
       setTimeout(()=> document.getElementById("narrationBox").className = 'painting-text', 6500)
-      // alert(
-      //   `it thinks you said ${item}, consider adding ${item} to your item list, and mapping that to the correct word/phrase. Remove this when finished testing`
-      // );
     }
   }
 
+  // ******** Audio Command Functionality for Go To Commands
   function goTo(page) {
-    stopAllAudio()
+    stopAllAudio() // Stops audio so one scene's descriptions don't carry over to another scene.
 
     if (pagePossibilities.includes(page)) {
       page = mapPageToLink[page];
@@ -157,7 +156,7 @@ const SceneOne = () => {
         document.getElementsByClassName("visItemBox")[0].className =
           "hiddenItemBox";
       history.push("/tutorial")
-    }else {
+    }else { // Error handling
       descriptions.confused.play()
       document.getElementById("narrationBox").className = 'painting-text-active'
       document.getElementById("narrationBox").innerHTML = 'I am truly perplexed by your request, speak clearly child and try again.'
@@ -165,91 +164,70 @@ const SceneOne = () => {
     }
   }
 
-
-
+  // ******** Spacebar Event Handling ********
+  // This allows a user to hold down the space bar and give voice commands.
   document.addEventListener("keydown", (event) => {
     stopAllAudio()
-    const bool = JSON.parse(window.localStorage.getItem("usedCandyBucket"));
     if (event.code === "Space") {
       event.preventDefault();
       if (event.repeat) {
         return;
       }
-
       SpeechRecognition.startListening();
-    }
-
-    const pagina1 =
-      window.location.href === "http://localhost:3000/parlor" ||
-      window.location.href === "https://spooky-scapes.netlify.app/parlor";
-
-    if (event.code === "Enter" && pagina1) {
-
-      event.preventDefault();
-      if (event.repeat) {
-        return;
-      }
-
-      if (!bool) {
-        descriptions.scene1desc1.play();
-      } else {
-        descriptions.scene1desc2.play();
-      }
     }
   });
 
   document.addEventListener("keyup", (event) => {
-    const bool = JSON.parse(window.localStorage.getItem("usedCandyBucket"));
     if (event.code === "Space") {
       event.preventDefault();
       SpeechRecognition.stopListening();
     }
-    const pagina1 =
-      window.location.href === "http://localhost:3000/parlor" ||
-      window.location.href === "https://spooky-scapes.netlify.app/parlor";
-
-    if (event.code === "Enter" && pagina1) {
-      event.preventDefault();
-      if (!bool) {
-        descriptions.scene1desc1.stop();
-      } else {
-        descriptions.scene1desc2.stop();
-      }
-    }
   });
 
+  // ******** Creates audio description Howl objects ********
+  // Due to the length of each audio file's reference link, we chose to import a json file and reference that.
   const descriptions = {
-    scene1desc1: new Howl({ src: [s1sounds[0].sceneOneDescription], html5: true, }),
-    scene1desc2: new Howl({ src: [s1sounds[8].sceneOneDescription2], html5: true, }),
-    table: new Howl({ src: [s1sounds[1].sideTable], html5: true }),
-    riddle: new Howl({ src: [s1sounds[2].riddle], html5: true }),
-    bookCaseWithDairy: new Howl({ src: [s1sounds[3].bookcaseWithDiary], html5: true, }),
-    emptyBookcase: new Howl({ src: [s1sounds[4].emptyBookcase], html5: true }),
-    fullBookcase: new Howl({ src: [s1sounds[5].fullBookcase], html5: true }),
-    cassettePlayerEmpty: new Howl({ src: [s1sounds[6].cassettePlayerEmpty], html5: true, }),
-    skull: new Howl({ src: [s1sounds[7].skull], html5: true }),
-    diaryNoKey: new Howl({ src: [s1sounds[9].diaryNoKey], html5: true }),
-    diaryMessage: new Howl({ src: [s1sounds[10].diaryMessage], html5: true }),
-    paintingDesc1: new Howl({ src: [s1sounds[11].paintingDesc1], html5: true }),
-    paintingDesc2: new Howl({ src: [s1sounds[12].paintingDesc2], html5: true }),
-    caw: new Howl({ src: [s1sounds[13].caw], html5: true }),
-    confused: new Howl({src:[s1sounds[14].confused], html5: true})
+    scene1desc1: new Howl({ 
+      src: [s1sounds[0].sceneOneDescription],  // Provides the source for the audio
+      html5: true,  // Necessary for audio playback
+      preload: false, // Do not load until called, saves memory
+      onend: function(){this.unload()}}), // Unloads the audio object after it plays to save memory
+
+    scene1desc2: new Howl({ src: [s1sounds[8].sceneOneDescription2], html5: true, preload: false, onend: function(){this.unload()}}),
+    table: new Howl({ src: [s1sounds[1].sideTable], html5: true, preload: false, onend: function(){this.unload()}}),
+    riddle: new Howl({ src: [s1sounds[2].riddle], html5: true, preload: false, onend: function(){this.unload()}}),
+    bookCaseWithDairy: new Howl({ src: [s1sounds[3].bookcaseWithDiary], html5: true, preload: false, onend: function(){this.unload()}}),
+    emptyBookcase: new Howl({ src: [s1sounds[4].emptyBookcase], html5: true, preload: false, onend: function(){this.unload()}}),
+    fullBookcase: new Howl({ src: [s1sounds[5].fullBookcase], html5: true, preload: false, onend: function(){this.unload()}}),
+    cassettePlayerEmpty: new Howl({ src: [s1sounds[6].cassettePlayerEmpty], html5: true, preload: false, onend: function(){this.unload()}}),
+    skull: new Howl({ src: [s1sounds[7].skull], html5: true, preload: false, onend: function(){this.unload()}}),
+    diaryNoKey: new Howl({ src: [s1sounds[9].diaryNoKey], html5: true, preload: false, onend: function(){this.unload()}}),
+    diaryMessage: new Howl({ src: [s1sounds[10].diaryMessage], html5: true, preload: false, onend: function(){this.unload()}}),
+    paintingDesc1: new Howl({ src: [s1sounds[11].paintingDesc1], html5: true, preload: false, onend: function(){this.unload()}}),
+    paintingDesc2: new Howl({ src: [s1sounds[12].paintingDesc2], html5: true, preload: false, onend: function(){this.unload()}}),
+    caw: new Howl({ src: [s1sounds[13].caw], html5: true, preload: false, onend: function(){this.unload()}}),
+    confused: new Howl({src:[s1sounds[14].confused], html5: true, preload: false, onend: function(){this.unload()}})
   };
 
+  // ******** "Read The Room" Voice Command Functionality ********
   const readRoom = () => {
-    const bool = JSON.parse(window.localStorage.getItem("usedCandyBucket"))
+    const bool = JSON.parse(window.localStorage.getItem("usedCandyBucket")) // If the user has given candy from the candy bucket to the witch...
     if(!bool){
-     audioControl(descriptions.scene1desc1)
+     audioControl(descriptions.scene1desc1) // ... play the audio where the diary has not been revealed.
     } else {
-      audioControl(descriptions.scene1desc2)
+      audioControl(descriptions.scene1desc2) // ... play the audio where the diary has been revealed.
     }
   }
 
+  // ******** AUDIO PLAYBACK FUNCTION ********
+  // Takes in specified sound, sets that sound as the playingAudio, and plays the sound.
   const audioControl = (specifiedSound) => {
     playingAudio = specifiedSound;
-    !specifiedSound.playing() ? specifiedSound.play() : specifiedSound.stop();
+    !specifiedSound.playing() ? specifiedSound.play() : specifiedSound.stop(); // This stops the audio from playing over itself
   };
 
+  // ******** STOP ALL AUDIO FUNCTION ********
+  // This stops and unloads the audio that is currently playing.
   const stopAllAudio = () => {
     if (playingAudio !== "none") {
       playingAudio.stop();
@@ -257,22 +235,26 @@ const SceneOne = () => {
     }
   };
 
+  // ******** ********
   const invokeCasset = () => {
     const bool = JSON.parse(window.localStorage.getItem("hasCasset"));
     if (bool) {
       window.localStorage.setItem("usedCasset", true);
-      window.localStorage.setItem("usedKey", true);
+      // window.localStorage.setItem("usedKey", true);
     }
   };
 
+
+  // ******** FUNCTION FOR EVERY TIME AN ASSET WAS CLICKED ********
   const assetClicked = (e) => {
-    setActive(false);
+    setActive(false); // Clears text box
     const clicked = e.target.className;
     const narrationBox = document.getElementById("narrationBox");
     narrationBox.innerHTML = "";
 
-    stopAllAudio();
-
+    stopAllAudio(); // Clears any currently playing audio
+    
+    // ******** FULL SWITCH CASE ********
     switch (clicked) {
       case "boatPainting":
         let usedKey = JSON.parse(window.localStorage.getItem("usedKey"));
@@ -335,14 +317,15 @@ const SceneOne = () => {
       default:
         break;
     }
-    setActive(true);
+    setActive(true); // Puts text from proper case into text box
     setTimeout(function () {
-      setActive(false);
-    }, 30000);
+      setActive(false); // Removes text from text box after interval ends
+    }, 30000); // Text stays for 30 seconds
     return;
   };
 
 
+  // ******** THE RENDERED PORTION! ********
   return (
     <div className="sceneOne">
       <div>

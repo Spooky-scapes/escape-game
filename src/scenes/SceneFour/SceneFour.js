@@ -164,68 +164,84 @@ const SceneFour = () => {
     sceneFourDescription: new Howl({
       src: [s4sounds[0].sceneFourDescription],
       html5: true,
+      preload: false,
     }),
     window: new Howl({
       src: [s4sounds[1].window],
       html5: true,
+      preload: false,
     }),
     cassette: new Howl({
       src: [s4sounds[2].cassette],
       html5: true,
+      preload: false,
     }),
     lockedDoor: new Howl({
       src: [s4sounds[3].lockedDoor],
       html5: true,
+      preload: false,
     }),
     paintingDescription: new Howl({
       src: [s4sounds[4].paintingDescription],
       html5: true,
+      preload: false,
     }),
     dust: new Howl({
       src: [s4sounds[5].dust],
       html5: true,
+      preload: false,
     }),
     didSomething: new Howl({
       src: [s4sounds[6].didSomething],
       html5: true,
+      preload: false,
     }),
     victory: new Howl({
       src: [s4sounds[7].victory],
       html5: true,
+      preload: false,
     }),
     boneDogBarking: new Howl({
       src: [s4sounds[8].boneDogBarking],
       html5: true,
+      preload: false,
       volume: 0.6,
     }),
     doorClicking: new Howl({
       src: [s4sounds[9].doorClicking],
       html5: true,
+      preload: false,
     }),
     doorSwinging: new Howl({
       src: [s4sounds[10].doorSwinging],
       html5: true,
+      preload: false,
       volume: 0.5,
     }),
     matShuffling: new Howl({
       src: [s4sounds[11].matShuffling],
       html5: true,
+      preload: false,
     }),
     windowRattling: new Howl({
       src: [s4sounds[12].windowRattling],
       html5: true,
+      preload: false,
     }),
     caw: new Howl({
       src: [s4sounds[13].caw],
       html5: true,
+      preload: false,
     }),
     doorHandle: new Howl({
       src: [s4sounds[14].doorHandle],
       html5: true,
+      preload: false,
     }),
     confused: new Howl({
       src: [s4sounds[15].confused],
-      html5: true
+      html5: true,
+      preload: false,
     })
   };
   const audioControl = (specifiedSound) => {

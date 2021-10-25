@@ -45,40 +45,49 @@ const SceneThree = () => {
     sceneThreeDescription: new Howl({
       src: [sceneThreeSounds[3].sceneThreeDesc],
       html5: true,
+      preload: false,
     }),
     giveCandyToWitch: new Howl({
       src: [sceneThreeSounds[0].giveCandyToWitch],
       html5: true,
+      preload: false,
     }),
     lilyCauldronOne: new Howl({
       src: [sceneThreeSounds[1].lilyCauldronOne],
       html5: true,
+      preload: false,
     }),
-    clock: new Howl({ src: [sceneThreeSounds[2].clock], html5: true }),
+    clock: new Howl({ src: [sceneThreeSounds[2].clock], html5: true, preload: false, }),
     paintingOne: new Howl({
       src: [sceneThreeSounds[4].paintingOne],
       html5: true,
+      preload: false,
     }),
     paintingTwo: new Howl({
       src: [sceneThreeSounds[5].paintingTwo],
       html5: true,
+      preload: false,
     }),
     woodenspoon: new Howl({
       src: [sceneThreeSounds[6].woodenSpoon],
       html5: true,
+      preload: false,
     }),
     lilyCauldronTwo: new Howl({
       src: [sceneThreeSounds[7].lilyCauldronTwo],
       html5: true,
+      preload: false,
     }),
     talkToWitchFirst: new Howl({
       src: [sceneThreeSounds[8].talkToWitchFirst],
       html5: true,
+      preload: false,
     }),
-    witchLine: new Howl({ src: [sceneThreeSounds[9].witchLine], html5: true }),
+    witchLine: new Howl({ src: [sceneThreeSounds[9].witchLine], html5: true, preload: false, }),
     confused: new Howl({
       src: [sceneThreeSounds[10].confused],
-      html5: true
+      html5: true,
+      preload: false,
     })
   };
 
