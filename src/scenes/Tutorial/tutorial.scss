@@ -1,3 +1,53 @@
-p {
-    color: white;
+@import url('https://fonts.googleapis.com/css2?family=Caveat&display=swap');
+
+.tutorialText {
+    font-family: 'Caveat';
+    font-size: 28px;
+}
+
+.tutorial {
+  background-image: url('../../assets/9-93927_parchment-scroll-png-banner-library-download-old-scroll.png');
+  background-position: center;
+  background-size: cover;
+  position: relative;
+  object-fit: cover;
+  margin: auto;
+  width: 1100px;
+  height: 850px;
+  top: 100px;
+}
+
+.content {
+    position: absolute;
+    top: 150px;
+    left: 5%;
+}
+
+@mixin buttonStyle {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    color: #014421;
+    font-size: 20px;
+    left: 45%;
+    top: 20%;
+    border: none;
+    background-color: transparent
+}
+
+@mixin buttonStyleOnHover {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    color: black;
+    font-size: 20px;
+    left: 45%;
+    top: 20%;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+.tutorialButtons {
+    @include buttonStyle();
+
+}
+
+.tutorialButtons:hover{
+    @include buttonStyleOnHover()
 }

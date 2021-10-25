@@ -43,6 +43,10 @@ const SceneFour = () => {
       command: ["Go to *"],
       callback: (page) => goTo(page),
     },
+    {
+      command: ["Read the room"],
+      callback: () => readRoom()
+    }
   ];
 
   useSpeechRecognition({ commands });
@@ -135,6 +139,9 @@ const SceneFour = () => {
          setActive(false);
        }, 6500);
     }
+  }
+  const readRoom = () => {
+    audioControl(audioCues.sceneFourDescription)
   }
 
   document.addEventListener("keydown", (event) => {
