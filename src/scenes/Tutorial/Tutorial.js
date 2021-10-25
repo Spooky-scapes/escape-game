@@ -107,14 +107,14 @@ const Tutorial = () => {
       >
         Stop Tutorial
       </button>
-      <p className='tutorialText'> To hear a description of the room, press the enter or return key. </p>
+      <p className='tutorialText'> To hear a description of the room, hold down the spacebay key and say "read the room". </p>
       <p className='tutorialText'>
-        To inspect an item, hold down the spacebar key and say ‘click on’ then
+        To inspect an item, hold down the spacebar key and say "click on" then
         the item name.
       </p>
       <p className='tutorialText'>
-        To navigate around the rooms, hold down the spacebar and say ‘go to next
-        room’ or go to previous room.
+        To navigate around the rooms, hold down the spacebar and say "go to next
+        room" or "go to previous room".
       </p>
       <p className='tutorialText'> You can also say “go to left” or “go to right". </p>
       <p className='tutorialText'>
