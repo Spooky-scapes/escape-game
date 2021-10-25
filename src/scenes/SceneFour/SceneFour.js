@@ -150,17 +150,6 @@ const SceneFour = () => {
       stopAllAudio()
       SpeechRecognition.startListening();
     }
-    const pagina =
-      window.location.href === "http://localhost:3000/entryway" ||
-      window.location.href === "https://spooky-scapes.netlify.app/entryway";
-    if (event.code === "Enter" && pagina) {
-      event.preventDefault();
-      if (event.repeat) {
-        return;
-      } else {
-        audioControl(audioCues.sceneFourDescription);
-      }
-    }
   });
 
   document.addEventListener("keyup", (event) => {
@@ -168,14 +157,6 @@ const SceneFour = () => {
       stopAllAudio()
       event.preventDefault();
       SpeechRecognition.stopListening();
-    }
-    const pagina =
-      window.location.href === "http://localhost:3000/entryway" ||
-      window.location.href === "https://spooky-scapes.netlify.app/entryway";
-    if (event.code === "Enter" && pagina) {
-      stopAllAudio()
-      event.preventDefault();
-      audioCues.sceneFourDescription.stop();
     }
   });
 
