@@ -26,7 +26,7 @@ import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
 
-let playingAudio = "none";
+let playingAudio2 = "none";
 
 const SceneTwo = () => {
   const [isActive, setActive] = useState(false);
@@ -194,9 +194,9 @@ const SceneTwo = () => {
       }
 
       if (!bool) {
-        sceneTwoAudio.scene2FirstDescription.play();
+        audioControl(sceneTwoAudio.scene2FirstDescription);
       } else {
-        sceneTwoAudio.scene2SecondDescription.play();
+        audioControl(sceneTwoAudio.scene2SecondDescription);
       }
     }
   });
@@ -209,20 +209,20 @@ const SceneTwo = () => {
       SpeechRecognition.stopListening();
     }
 
-    const pagina =
-      window.location.href === "http://localhost:3000/storage" ||
-      window.location.href === "https://spooky-scapes.netlify.app/storage";
+    // const pagina =
+    //   window.location.href === "http://localhost:3000/storage" ||
+    //   window.location.href === "https://spooky-scapes.netlify.app/storage";
 
-    if (event.code === "Enter" && pagina) {
-      event.preventDefault();
-      console.log("🧤 window.location.href", window.location.href);
+    // if (event.code === "Enter" && pagina) {
+    //   event.preventDefault();
+    //   console.log("🧤 window.location.href", window.location.href);
 
-      if (!bool) {
-        sceneTwoAudio.scene2FirstDescription.stop();
-      } else {
-        sceneTwoAudio.scene2SecondDescription.stop();
-      }
-    }
+    //   if (!bool) {
+    //     sceneTwoAudio.scene2FirstDescription.stop();
+    //   } else {
+    //     sceneTwoAudio.scene2SecondDescription.stop();
+    //   }
+    // }
   });
 
   const heardRiddle = () => {
@@ -301,38 +301,38 @@ const SceneTwo = () => {
   };
 
   const sceneTwoAudio = {
-    scene2FirstDescription: new Howl({src: [s2Sounds[0].sceneTwoInitialDescription], html5: true}),
+    scene2FirstDescription: new Howl({src: [s2Sounds[0].sceneTwoInitialDescription], html5: true, preload: false, onend: function(){this.unload()}}),
 
-    scene2SecondDescription: new Howl({src: [s2Sounds[1].sceneTwoSecondDescription], html5: true}),
+    scene2SecondDescription: new Howl({src: [s2Sounds[1].sceneTwoSecondDescription], html5: true, preload: false, onend: function(){this.unload()}}),
 
-    closedCoffinDesc: new Howl({src:[s2Sounds[2].closedCoffinDesc], html5:true}),
+    closedCoffinDesc: new Howl({src:[s2Sounds[2].closedCoffinDesc], html5:true, preload: false, onend: function(){this.unload()}}),
 
-    openCoffinDesc: new Howl({src:[s2Sounds[3].openCoffinDesc], html5:true}),
+    openCoffinDesc: new Howl({src:[s2Sounds[3].openCoffinDesc], html5:true, preload: false, onend: function(){this.unload()}}),
 
-    stoolCabinetDesc: new Howl({src:[s2Sounds[4].stoolCabinetDesc], html5:true}),
+    stoolCabinetDesc: new Howl({src:[s2Sounds[4].stoolCabinetDesc], html5:true, preload: false, onend: function(){this.unload()}}),
 
-    candles: new Howl({src:[s2Sounds[5].candles], html5: true}),
+    candles: new Howl({src:[s2Sounds[5].candles], html5: true, preload: false, onend: function(){this.unload()}}),
 
-    holeInWallDesc: new Howl({src:[s2Sounds[6].holeInWallDesc],html5: true}),
+    holeInWallDesc: new Howl({src:[s2Sounds[6].holeInWallDesc],html5: true, preload: false, onend: function(){this.unload()}}),
 
-    cowPaintingDesc: new Howl({src: [s2Sounds[7].cowPaintingDesc], html5: true}),
+    cowPaintingDesc: new Howl({src: [s2Sounds[7].cowPaintingDesc], html5: true, preload: false, onend: function(){this.unload()}}),
 
-    oldChairDesc: new Howl({src: [s2Sounds[8].oldChairDesc], html5:true}),
+    oldChairDesc: new Howl({src: [s2Sounds[8].oldChairDesc], html5:true, preload: false, onend: function(){this.unload()}}),
 
-    cowPaintingDesc2: new Howl({src: [s2Sounds[9].cowPaintingDesc2], html5:true}),
+    cowPaintingDesc2: new Howl({src: [s2Sounds[9].cowPaintingDesc2], html5:true, preload: false, onend: function(){this.unload()}}),
 
-    confused: new Howl({src: [s2Sounds[10].confused], html5:true})
+    confused: new Howl({src: [s2Sounds[10].confused], html5:true, preload: false, onend: function(){this.unload()}})
 
   }
   const audioControl = (specifiedSound) => {
-    playingAudio = specifiedSound;
+    playingAudio2 = specifiedSound;
     !specifiedSound.playing() ? specifiedSound.play() : specifiedSound.stop();
   };
 
   const stopAllAudio = () => {
-    if (playingAudio !== "none") {
-      playingAudio.stop();
-      playingAudio.unload();
+    if (playingAudio2 !== "none") {
+      playingAudio2.stop();
+      playingAudio2.unload();
     }
   };
 

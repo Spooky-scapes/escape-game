@@ -21,7 +21,7 @@ import SpeechRecognition, {
 } from "react-speech-recognition";
 
 // DEFINE GLOBAL VARIABLE TO IDENTIFY WHICH AUDIO IS CURRENTLY PLAYING
-let playingAudio = "none";
+let playingAudio1 = "none";
 
 // DEFINE FUNCTIONAL COMPONENT
 const SceneOne = () => {
@@ -165,6 +165,7 @@ const SceneOne = () => {
     }
   }
 
+  // ********** KEYDOWN EVENT LISTENER ********** 
   document.addEventListener("keydown", (event) => {
     stopAllAudio()
     const bool = JSON.parse(window.localStorage.getItem("usedCandyBucket"));
@@ -173,7 +174,6 @@ const SceneOne = () => {
       if (event.repeat) {
         return;
       }
-
       SpeechRecognition.startListening();
       console.log("🧤 list");
     }
@@ -181,18 +181,17 @@ const SceneOne = () => {
     const pagina1 =
       window.location.href === "http://localhost:3000/parlor" ||
       window.location.href === "https://spooky-scapes.netlify.app/parlor";
-
     if (event.code === "Enter" && pagina1) {
-
       event.preventDefault();
       if (event.repeat) {
         return;
       }
-
       if (!bool) {
         descriptions.scene1desc1.play();
+        console.log("scene 1 desc 1 playing");
       } else {
         descriptions.scene1desc2.play();
+        console.log("scene 1 desc 2 playing");
       }
     }
   });
@@ -219,32 +218,32 @@ const SceneOne = () => {
   });
 
   const descriptions = {
-    scene1desc1: new Howl({ src: [s1sounds[0].sceneOneDescription], html5: true, }),
-    scene1desc2: new Howl({ src: [s1sounds[8].sceneOneDescription2], html5: true, }),
-    table: new Howl({ src: [s1sounds[1].sideTable], html5: true }),
-    riddle: new Howl({ src: [s1sounds[2].riddle], html5: true }),
-    bookCaseWithDairy: new Howl({ src: [s1sounds[3].bookcaseWithDiary], html5: true, }),
-    emptyBookcase: new Howl({ src: [s1sounds[4].emptyBookcase], html5: true }),
-    fullBookcase: new Howl({ src: [s1sounds[5].fullBookcase], html5: true }),
-    cassettePlayerEmpty: new Howl({ src: [s1sounds[6].cassettePlayerEmpty], html5: true, }),
-    skull: new Howl({ src: [s1sounds[7].skull], html5: true }),
-    diaryNoKey: new Howl({ src: [s1sounds[9].diaryNoKey], html5: true }),
-    diaryMessage: new Howl({ src: [s1sounds[10].diaryMessage], html5: true }),
-    paintingDesc1: new Howl({ src: [s1sounds[11].paintingDesc1], html5: true }),
-    paintingDesc2: new Howl({ src: [s1sounds[12].paintingDesc2], html5: true }),
-    caw: new Howl({ src: [s1sounds[13].caw], html5: true }),
-    confused: new Howl({src:[s1sounds[14].confused], html5: true})
+    scene1desc1: new Howl({ src: [s1sounds[0].sceneOneDescription], html5: true, preload: false, onend: function(){this.unload()}}),
+    scene1desc2: new Howl({ src: [s1sounds[8].sceneOneDescription2], html5: true, preload: false, onend: function(){this.unload()}}),
+    table: new Howl({ src: [s1sounds[1].sideTable], html5: true, preload: false, onend: function(){this.unload()}}),
+    riddle: new Howl({ src: [s1sounds[2].riddle], html5: true, preload: false, onend: function(){this.unload()}}),
+    bookCaseWithDairy: new Howl({ src: [s1sounds[3].bookcaseWithDiary], html5: true, preload: false, onend: function(){this.unload()}}),
+    emptyBookcase: new Howl({ src: [s1sounds[4].emptyBookcase], html5: true, preload: false, onend: function(){this.unload()}}),
+    fullBookcase: new Howl({ src: [s1sounds[5].fullBookcase], html5: true, preload: false, onend: function(){this.unload()}}),
+    cassettePlayerEmpty: new Howl({ src: [s1sounds[6].cassettePlayerEmpty], html5: true, preload: false, onend: function(){this.unload()}}),
+    skull: new Howl({ src: [s1sounds[7].skull], html5: true, preload: false, onend: function(){this.unload()}}),
+    diaryNoKey: new Howl({ src: [s1sounds[9].diaryNoKey], html5: true, preload: false, onend: function(){this.unload()}}),
+    diaryMessage: new Howl({ src: [s1sounds[10].diaryMessage], html5: true, preload: false, onend: function(){this.unload()}}),
+    paintingDesc1: new Howl({ src: [s1sounds[11].paintingDesc1], html5: true, preload: false, onend: function(){this.unload()}}),
+    paintingDesc2: new Howl({ src: [s1sounds[12].paintingDesc2], html5: true, preload: false, onend: function(){this.unload()}}),
+    caw: new Howl({ src: [s1sounds[13].caw], html5: true, preload: false, onend: function(){this.unload()}}),
+    confused: new Howl({src:[s1sounds[14].confused], html5: true, preload: false, onend: function(){this.unload()}})
   };
 
   const audioControl = (specifiedSound) => {
-    playingAudio = specifiedSound;
+    playingAudio1 = specifiedSound;
     !specifiedSound.playing() ? specifiedSound.play() : specifiedSound.stop();
   };
 
   const stopAllAudio = () => {
-    if (playingAudio !== "none") {
-      playingAudio.stop();
-      playingAudio.unload();
+    if (playingAudio1 !== "none") {
+      playingAudio1.stop();
+      playingAudio1.unload();
     }
   };
 
@@ -423,7 +422,7 @@ const SceneOne = () => {
         to="/entryway"
         onClick={(e) => {
           e.preventDefault();
-          console.log(playingAudio);
+          console.log(playingAudio1);
           stopAllAudio();
           history.push("/entryway");
         }}
@@ -436,7 +435,7 @@ const SceneOne = () => {
         to="/storage"
         onClick={(e) => {
           e.preventDefault();
-          console.log(playingAudio);
+          console.log(playingAudio1);
           stopAllAudio();
           history.push("/storage");
         }}
