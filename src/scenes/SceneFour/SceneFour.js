@@ -269,13 +269,13 @@ const SceneFour = () => {
       case "door":
         let found = JSON.parse(window.localStorage.getItem("foundPainting"));
         if (found) {
-          clearInterval(iHateIntervals)
+          clearInterval(timerTracker)
           audioControl(audioCues.doorSwinging);
           audioControl(audioCues.victory);
           narrationBox.innerHTML =
             "*door swinging open* You did what we couldn’t! Congratulations and Happy Halloween!";
           setTimeout(() => {
-            clearInterval(iHateIntervals)
+            clearInterval(timerTracker)
             hideInv();
             window.dispatchEvent(new Event("reset"));
             history.push("/victory");
