@@ -373,7 +373,6 @@ const SceneOne = () => {
           }
           className="lockedDiary"
           onClick={(e) => assetClicked(e)}
-          alt = "hidden diary with a locked clasp on the front"
         />
       </div>
       <div>
