@@ -50,6 +50,10 @@ const SceneOne = () => {
       command: ["Go to *"],
       callback: (page) => goTo(page),
     },
+   { command: ["Read the room"],
+     callback: () => readRoom()
+  }
+
   ];
 
   // THIS TELLS SPEECH RECOGNITION TO USE THE COMMANDS DEFINED ABOVE
@@ -161,6 +165,8 @@ const SceneOne = () => {
     }
   }
 
+
+
   document.addEventListener("keydown", (event) => {
     stopAllAudio()
     const bool = JSON.parse(window.localStorage.getItem("usedCandyBucket"));
@@ -229,6 +235,15 @@ const SceneOne = () => {
     caw: new Howl({ src: [s1sounds[13].caw], html5: true }),
     confused: new Howl({src:[s1sounds[14].confused], html5: true})
   };
+
+  const readRoom = () => {
+    const bool = JSON.parse(window.localStorage.getItem("usedCandyBucket"))
+    if(!bool){
+     audioControl(descriptions.scene1desc1)
+    } else {
+      audioControl(descriptions.scene1desc2)
+    }
+  }
 
   const audioControl = (specifiedSound) => {
     playingAudio = specifiedSound;
