@@ -43,6 +43,10 @@ const SceneFour = () => {
       command: ["Go to *"],
       callback: (page) => goTo(page),
     },
+    {
+      command: ["Read the room"],
+      callback: () => readRoom()
+    }
   ];
 
   useSpeechRecognition({ commands });
@@ -141,6 +145,9 @@ const SceneFour = () => {
       //   `it thinks you said ${page}, consider adding ${page} to your item list, and mapping that to the correct word/phrase. Remove this when finished testing`
       // );
     }
+  }
+  const readRoom = () => {
+    audioControl(audioCues.sceneFourDescription)
   }
 
   document.addEventListener("keydown", (event) => {

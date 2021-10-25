@@ -53,6 +53,10 @@ const SceneTwo = () => {
       command: ["Go to *"],
       callback: (page) => goTo(page),
     },
+    {
+      command: ["Read the room"],
+      callback: () => readRoom()
+    },
   ];
   useSpeechRecognition({ commands });
 
@@ -141,6 +145,15 @@ const SceneTwo = () => {
     }
   }
 
+  const readRoom = () => {
+    const bool = JSON.parse(window.localStorage.getItem("usedCasset"))
+    if(!bool){
+     audioControl(sceneTwoAudio.scene2FirstDescription)
+    }else{
+      audioControl(sceneTwoAudio.scene2SecondDescription)
+    }
+  }
+
   function goTo(page) {
     // this function is used as the callback for the go to command, in the event that you need to debug you may use the console.log below
 
@@ -182,23 +195,23 @@ const SceneTwo = () => {
       console.log("🧤 list");
     }
     //
-    const pagina =
-      window.location.href === "http://localhost:3000/storage" ||
-      window.location.href === "https://spooky-scapes.netlify.app/storage";
+    // const pagina =
+    //   window.location.href === "http://localhost:3000/storage" ||
+    //   window.location.href === "https://spooky-scapes.netlify.app/storage";
 
-    if (event.code === "Enter" && pagina) {
-      event.preventDefault();
-      stopAllAudio()
-      if (event.repeat) {
-        return;
-      }
+    // if (event.code === "Enter" && pagina) {
+    //   event.preventDefault();
+    //   stopAllAudio()
+    //   if (event.repeat) {
+    //     return;
+    //   }
 
-      if (!bool) {
-        sceneTwoAudio.scene2FirstDescription.play();
-      } else {
-        sceneTwoAudio.scene2SecondDescription.play();
-      }
-    }
+    //   if (!bool) {
+    //     sceneTwoAudio.scene2FirstDescription.play();
+    //   } else {
+    //     sceneTwoAudio.scene2SecondDescription.play();
+    //   }
+    // }
   });
 
   document.addEventListener("keyup", (event) => {

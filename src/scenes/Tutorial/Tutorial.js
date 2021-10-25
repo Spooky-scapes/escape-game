@@ -86,8 +86,10 @@ const Tutorial = () => {
   };
 
   return (
-    <div>
+    <div className='tutorial'>
+      <div className='content'>
       <button
+        className="tutorialButtons"
         type="button"
         id="playTutorial"
         onClick={() => {
@@ -97,6 +99,7 @@ const Tutorial = () => {
         Play Tutorial
       </button>
       <button
+        className="tutorialButtons"
         type="button"
         id="pauseTutorial"
         onClick={() => {
@@ -105,26 +108,27 @@ const Tutorial = () => {
       >
         Stop Tutorial
       </button>
-      <p> To hear a description of the room, press the enter or return key. </p>
-      <p>
+      <p className='tutorialText'> To hear a description of the room, press the enter or return key. </p>
+      <p className='tutorialText'>
         To inspect an item, hold down the spacebar key and say ‘click on’ then
         the item name.
       </p>
-      <p>
+      <p className='tutorialText'>
         To navigate around the rooms, hold down the spacebar and say ‘go to next
         room’ or go to previous room.
       </p>
-      <p> You can also say “go to left” or “go to right. </p>
-      <p>
+      <p className='tutorialText'> You can also say “go to left” or “go to right". </p>
+      <p className='tutorialText'>
         If you need to return to this tutorial, hold down the spacebar and say
         “go to tutorial".
       </p>
-      <p>
+      <p className='tutorialText'>
         {" "}
         If you are ready to play, hold down the spacebar and say “play game”.{" "}
       </p>
       <Link to="/">
         <button
+          className="tutorialButtons"
           type="button"
           id="goHome"
           onClick={() => {
@@ -136,6 +140,7 @@ const Tutorial = () => {
       </Link>
       <Link to="/parlor">
         <button
+         className="tutorialButtons"
           type="button"
           id="playGame"
           onClick={() => {
@@ -146,6 +151,7 @@ const Tutorial = () => {
           Start Playing
         </button>
       </Link>
+      </div>
     </div>
   );
 };

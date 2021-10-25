@@ -34,7 +34,7 @@ const SceneThree = () => {
       let oof = document.getElementById('timer').innerHTML
       if (String(oof) === "00:01"){
         stopAllAudio();
-        stopAllAudio();
+        // stopAllAudio();  commented to check
         clearInterval(iHateIntervals);
       }
     } else clearInterval(iHateIntervals)
@@ -83,16 +83,16 @@ const SceneThree = () => {
   };
 
   document.addEventListener("keydown", (event) => {
+    stopAllAudio();
     const location =
       window.location.href === "http://localhost:3000/witchDen" ||
       window.location.href === "https://spooky-scapes.netlify.app/witchDen";
     if (event.code === "Enter" && location) {
       event.preventDefault();
-      stopAllAudio();
+
       if (event.repeat) {
         return;
       }
-      stopAllAudio()
       sceneThreeAudio.sceneThreeDescription.play();
     }
   });
@@ -128,6 +128,10 @@ const SceneThree = () => {
       command: ["Go to *"],
       callback: (page) => goTo(page),
     },
+    {
+      command: ["Read the room"],
+      callback: () => readRoom()
+    }
   ];
   useSpeechRecognition({ commands });
 
@@ -176,6 +180,9 @@ const SceneThree = () => {
     "room two": "arrowLeft",
     "room four": "arrowRight",
   };
+  const readRoom = () => {
+    audioControl(sceneThreeAudio.sceneThreeDescription)
+  }
 
   function clickImage(item) {
     stopAllAudio()
