@@ -29,15 +29,15 @@ const SceneOne = () => {
   const [isActive, setActive] = useState(false);
   const history = useHistory();
 
-  const iHateIntervals = setInterval(function(){
+  const timerTracker = setInterval(function(){
     if (document.getElementById('timer')){
-      let oof = document.getElementById('timer').innerHTML
-      if (String(oof) === "00:01"){
+      let element = document.getElementById('timer').innerHTML
+      if (String(element) === "00:01"){
         stopAllAudio();
         stopAllAudio();
-        clearInterval(iHateIntervals);
+        clearInterval(timerTracker);
       }
-    } else clearInterval(iHateIntervals)
+    } else clearInterval(timerTracker)
   }, 1000);
 
   // THE COMMANDS ARRAY DEFINES THE TYPES OF VOICE COMMANDS THAT CAN BE GIVEN
@@ -142,7 +142,6 @@ const SceneOne = () => {
   }
 
   function goTo(page) {
-    console.log("🧤 what the api heard....", page);
     stopAllAudio()
 
     if (pagePossibilities.includes(page)) {
@@ -159,9 +158,6 @@ const SceneOne = () => {
       document.getElementById("narrationBox").className = 'painting-text-active'
       document.getElementById("narrationBox").innerHTML = 'I am truly perplexed by your request, speak clearly child and try again.'
       setTimeout(()=> document.getElementById("narrationBox").className = 'painting-text', 6500)
-      // alert(
-      //   `it thinks you said ${page}, consider adding ${page} to your item list, and mapping that to the correct word/phrase. Remove this when finished testing`
-      // );
     }
   }
 
@@ -175,7 +171,6 @@ const SceneOne = () => {
       }
 
       SpeechRecognition.startListening();
-      console.log("🧤 list");
     }
 
     const pagina1 =
@@ -202,7 +197,6 @@ const SceneOne = () => {
     if (event.code === "Space") {
       event.preventDefault();
       SpeechRecognition.stopListening();
-      console.log("🧤 not");
     }
     const pagina1 =
       window.location.href === "http://localhost:3000/parlor" ||
@@ -271,12 +265,10 @@ const SceneOne = () => {
           narrationBox.innerHTML =
             "It is a lovely painting, but I don't see any orbs in it.";
           audioControl(descriptions.paintingDesc2);
-          console.log("playing desc2");
           break;
         }
         narrationBox.innerHTML = "What a lovely old painting.";
         audioControl(descriptions.paintingDesc1);
-        console.log("playing desc1");
         break;
       case "bookCase":
         let usedBucket = JSON.parse(window.localStorage.getItem("usedCandyBucket"))
@@ -366,6 +358,7 @@ const SceneOne = () => {
           }
           className="lockedDiary"
           onClick={(e) => assetClicked(e)}
+          alt = "hidden diary with a locked clasp on the front"
         />
       </div>
       <div>
@@ -423,7 +416,6 @@ const SceneOne = () => {
         to="/entryway"
         onClick={(e) => {
           e.preventDefault();
-          console.log(playingAudio);
           stopAllAudio();
           history.push("/entryway");
         }}
@@ -436,7 +428,6 @@ const SceneOne = () => {
         to="/storage"
         onClick={(e) => {
           e.preventDefault();
-          console.log(playingAudio);
           stopAllAudio();
           history.push("/storage");
         }}
