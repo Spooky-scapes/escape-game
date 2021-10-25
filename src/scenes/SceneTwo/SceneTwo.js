@@ -26,7 +26,7 @@ import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
 
-let playingAudio2 = "none";
+let playingAudio = "none";
 
 const SceneTwo = () => {
   const [isActive, setActive] = useState(false);
@@ -332,14 +332,14 @@ const SceneTwo = () => {
 
   }
   const audioControl = (specifiedSound) => {
-    playingAudio2 = specifiedSound;
+    playingAudio = specifiedSound;
     !specifiedSound.playing() ? specifiedSound.play() : specifiedSound.stop();
   };
 
   const stopAllAudio = () => {
-    if (playingAudio2 !== "none") {
-      playingAudio2.stop();
-      playingAudio2.unload();
+    if (playingAudio !== "none") {
+      playingAudio.stop();
+      playingAudio.unload();
     }
   };
 

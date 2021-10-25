@@ -17,7 +17,7 @@ import sceneThreeSounds from "./SceneThreeSounds.json";
 import { Howl } from "howler";
 import { useHistory } from "react-router-dom";
 
-let playingAudio3 = "none";
+let playingAudio = "none";
 
 const SceneThree = () => {
   const history = useHistory();
@@ -117,14 +117,14 @@ const SceneThree = () => {
   });
 
   const audioControl = (specifiedSound) => {
-    playingAudio3 = specifiedSound;
+    playingAudio = specifiedSound;
     !specifiedSound.playing() ? specifiedSound.play() : specifiedSound.stop();
   };
 
   const stopAllAudio = () => {
-    if (playingAudio3 !== "none") {
-      playingAudio3.stop();
-      playingAudio3.unload();
+    if (playingAudio !== "none") {
+      playingAudio.stop();
+      playingAudio.unload();
     }
   };
 

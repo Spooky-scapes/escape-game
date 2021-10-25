@@ -17,7 +17,7 @@ import { useHistory } from "react-router-dom";
 import { Howl } from "howler";
 import s4sounds from "./SceneFourSounds.json";
 
-let playingAudio4 = "none";
+let playingAudio = "none";
 
 const SceneFour = () => {
   const [isActive, setActive] = useState(false);
@@ -264,14 +264,14 @@ const SceneFour = () => {
     })
   };
   const audioControl = (specifiedSound) => {
-    playingAudio4 = specifiedSound;
+    playingAudio = specifiedSound;
     !specifiedSound.playing() ? specifiedSound.play() : specifiedSound.stop();
   };
 
   const stopAllAudio = () => {
-    if (playingAudio4 !== "none") {
-      playingAudio4.stop();
-      playingAudio4.unload();
+    if (playingAudio !== "none") {
+      playingAudio.stop();
+      playingAudio.unload();
     }
   };
 
