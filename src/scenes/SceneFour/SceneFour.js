@@ -23,15 +23,15 @@ const SceneFour = () => {
   const [isActive, setActive] = useState(false);
   const history = useHistory();
 
-  const iHateIntervals = setInterval(function(){
+  const timerTracker = setInterval(function(){
     if (document.getElementById('timer')){
-      let oof = document.getElementById('timer').innerHTML
-      if (String(oof) === "00:01"){
+      let element = document.getElementById('timer').innerHTML
+      if (String(element) === "00:01"){
         stopAllAudio();
         stopAllAudio();
-        clearInterval(iHateIntervals);
+        clearInterval(timerTracker);
       }
-    } else clearInterval(iHateIntervals)
+    } else clearInterval(timerTracker)
   }, 1000);
 
   const commands = [
@@ -117,9 +117,6 @@ const SceneFour = () => {
       setTimeout(function () {
         setActive(false);
       }, 6500);
-      // alert(
-      //   `it thinks you said ${item}, consider adding ${item} to your item list, and mapping that to the correct word/phrase. Remove this when finished testing`
-      // );
     }
   }
 
@@ -141,9 +138,6 @@ const SceneFour = () => {
        setTimeout(function () {
          setActive(false);
        }, 6500);
-      // alert(
-      //   `it thinks you said ${page}, consider adding ${page} to your item list, and mapping that to the correct word/phrase. Remove this when finished testing`
-      // );
     }
   }
   const readRoom = () => {
@@ -261,6 +255,7 @@ const SceneFour = () => {
   const stopAllAudio = () => {
     if (playingAudio !== "none") {
       playingAudio.stop();
+      playingAudio.unload();
     }
   };
 
@@ -281,13 +276,13 @@ const SceneFour = () => {
       case "door":
         let found = JSON.parse(window.localStorage.getItem("foundPainting"));
         if (found) {
-          clearInterval(iHateIntervals)
+          clearInterval(timerTracker)
           audioControl(audioCues.doorSwinging);
           audioControl(audioCues.victory);
           narrationBox.innerHTML =
             "*door swinging open* You did what we couldn’t! Congratulations and Happy Halloween!";
           setTimeout(() => {
-            clearInterval(iHateIntervals)
+            clearInterval(timerTracker)
             hideInv();
             window.dispatchEvent(new Event("reset"));
             history.push("/victory");

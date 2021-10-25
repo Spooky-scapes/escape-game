@@ -29,15 +29,15 @@ const SceneThree = () => {
       window.dispatchEvent(new Event("storage"));
     }
   };
-  const iHateIntervals = setInterval(function(){
+  const timerTracker = setInterval(function(){
     if (document.getElementById('timer')){
-      let oof = document.getElementById('timer').innerHTML
-      if (String(oof) === "00:01"){
+      let element = document.getElementById('timer').innerHTML
+      if (String(element) === "00:01"){
         stopAllAudio();
-        // stopAllAudio();  commented to check
-        clearInterval(iHateIntervals);
+        stopAllAudio();
+        clearInterval(timerTracker);
       }
-    } else clearInterval(iHateIntervals)
+    } else clearInterval(timerTracker)
   }, 1000);
 
 
@@ -115,6 +115,7 @@ const SceneThree = () => {
   const stopAllAudio = () => {
     if (playingAudio !== "none") {
       playingAudio.stop();
+      playingAudio.unload();
     }
   };
 
@@ -196,9 +197,6 @@ const SceneThree = () => {
       setTimeout(function () {
         setActive(false);
       }, 6500);
-      // alert(
-      //   `it thinks you said ${item}, consider adding ${item} to your item list, and mapping that to the correct word/phrase. Remove this when finished testing`
-      // );
     }
   }
 
@@ -221,9 +219,6 @@ const SceneThree = () => {
       setTimeout(function () {
         setActive(false);
       }, 6500);
-      // alert(
-      //   `it thinks you said ${page}, consider adding ${page} to your item list, and mapping that to the correct word/phrase. Remove this when finished testing`
-      // );
     }
   }
 

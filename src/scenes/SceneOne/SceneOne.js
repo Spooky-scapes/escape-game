@@ -16,13 +16,9 @@ import "../../App.scss";
 import s1sounds from "./sceneOneSounds.json";
 import { Link, useHistory } from "react-router-dom";
 import { Howl } from "howler";
-import { getStorage, ref } from "firebase/storage";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
-
-// SCENE 1 IS RESPONSIBLE FOR SETTING THE INITIAL LOCAL STORAGE
-//jk that's been moved to Lobby. Sawyy <.< >.>
 
 // DEFINE GLOBAL VARIABLE TO IDENTIFY WHICH AUDIO IS CURRENTLY PLAYING
 let playingAudio = "none";
@@ -31,18 +27,17 @@ let playingAudio = "none";
 const SceneOne = () => {
   // SET STATES NEEDED FOR SCENE TO RUN
   const [isActive, setActive] = useState(false);
-  const [hiddenDiary, setHidden] = useState(true);
   const history = useHistory();
 
-  const iHateIntervals = setInterval(function(){
+  const timerTracker = setInterval(function(){
     if (document.getElementById('timer')){
-      let oof = document.getElementById('timer').innerHTML
-      if (String(oof) === "00:01"){
+      let element = document.getElementById('timer').innerHTML
+      if (String(element) === "00:01"){
         stopAllAudio();
         stopAllAudio();
-        clearInterval(iHateIntervals);
+        clearInterval(timerTracker);
       }
-    } else clearInterval(iHateIntervals)
+    } else clearInterval(timerTracker)
   }, 1000);
 
   // THE COMMANDS ARRAY DEFINES THE TYPES OF VOICE COMMANDS THAT CAN BE GIVEN
@@ -151,7 +146,6 @@ const SceneOne = () => {
   }
 
   function goTo(page) {
-    console.log("🧤 what the api heard....", page);
     stopAllAudio()
 
     if (pagePossibilities.includes(page)) {
@@ -168,9 +162,6 @@ const SceneOne = () => {
       document.getElementById("narrationBox").className = 'painting-text-active'
       document.getElementById("narrationBox").innerHTML = 'I am truly perplexed by your request, speak clearly child and try again.'
       setTimeout(()=> document.getElementById("narrationBox").className = 'painting-text', 6500)
-      // alert(
-      //   `it thinks you said ${page}, consider adding ${page} to your item list, and mapping that to the correct word/phrase. Remove this when finished testing`
-      // );
     }
   }
 
@@ -186,7 +177,6 @@ const SceneOne = () => {
       }
 
       SpeechRecognition.startListening();
-      console.log("🧤 list");
     }
 
     const pagina1 =
@@ -213,7 +203,6 @@ const SceneOne = () => {
     if (event.code === "Space") {
       event.preventDefault();
       SpeechRecognition.stopListening();
-      console.log("🧤 not");
     }
     const pagina1 =
       window.location.href === "http://localhost:3000/parlor" ||
@@ -230,26 +219,14 @@ const SceneOne = () => {
   });
 
   const descriptions = {
-    scene1desc1: new Howl({
-      src: [s1sounds[0].sceneOneDescription],
-      html5: true,
-    }),
-    scene1desc2: new Howl({
-      src: [s1sounds[8].sceneOneDescription2],
-      html5: true,
-    }),
+    scene1desc1: new Howl({ src: [s1sounds[0].sceneOneDescription], html5: true, }),
+    scene1desc2: new Howl({ src: [s1sounds[8].sceneOneDescription2], html5: true, }),
     table: new Howl({ src: [s1sounds[1].sideTable], html5: true }),
     riddle: new Howl({ src: [s1sounds[2].riddle], html5: true }),
-    bookCaseWithDairy: new Howl({
-      src: [s1sounds[3].bookcaseWithDiary],
-      html5: true,
-    }),
+    bookCaseWithDairy: new Howl({ src: [s1sounds[3].bookcaseWithDiary], html5: true, }),
     emptyBookcase: new Howl({ src: [s1sounds[4].emptyBookcase], html5: true }),
     fullBookcase: new Howl({ src: [s1sounds[5].fullBookcase], html5: true }),
-    cassettePlayerEmpty: new Howl({
-      src: [s1sounds[6].cassettePlayerEmpty],
-      html5: true,
-    }),
+    cassettePlayerEmpty: new Howl({ src: [s1sounds[6].cassettePlayerEmpty], html5: true, }),
     skull: new Howl({ src: [s1sounds[7].skull], html5: true }),
     diaryNoKey: new Howl({ src: [s1sounds[9].diaryNoKey], html5: true }),
     diaryMessage: new Howl({ src: [s1sounds[10].diaryMessage], html5: true }),
@@ -276,6 +253,7 @@ const SceneOne = () => {
   const stopAllAudio = () => {
     if (playingAudio !== "none") {
       playingAudio.stop();
+      playingAudio.unload();
     }
   };
 
@@ -302,17 +280,20 @@ const SceneOne = () => {
           narrationBox.innerHTML =
             "It is a lovely painting, but I don't see any orbs in it.";
           audioControl(descriptions.paintingDesc2);
-          console.log("playing desc2");
           break;
         }
         narrationBox.innerHTML = "What a lovely old painting.";
         audioControl(descriptions.paintingDesc1);
-        console.log("playing desc1");
         break;
       case "bookCase":
-        narrationBox.innerHTML = hiddenDiary
-          ? "This bookcase is empty. I wonder if it could be hiding something."
-          : "There is a locked diary here now. Do you have anything that can unlock it?";
+        let usedBucket = JSON.parse(window.localStorage.getItem("usedCandyBucket"))
+        if(usedBucket){
+          narrationBox.innerHTML = "There is a locked diary here now. Do you have anything that can unlock it?"
+          audioControl(descriptions.bookCaseWithDairy);
+          break
+        }
+        narrationBox.innerHTML = "This bookcase is empty. I wonder if it could be hiding something."
+        audioControl(descriptions.emptyBookcase)
         break;
       case "lockedDiary":
         let hasKey = JSON.parse(window.localStorage.getItem("hasKey"));
@@ -361,6 +342,7 @@ const SceneOne = () => {
     return;
   };
 
+
   return (
     <div className="sceneOne">
       <div>
@@ -378,15 +360,8 @@ const SceneOne = () => {
           alt="large wooden bookcase that is empty"
           onClick={(e) => {
             assetClicked(e);
-            let isDiary = JSON.parse(
-              window.localStorage.getItem("usedCandyBucket")
-            );
-            if (isDiary) {
-              audioControl(descriptions.bookCaseWithDairy);
-            } else {
-              audioControl(descriptions.emptyBookcase);
             }
-          }}
+          }
         />
       </div>
       <div>
@@ -398,6 +373,7 @@ const SceneOne = () => {
           }
           className="lockedDiary"
           onClick={(e) => assetClicked(e)}
+          alt = "hidden diary with a locked clasp on the front"
         />
       </div>
       <div>
@@ -455,7 +431,6 @@ const SceneOne = () => {
         to="/entryway"
         onClick={(e) => {
           e.preventDefault();
-          console.log(playingAudio);
           stopAllAudio();
           history.push("/entryway");
         }}
@@ -468,7 +443,6 @@ const SceneOne = () => {
         to="/storage"
         onClick={(e) => {
           e.preventDefault();
-          console.log(playingAudio);
           stopAllAudio();
           history.push("/storage");
         }}

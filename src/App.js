@@ -1,8 +1,8 @@
 import "./App.scss";
-import SpeechRecognition, {
-  useSpeechRecognition,
-} from "react-speech-recognition";
-import { useState } from "react";
+// import SpeechRecognition, {
+//   useSpeechRecognition,
+// } from "react-speech-recognition";
+//import { useState } from "react";
 import SceneOne from "./scenes/SceneOne/SceneOne";
 import SceneTwo from "./scenes/SceneTwo/SceneTwo";
 import SceneThree from "./scenes/SceneThree/SceneThree";

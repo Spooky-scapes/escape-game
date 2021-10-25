@@ -1,5 +1,5 @@
 import React from "react";
-import { Howl, Howler } from "howler";
+import { Howl } from "howler";
 import { Link } from "react-router-dom";
 import "./tutorial.scss";
 import SpeechRecognition, {
@@ -18,11 +18,11 @@ const Tutorial = () => {
   const audioControl = (specifiedSound) => {
     playingAudio = specifiedSound;
     !specifiedSound.playing() ? specifiedSound.play() : specifiedSound.stop();
-    console.log("🧤 playingAudio", playingAudio);
   };
   const stopAllAudio = () => {
     if (playingAudio !== "none") {
       playingAudio.stop();
+      playingAudio.unload();
     }
   };
 
@@ -42,7 +42,6 @@ const Tutorial = () => {
   const items = ["tutorial", "game"];
   function clickButton(item) {
     item = item.toLowerCase();
-    console.log("🧤 item", item);
 
     if (items.includes(item)) {
       switch (item) {
