@@ -72,7 +72,7 @@ const Tutorial = () => {
   document.addEventListener("keyup", (event) => {
     if (event.code === "Space") {
       event.preventDefault();
-      stopAllAudio()
+      stopAllAudio();
       SpeechRecognition.stopListening();
     }
   });
@@ -129,27 +129,72 @@ const Tutorial = () => {
         <button
           className="tutorialButtons"
           type="button"
-          id="goHome"
+          id="playTutorial"
           onClick={() => {
-            stopAllAudio();
+            audioControl(tutorial);
           }}
         >
-          Home
+          Play Tutorial
         </button>
-      </Link>
-      <Link to="/parlor">
         <button
-         className="tutorialButtons"
+          className="tutorialButtons"
           type="button"
-          id="playGame"
+          id="pauseTutorial"
           onClick={() => {
-            showInv();
             stopAllAudio();
           }}
         >
-          Start Playing
+          Stop Tutorial
         </button>
-      </Link>
+        <p className="tutorialText">
+          {" "}
+          To hear a description of the room, press the enter or return key.{" "}
+        </p>
+        <p className="tutorialText">
+          To inspect an item, hold down the spacebar key and say ‘click on’ then
+          the item name.
+        </p>
+        <p className="tutorialText">
+          To navigate around the rooms, hold down the spacebar and say ‘go to
+          next room’ or go to previous room.
+        </p>
+        <p className="tutorialText">
+          {" "}
+          You can also say “go to left” or “go to right".{" "}
+        </p>
+        <p className="tutorialText">
+          If you need to return to this tutorial, hold down the spacebar and say
+          “go to tutorial".
+        </p>
+        <p className="tutorialText">
+          {" "}
+          If you are ready to play, hold down the spacebar and say “play game”.{" "}
+        </p>
+        <Link to="/">
+          <button
+            className="tutorialButtons"
+            type="button"
+            id="goHome"
+            onClick={() => {
+              stopAllAudio();
+            }}
+          >
+            Home
+          </button>
+        </Link>
+        <Link to="/parlor">
+          <button
+            className="tutorialButtons"
+            type="button"
+            id="playGame"
+            onClick={() => {
+              showInv();
+              stopAllAudio();
+            }}
+          >
+            Play Game
+          </button>
+        </Link>
       </div>
     </div>
   );

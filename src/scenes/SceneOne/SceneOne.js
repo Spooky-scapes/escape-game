@@ -38,7 +38,7 @@ const SceneOne = () => {
         stopAllAudio();
         clearInterval(timerTracker);
       }
-    } else clearInterval(timerTracker)
+    } else clearInterval(timerTracker);
   }, 1000);
 
   // ******** Defines the types of voice commands that can be given ********
@@ -51,10 +51,8 @@ const SceneOne = () => {
       command: ["Go to *"], // *** For navigation ***
       callback: (page) => goTo(page),
     },
-   { command: ["Read the room"], // *** For full room description ***
-     callback: () => readRoom()
-  }
-
+    { command: ["Read the room"], callback: () => readRoom() },
+    { command: ["Check bag"], callback: () => checkBag() },
   ];
 
   // ******** Connects the commands above to Speech Recognition ********
@@ -113,7 +111,7 @@ const SceneOne = () => {
     "full bookshelf": "full-bookshelf",
     "full bookcase": "full-bookshelf",
     "cassette player": "cassettePlayer",
-    "cassette": "cassettePlayer",
+    cassette: "cassettePlayer",
     raven: "ravenClosed",
   };
 
@@ -127,6 +125,32 @@ const SceneOne = () => {
     "room four": "leftArrow",
     "room two": "rightArrow",
   };
+  //THIS PART TAKES CARE OF READING INVENTORY!!!!
+  let noMoreCasset = false;
+  let noMoreCandyBucket = false;
+  let noMoreKey = false;
+  const checkBag = () => {
+    const casset = JSON.parse(window.localStorage.getItem("hasCasset"));
+    const candy = JSON.parse(window.localStorage.getItem("hasCandyBucket"));
+    const keyBool = JSON.parse(window.localStorage.getItem("hasKey"));
+    if (casset && !noMoreCasset) {
+      console.log("casset");
+      noMoreCasset = true;
+    } else {
+      console.log("I am empty....");
+    }
+    if (candy && !noMoreCandyBucket) {
+      console.log("candy");
+      noMoreCandyBucket = true;
+    }
+    if (keyBool && !noMoreKey) {
+      console.log("key");
+      noMoreKey = true;
+    }
+  };
+  // THIS FUNCTION TAKES THE SPEECH TO TEXT AND CLICKS ON THE CORRELATED ITEM
+  function clickImage(item) {
+    stopAllAudio();
 
   // ******** Audio Command Click On Function - Takes STT and clicks on correlated item. ********
   function clickImage(item) {
@@ -217,7 +241,7 @@ const SceneOne = () => {
     } else {
       audioControl(descriptions.scene1desc2) // ... play the audio where the diary has been revealed.
     }
-  }
+  };
 
   // ******** AUDIO PLAYBACK FUNCTION ********
   // Takes in specified sound, sets that sound as the playingAudio, and plays the sound.
@@ -268,14 +292,18 @@ const SceneOne = () => {
         audioControl(descriptions.paintingDesc1);
         break;
       case "bookCase":
-        let usedBucket = JSON.parse(window.localStorage.getItem("usedCandyBucket"))
-        if(usedBucket){
-          narrationBox.innerHTML = "There is a locked diary here now. Do you have anything that can unlock it?"
+        let usedBucket = JSON.parse(
+          window.localStorage.getItem("usedCandyBucket")
+        );
+        if (usedBucket) {
+          narrationBox.innerHTML =
+            "There is a locked diary here now. Do you have anything that can unlock it?";
           audioControl(descriptions.bookCaseWithDairy);
-          break
+          break;
         }
-        narrationBox.innerHTML = "This bookcase is empty. I wonder if it could be hiding something."
-        audioControl(descriptions.emptyBookcase)
+        narrationBox.innerHTML =
+          "This bookcase is empty. I wonder if it could be hiding something.";
+        audioControl(descriptions.emptyBookcase);
         break;
       case "lockedDiary":
         let hasKey = JSON.parse(window.localStorage.getItem("hasKey"));
@@ -307,7 +335,7 @@ const SceneOne = () => {
         narrationBox.innerHTML = JSON.parse(
           window.localStorage.getItem("hasCasset")
         )
-          ? "*Cassette player plays this riddle* The person who built it sold it. The person who bought it never used it. The person who used it never saw it. What is it?"
+          ? "*Cassette player plays this riddle* What has no lungs, but still can bark. He codes all day. It is his hallmark."
           : "Hmm, the cassette seems to be missing.";
         break;
       case "ravenClosed":
@@ -343,8 +371,7 @@ const SceneOne = () => {
           alt="large wooden bookcase that is empty"
           onClick={(e) => {
             assetClicked(e);
-            }
-          }
+          }}
         />
       </div>
       <div>

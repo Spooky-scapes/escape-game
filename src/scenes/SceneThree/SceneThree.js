@@ -29,17 +29,16 @@ const SceneThree = () => {
       window.dispatchEvent(new Event("storage"));
     }
   };
-  const timerTracker = setInterval(function(){
-    if (document.getElementById('timer')){
-      let element = document.getElementById('timer').innerHTML
-      if (String(element) === "00:01"){
+  const timerTracker = setInterval(function () {
+    if (document.getElementById("timer")) {
+      let element = document.getElementById("timer").innerHTML;
+      if (String(element) === "00:01") {
         stopAllAudio();
         stopAllAudio();
         clearInterval(timerTracker);
       }
-    } else clearInterval(timerTracker)
+    } else clearInterval(timerTracker);
   }, 1000);
-
 
   const sceneThreeAudio = {
     sceneThreeDescription: new Howl({
@@ -57,7 +56,11 @@ const SceneThree = () => {
       html5: true,
       preload: false,
     }),
-    clock: new Howl({ src: [sceneThreeSounds[2].clock], html5: true, preload: false, }),
+    clock: new Howl({
+      src: [sceneThreeSounds[2].clock],
+      html5: true,
+      preload: false,
+    }),
     paintingOne: new Howl({
       src: [sceneThreeSounds[4].paintingOne],
       html5: true,
@@ -83,12 +86,15 @@ const SceneThree = () => {
       html5: true,
       preload: false,
     }),
-    witchLine: new Howl({ src: [sceneThreeSounds[9].witchLine], html5: true, preload: false, }),
+    witchLine: new Howl({
+      src: [sceneThreeSounds[9].witchLine],
+      html5: true,
+      preload: false,
+    }),
     confused: new Howl({
       src: [sceneThreeSounds[10].confused],
       html5: true,
-      preload: false,
-    })
+    }),
   };
 
   document.addEventListener("keydown", (event) => {
@@ -140,8 +146,12 @@ const SceneThree = () => {
     },
     {
       command: ["Read the room"],
-      callback: () => readRoom()
-    }
+      callback: () => readRoom(),
+    },
+    {
+      command: ["Check bag"],
+      callback: () => checkBag(),
+    },
   ];
   useSpeechRecognition({ commands });
 
@@ -190,18 +200,43 @@ const SceneThree = () => {
     "room two": "arrowLeft",
     "room four": "arrowRight",
   };
+
   const readRoom = () => {
-    audioControl(sceneThreeAudio.sceneThreeDescription)
-  }
+    audioControl(sceneThreeAudio.sceneThreeDescription);
+  };
+  let noMoreCasset = false;
+  let noMoreCandyBucket = false;
+  let noMoreKey = false;
+
+  const checkBag = () => {
+    const casset = JSON.parse(window.localStorage.getItem("hasCasset"));
+    const candy = JSON.parse(window.localStorage.getItem("hasCandyBucket"));
+    const keyBool = JSON.parse(window.localStorage.getItem("hasKey"));
+    if (casset && !noMoreCasset) {
+      console.log("casset");
+      noMoreCasset = true;
+    } else {
+      console.log("I am empty....");
+    }
+    if (candy && !noMoreCandyBucket) {
+      console.log("candy");
+      noMoreCandyBucket = true;
+    }
+    if (keyBool && !noMoreKey) {
+      console.log("key");
+      noMoreKey = true;
+    }
+  };
 
   function clickImage(item) {
-    stopAllAudio()
+    stopAllAudio();
     item = item.toLowerCase();
     if (clickableItems.includes(item)) {
       item = matchItemToClass[item];
       document.getElementsByClassName(item)[0].click();
     } else {
-     document.getElementById("narrationBox").innerHTML = "I am truly perplexed by your request, speak clearly child and try again."
+      document.getElementById("narrationBox").innerHTML =
+        "I am truly perplexed by your request, speak clearly child and try again.";
       setActive(true);
       setTimeout(function () {
         setActive(false);
@@ -210,20 +245,21 @@ const SceneThree = () => {
   }
 
   function goTo(page) {
-    stopAllAudio()
+    stopAllAudio();
     if (pagePossibilities.includes(page)) {
       page = mapPageToLink[page];
       document.getElementsByClassName(page)[0].click();
-    }  else if (String(page) === "tutorial"){
+    } else if (String(page) === "tutorial") {
       document.getElementsByClassName("visInventory")[0].className =
-      "hiddenInventory";
-    document.getElementsByClassName("visItemBox")[0].className =
-      "hiddenItemBox";
-      history.push("/tutorial")
+        "hiddenInventory";
+      document.getElementsByClassName("visItemBox")[0].className =
+        "hiddenItemBox";
+      history.push("/tutorial");
     } else {
       setActive(true);
-      audioControl(sceneThreeAudio.confused)
-      document.getElementById("narrationBox").innerHTML = "I am truly perplexed by your request, speak clearly child and try again."
+      audioControl(sceneThreeAudio.confused);
+      document.getElementById("narrationBox").innerHTML =
+        "I am truly perplexed by your request, speak clearly child and try again.";
 
       setTimeout(function () {
         setActive(false);
@@ -237,7 +273,7 @@ const SceneThree = () => {
       if (event.repeat) {
         return;
       }
-      stopAllAudio()
+      stopAllAudio();
       SpeechRecognition.startListening();
     }
   });
