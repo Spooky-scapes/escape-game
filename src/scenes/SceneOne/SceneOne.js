@@ -29,15 +29,15 @@ const SceneOne = () => {
   const [isActive, setActive] = useState(false);
   const history = useHistory();
 
-  const timerTracker = setInterval(function(){
-    if (document.getElementById('timer')){
-      let element = document.getElementById('timer').innerHTML
-      if (String(element) === "00:01"){
+  const timerTracker = setInterval(function () {
+    if (document.getElementById("timer")) {
+      let element = document.getElementById("timer").innerHTML;
+      if (String(element) === "00:01") {
         stopAllAudio();
         stopAllAudio();
         clearInterval(timerTracker);
       }
-    } else clearInterval(timerTracker)
+    } else clearInterval(timerTracker);
   }, 1000);
 
   // THE COMMANDS ARRAY DEFINES THE TYPES OF VOICE COMMANDS THAT CAN BE GIVEN
@@ -50,10 +50,8 @@ const SceneOne = () => {
       command: ["Go to *"],
       callback: (page) => goTo(page),
     },
-   { command: ["Read the room"],
-     callback: () => readRoom()
-  }
-
+    { command: ["Read the room"], callback: () => readRoom() },
+    { command: ["Check bag"], callback: () => checkBag() },
   ];
 
   // THIS TELLS SPEECH RECOGNITION TO USE THE COMMANDS DEFINED ABOVE
@@ -112,7 +110,7 @@ const SceneOne = () => {
     "full bookshelf": "full-bookshelf",
     "full bookcase": "full-bookshelf",
     "cassette player": "cassettePlayer",
-    "cassette": "cassettePlayer",
+    cassette: "cassettePlayer",
     raven: "ravenClosed",
   };
 
@@ -126,19 +124,47 @@ const SceneOne = () => {
     "room four": "leftArrow",
     "room two": "rightArrow",
   };
-
+  //THIS PART TAKES CARE OF READING INVENTORY!!!!
+  let noMoreCasset = false;
+  let noMoreCandyBucket = false;
+  let noMoreKey = false;
+  const checkBag = () => {
+    const casset = JSON.parse(window.localStorage.getItem("hasCasset"));
+    const candy = JSON.parse(window.localStorage.getItem("hasCandyBucket"));
+    const keyBool = JSON.parse(window.localStorage.getItem("hasKey"));
+    if (casset && !noMoreCasset) {
+      console.log("casset");
+      noMoreCasset = true;
+    } else {
+      console.log("I am empty....");
+    }
+    if (candy && !noMoreCandyBucket) {
+      console.log("candy");
+      noMoreCandyBucket = true;
+    }
+    if (keyBool && !noMoreKey) {
+      console.log("key");
+      noMoreKey = true;
+    }
+  };
   // THIS FUNCTION TAKES THE SPEECH TO TEXT AND CLICKS ON THE CORRELATED ITEM
   function clickImage(item) {
-    stopAllAudio()
+    stopAllAudio();
     item = item.toLowerCase();
     if (clickableItems.includes(item)) {
       item = matchItemToClass[item];
       document.getElementsByClassName(item)[0].click();
     } else {
-      descriptions.confused.play()
-      document.getElementById("narrationBox").className = 'painting-text-active'
-      document.getElementById("narrationBox").innerHTML = 'I am truly perplexed by your request, speak clearly child and try again.'
-      setTimeout(()=> document.getElementById("narrationBox").className = 'painting-text', 6500)
+      descriptions.confused.play();
+      document.getElementById("narrationBox").className =
+        "painting-text-active";
+      document.getElementById("narrationBox").innerHTML =
+        "I am truly perplexed by your request, speak clearly child and try again.";
+      setTimeout(
+        () =>
+          (document.getElementById("narrationBox").className = "painting-text"),
+        6500
+      );
       // alert(
       //   `it thinks you said ${item}, consider adding ${item} to your item list, and mapping that to the correct word/phrase. Remove this when finished testing`
       // );
@@ -146,29 +172,33 @@ const SceneOne = () => {
   }
 
   function goTo(page) {
-    stopAllAudio()
+    stopAllAudio();
 
     if (pagePossibilities.includes(page)) {
       page = mapPageToLink[page];
       document.getElementById(page).click();
-    } else if (String(page) === "tutorial"){
-        document.getElementsByClassName("visInventory")[0].className =
-          "hiddenInventory";
-        document.getElementsByClassName("visItemBox")[0].className =
-          "hiddenItemBox";
-      history.push("/tutorial")
-    }else {
-      descriptions.confused.play()
-      document.getElementById("narrationBox").className = 'painting-text-active'
-      document.getElementById("narrationBox").innerHTML = 'I am truly perplexed by your request, speak clearly child and try again.'
-      setTimeout(()=> document.getElementById("narrationBox").className = 'painting-text', 6500)
+    } else if (String(page) === "tutorial") {
+      document.getElementsByClassName("visInventory")[0].className =
+        "hiddenInventory";
+      document.getElementsByClassName("visItemBox")[0].className =
+        "hiddenItemBox";
+      history.push("/tutorial");
+    } else {
+      descriptions.confused.play();
+      document.getElementById("narrationBox").className =
+        "painting-text-active";
+      document.getElementById("narrationBox").innerHTML =
+        "I am truly perplexed by your request, speak clearly child and try again.";
+      setTimeout(
+        () =>
+          (document.getElementById("narrationBox").className = "painting-text"),
+        6500
+      );
     }
   }
 
-
-
   document.addEventListener("keydown", (event) => {
-    stopAllAudio()
+    stopAllAudio();
     const bool = JSON.parse(window.localStorage.getItem("usedCandyBucket"));
     if (event.code === "Space") {
       event.preventDefault();
@@ -184,7 +214,6 @@ const SceneOne = () => {
       window.location.href === "https://spooky-scapes.netlify.app/parlor";
 
     if (event.code === "Enter" && pagina1) {
-
       event.preventDefault();
       if (event.repeat) {
         return;
@@ -219,31 +248,43 @@ const SceneOne = () => {
   });
 
   const descriptions = {
-    scene1desc1: new Howl({ src: [s1sounds[0].sceneOneDescription], html5: true, }),
-    scene1desc2: new Howl({ src: [s1sounds[8].sceneOneDescription2], html5: true, }),
+    scene1desc1: new Howl({
+      src: [s1sounds[0].sceneOneDescription],
+      html5: true,
+    }),
+    scene1desc2: new Howl({
+      src: [s1sounds[8].sceneOneDescription2],
+      html5: true,
+    }),
     table: new Howl({ src: [s1sounds[1].sideTable], html5: true }),
     riddle: new Howl({ src: [s1sounds[2].riddle], html5: true }),
-    bookCaseWithDairy: new Howl({ src: [s1sounds[3].bookcaseWithDiary], html5: true, }),
+    bookCaseWithDairy: new Howl({
+      src: [s1sounds[3].bookcaseWithDiary],
+      html5: true,
+    }),
     emptyBookcase: new Howl({ src: [s1sounds[4].emptyBookcase], html5: true }),
     fullBookcase: new Howl({ src: [s1sounds[5].fullBookcase], html5: true }),
-    cassettePlayerEmpty: new Howl({ src: [s1sounds[6].cassettePlayerEmpty], html5: true, }),
+    cassettePlayerEmpty: new Howl({
+      src: [s1sounds[6].cassettePlayerEmpty],
+      html5: true,
+    }),
     skull: new Howl({ src: [s1sounds[7].skull], html5: true }),
     diaryNoKey: new Howl({ src: [s1sounds[9].diaryNoKey], html5: true }),
     diaryMessage: new Howl({ src: [s1sounds[10].diaryMessage], html5: true }),
     paintingDesc1: new Howl({ src: [s1sounds[11].paintingDesc1], html5: true }),
     paintingDesc2: new Howl({ src: [s1sounds[12].paintingDesc2], html5: true }),
     caw: new Howl({ src: [s1sounds[13].caw], html5: true }),
-    confused: new Howl({src:[s1sounds[14].confused], html5: true})
+    confused: new Howl({ src: [s1sounds[14].confused], html5: true }),
   };
 
   const readRoom = () => {
-    const bool = JSON.parse(window.localStorage.getItem("usedCandyBucket"))
-    if(!bool){
-     audioControl(descriptions.scene1desc1)
+    const bool = JSON.parse(window.localStorage.getItem("usedCandyBucket"));
+    if (!bool) {
+      audioControl(descriptions.scene1desc1);
     } else {
-      audioControl(descriptions.scene1desc2)
+      audioControl(descriptions.scene1desc2);
     }
-  }
+  };
 
   const audioControl = (specifiedSound) => {
     playingAudio = specifiedSound;
@@ -286,14 +327,18 @@ const SceneOne = () => {
         audioControl(descriptions.paintingDesc1);
         break;
       case "bookCase":
-        let usedBucket = JSON.parse(window.localStorage.getItem("usedCandyBucket"))
-        if(usedBucket){
-          narrationBox.innerHTML = "There is a locked diary here now. Do you have anything that can unlock it?"
+        let usedBucket = JSON.parse(
+          window.localStorage.getItem("usedCandyBucket")
+        );
+        if (usedBucket) {
+          narrationBox.innerHTML =
+            "There is a locked diary here now. Do you have anything that can unlock it?";
           audioControl(descriptions.bookCaseWithDairy);
-          break
+          break;
         }
-        narrationBox.innerHTML = "This bookcase is empty. I wonder if it could be hiding something."
-        audioControl(descriptions.emptyBookcase)
+        narrationBox.innerHTML =
+          "This bookcase is empty. I wonder if it could be hiding something.";
+        audioControl(descriptions.emptyBookcase);
         break;
       case "lockedDiary":
         let hasKey = JSON.parse(window.localStorage.getItem("hasKey"));
@@ -325,7 +370,7 @@ const SceneOne = () => {
         narrationBox.innerHTML = JSON.parse(
           window.localStorage.getItem("hasCasset")
         )
-          ? "*Cassette player plays this riddle* The person who built it sold it. The person who bought it never used it. The person who used it never saw it. What is it?"
+          ? "*Cassette player plays this riddle* What has no lungs, but still can bark. He codes all day. It is his hallmark."
           : "Hmm, the cassette seems to be missing.";
         break;
       case "ravenClosed":
@@ -341,7 +386,6 @@ const SceneOne = () => {
     }, 30000);
     return;
   };
-
 
   return (
     <div className="sceneOne">
@@ -360,8 +404,7 @@ const SceneOne = () => {
           alt="large wooden bookcase that is empty"
           onClick={(e) => {
             assetClicked(e);
-            }
-          }
+          }}
         />
       </div>
       <div>
@@ -373,7 +416,6 @@ const SceneOne = () => {
           }
           className="lockedDiary"
           onClick={(e) => assetClicked(e)}
-          alt = "hidden diary with a locked clasp on the front"
         />
       </div>
       <div>

@@ -11,6 +11,7 @@ const Inventory = () => {
   let noMoreCasset = false;
   let noMoreCandyBucket = false;
   let noMoreKey = false;
+
   window.addEventListener("storage", () => {
     const casset = JSON.parse(window.localStorage.getItem("hasCasset"));
     const candy = JSON.parse(window.localStorage.getItem("hasCandyBucket"));
