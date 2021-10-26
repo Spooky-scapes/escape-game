@@ -165,11 +165,9 @@ const SceneOne = () => {
     }
   }
 
-
-
-  document.addEventListener("keydown", (event) => {
+  function spaceBar(event){
     stopAllAudio()
-    const bool = JSON.parse(window.localStorage.getItem("usedCandyBucket"));
+    // const bool = JSON.parse(window.localStorage.getItem("usedCandyBucket"));
     if (event.code === "Space") {
       event.preventDefault();
       if (event.repeat) {
@@ -178,44 +176,49 @@ const SceneOne = () => {
 
       SpeechRecognition.startListening();
     }
+  }
 
-    const pagina1 =
-      window.location.href === "http://localhost:3000/parlor" ||
-      window.location.href === "https://spooky-scapes.netlify.app/parlor";
+  document.addEventListener("keydown", (event) => {
+      spaceBar(event)
 
-    if (event.code === "Enter" && pagina1) {
+    // const pagina1 =
+    //   window.location.href === "http://localhost:3000/parlor" ||
+    //   window.location.href === "https://spooky-scapes.netlify.app/parlor";
 
-      event.preventDefault();
-      if (event.repeat) {
-        return;
-      }
+    // if (event.code === "Enter" && pagina1) {
 
-      if (!bool) {
-        descriptions.scene1desc1.play();
-      } else {
-        descriptions.scene1desc2.play();
-      }
-    }
+    //   event.preventDefault();
+    //   if (event.repeat) {
+    //     return;
+    //   }
+
+    //   if (!bool) {
+    //     descriptions.scene1desc1.play();
+    //   } else {
+    //     descriptions.scene1desc2.play();
+    //   }
+    // }
   });
 
   document.addEventListener("keyup", (event) => {
-    const bool = JSON.parse(window.localStorage.getItem("usedCandyBucket"));
+    // const bool = JSON.parse(window.localStorage.getItem("usedCandyBucket"));
+    document.removeEventListener("keydown", spaceBar)
     if (event.code === "Space") {
       event.preventDefault();
       SpeechRecognition.stopListening();
     }
-    const pagina1 =
-      window.location.href === "http://localhost:3000/parlor" ||
-      window.location.href === "https://spooky-scapes.netlify.app/parlor";
+    // const pagina1 =
+    //   window.location.href === "http://localhost:3000/parlor" ||
+    //   window.location.href === "https://spooky-scapes.netlify.app/parlor";
 
-    if (event.code === "Enter" && pagina1) {
-      event.preventDefault();
-      if (!bool) {
-        descriptions.scene1desc1.stop();
-      } else {
-        descriptions.scene1desc2.stop();
-      }
-    }
+    // if (event.code === "Enter" && pagina1) {
+    //   event.preventDefault();
+    //   if (!bool) {
+    //     descriptions.scene1desc1.stop();
+    //   } else {
+    //     descriptions.scene1desc2.stop();
+    //   }
+    // }
   });
 
   const descriptions = {
@@ -373,7 +376,6 @@ const SceneOne = () => {
           }
           className="lockedDiary"
           onClick={(e) => assetClicked(e)}
-          alt = "hidden diary with a locked clasp on the front"
         />
       </div>
       <div>

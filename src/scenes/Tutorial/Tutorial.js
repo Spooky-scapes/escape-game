@@ -59,7 +59,8 @@ const Tutorial = () => {
   function goHome() {
     document.getElementById("goHome").click();
   }
-  document.addEventListener("keydown", (event) => {
+
+  function spaceBar(event) {
     if (event.code === "Space") {
       event.preventDefault();
       if (event.repeat) {
@@ -67,9 +68,13 @@ const Tutorial = () => {
       }
       SpeechRecognition.startListening();
     }
+    }
+  document.addEventListener("keydown", (event) => {
+    spaceBar(event)
   });
 
   document.addEventListener("keyup", (event) => {
+    document.removeEventListener("keydown", spaceBar)
     if (event.code === "Space") {
       event.preventDefault();
       stopAllAudio()

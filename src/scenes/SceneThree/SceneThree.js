@@ -82,30 +82,30 @@ const SceneThree = () => {
     })
   };
 
-  document.addEventListener("keydown", (event) => {
-    stopAllAudio();
-    const location =
-      window.location.href === "http://localhost:3000/witchDen" ||
-      window.location.href === "https://spooky-scapes.netlify.app/witchDen";
-    if (event.code === "Enter" && location) {
-      event.preventDefault();
+  // document.addEventListener("keydown", (event) => {
+  //   stopAllAudio();
+  //   const location =
+  //     window.location.href === "http://localhost:3000/witchDen" ||
+  //     window.location.href === "https://spooky-scapes.netlify.app/witchDen";
+  //   if (event.code === "Enter" && location) {
+  //     event.preventDefault();
 
-      if (event.repeat) {
-        return;
-      }
-      sceneThreeAudio.sceneThreeDescription.play();
-    }
-  });
+  //     if (event.repeat) {
+  //       return;
+  //     }
+  //     sceneThreeAudio.sceneThreeDescription.play();
+  //   }
+  // });
 
-  document.addEventListener("keyup", (event) => {
-    const location =
-      window.location.href === "http://localhost:3000/witchDen" ||
-      window.location.href === "https://spooky-scapes.netlify.app/witchDen";
-    if (event.code === "Enter" && location) {
-      event.preventDefault();
-      sceneThreeAudio.sceneThreeDescription.stop();
-    }
-  });
+  // document.addEventListener("keyup", (event) => {
+  //   const location =
+  //     window.location.href === "http://localhost:3000/witchDen" ||
+  //     window.location.href === "https://spooky-scapes.netlify.app/witchDen";
+  //   if (event.code === "Enter" && location) {
+  //     event.preventDefault();
+  //     sceneThreeAudio.sceneThreeDescription.stop();
+  //   }
+  // });
 
   const audioControl = (specifiedSound) => {
     playingAudio = specifiedSound;
@@ -222,7 +222,7 @@ const SceneThree = () => {
     }
   }
 
-  document.addEventListener("keydown", (event) => {
+  function spaceBar(event){
     if (event.code === "Space") {
       event.preventDefault();
       if (event.repeat) {
@@ -231,9 +231,14 @@ const SceneThree = () => {
       stopAllAudio()
       SpeechRecognition.startListening();
     }
+  }
+
+  document.addEventListener("keydown", (event) => {
+    spaceBar(event)
   });
 
   document.addEventListener("keyup", (event) => {
+    document.removeEventListener("keydown", spaceBar)
     if (event.code === "Space") {
       event.preventDefault();
       SpeechRecognition.stopListening();

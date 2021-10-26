@@ -1,9 +1,7 @@
 // SCSS Imports
-
 import "../../App.scss";
 import "../../main.scss";
 import "./sceneTwo.scss";
-
 // Asset Imports
 import closedCoffin from "../../assets/SceneTwo/closed-coffin.png";
 import openCoffin from "../../assets/SceneTwo/openCasket.png";
@@ -16,7 +14,6 @@ import cowPainting from "../../assets/SceneTwo/cow-painting.png";
 import leftArrow from "../../assets/ghostArrowLeft.png";
 import rightArrow from "../../assets/ghostArrowRight.png";
 import s2Sounds from "./sceneTwoSounds.json";
-
 // Library Imports
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
@@ -26,6 +23,7 @@ import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
 
+// Initialize a global audio variable to keep track of what audio is playing
 let playingAudio = "none";
 
 const SceneTwo = () => {
@@ -59,8 +57,6 @@ const SceneTwo = () => {
     },
   ];
   useSpeechRecognition({ commands });
-
-  let casket = false;
 
   const clickableItems = [
     // An array of items that may be said by a user, these are the only words we listen for with the Click on command
@@ -157,8 +153,6 @@ const SceneTwo = () => {
   function goTo(page) {
     // this function is used as the callback for the go to command, in the event that you need to debug you may use the console.log below
 
-    // console.log("🧤 what the api heard....", page);
-
     if (pagePossibilities.includes(page)) {
       page = mapPageToLink[page];
       document.getElementById(page).click();
@@ -178,10 +172,8 @@ const SceneTwo = () => {
     }
   }
 
-  document.addEventListener("keydown", (event) => {
-    // This listener allows users to initiate an audio description of the current room they're in, or listen for click on commands for listed items in the room
+  function spaceBar(event) {
     setActive(false);
-    const bool = JSON.parse(window.localStorage.getItem("usedCasset"))
     if (event.code === "Space") {
       event.preventDefault();
       if (event.repeat) {
@@ -190,46 +182,19 @@ const SceneTwo = () => {
       stopAllAudio()
       SpeechRecognition.startListening();
     }
-    //
-    // const pagina =
-    //   window.location.href === "http://localhost:3000/storage" ||
-    //   window.location.href === "https://spooky-scapes.netlify.app/storage";
+  }
 
-    // if (event.code === "Enter" && pagina) {
-    //   event.preventDefault();
-    //   stopAllAudio()
-    //   if (event.repeat) {
-    //     return;
-    //   }
-
-    //   if (!bool) {
-    //     sceneTwoAudio.scene2FirstDescription.play();
-    //   } else {
-    //     sceneTwoAudio.scene2SecondDescription.play();
-    //   }
-    // }
-  });
+  document.addEventListener("keydown", (event) => {
+    // This listener allows users to initiate an audio description of the current room they're in, or listen for click on commands for listed items in the room
+    spaceBar(event)
+});
 
   document.addEventListener("keyup", (event) => {
-    // this listen
-    const bool = JSON.parse(window.localStorage.getItem("usedCasset"));
+    // This listener stops listening for voice commands, once keyup is call functions from the command list are executed
+    document.removeEventListener("keydown", spaceBar)
     if (event.code === "Space") {
       event.preventDefault();
       SpeechRecognition.stopListening();
-    }
-
-    const pagina =
-      window.location.href === "http://localhost:3000/storage" ||
-      window.location.href === "https://spooky-scapes.netlify.app/storage";
-
-    if (event.code === "Enter" && pagina) {
-      event.preventDefault();
-
-      if (!bool) {
-        sceneTwoAudio.scene2FirstDescription.stop();
-      } else {
-        sceneTwoAudio.scene2SecondDescription.stop();
-      }
     }
   });
 
@@ -343,11 +308,13 @@ const SceneTwo = () => {
     }
   };
 
+  const bool = JSON.parse(window.localStorage.getItem("hasCandy"));
+
   return (
     <div className="sceneTwo">
       <div>
         <img
-          src={closedCoffin}
+          src={bool? openCoffin : closedCoffin}
           alt="an open coffin"
           className="coffin"
           onClick={(e) => {

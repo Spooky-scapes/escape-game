@@ -143,40 +143,43 @@ const SceneFour = () => {
   const readRoom = () => {
     audioControl(audioCues.sceneFourDescription)
   }
-
-  document.addEventListener("keydown", (event) => {
+  function spaceBar(event){
     if (event.code === "Space") {
       event.preventDefault();
       stopAllAudio()
       SpeechRecognition.startListening();
     }
-    const pagina =
-      window.location.href === "http://localhost:3000/entryway" ||
-      window.location.href === "https://spooky-scapes.netlify.app/entryway";
-    if (event.code === "Enter" && pagina) {
-      event.preventDefault();
-      if (event.repeat) {
-        return;
-      } else {
-        audioControl(audioCues.sceneFourDescription);
-      }
-    }
+  }
+  document.addEventListener("keydown", (event) => {
+      spaceBar(event)
+    // const pagina =
+    //   window.location.href === "http://localhost:3000/entryway" ||
+    //   window.location.href === "https://spooky-scapes.netlify.app/entryway";
+    // if (event.code === "Enter" && pagina) {
+    //   event.preventDefault();
+    //   if (event.repeat) {
+    //     return;
+    //   } else {
+    //     audioControl(audioCues.sceneFourDescription);
+    //   }
+    // }
   });
 
   document.addEventListener("keyup", (event) => {
+    document.removeEventListener("keydown", spaceBar)
     if (event.code === "Space") {
       stopAllAudio()
       event.preventDefault();
       SpeechRecognition.stopListening();
     }
-    const pagina =
-      window.location.href === "http://localhost:3000/entryway" ||
-      window.location.href === "https://spooky-scapes.netlify.app/entryway";
-    if (event.code === "Enter" && pagina) {
-      stopAllAudio()
-      event.preventDefault();
-      audioCues.sceneFourDescription.stop();
-    }
+    // const pagina =
+    //   window.location.href === "http://localhost:3000/entryway" ||
+    //   window.location.href === "https://spooky-scapes.netlify.app/entryway";
+    // if (event.code === "Enter" && pagina) {
+    //   stopAllAudio()
+    //   event.preventDefault();
+    //   audioCues.sceneFourDescription.stop();
+    // }
   });
 
   const audioCues = {

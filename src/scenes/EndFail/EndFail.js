@@ -31,7 +31,7 @@ const EndFail = () => {
     document.getElementsByClassName("playAgain")[0].click();
   }
 
-  document.addEventListener("keydown", (event) => {
+  function spaceBar(event){
     if (event.code === "Space") {
       event.preventDefault();
       if (event.repeat) {
@@ -39,9 +39,14 @@ const EndFail = () => {
       }
       SpeechRecognition.startListening();
     }
+  }
+
+  document.addEventListener("keydown", (event) => {
+    spaceBar(event)
   });
 
   document.addEventListener("keyup", (event) => {
+    document.removeEventListener("keydown", spaceBar)
     if (event.code === "Space") {
       event.preventDefault();
       SpeechRecognition.stopListening();
