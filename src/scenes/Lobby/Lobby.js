@@ -75,7 +75,7 @@ const Lobby = () => {
           className="tutorialButton"
           alt="Hold the spacebar key and say tutorial to learn how to use voice commands to play spooky scapes"
         >
-          <h1>Tutorial</h1>
+          <h1>Voice Command Tutorial</h1>
         </div>
       </Link>
     </div>

@@ -85,8 +85,47 @@ const Tutorial = () => {
   };
 
   return (
-    <div className="tutorial">
-      <div className="content">
+    <div className='tutorial'>
+      <div className='content'>
+      <button
+        className="tutorialButtons"
+        type="button"
+        id="playTutorial"
+        onClick={() => {
+          audioControl(tutorial);
+        }}
+      >
+        Play Tutorial
+      </button>
+      <button
+        className="tutorialButtons"
+        type="button"
+        id="pauseTutorial"
+        onClick={() => {
+          stopAllAudio();
+        }}
+      >
+        Stop Tutorial
+      </button>
+      <p className='tutorialText'> To hear a description of the room, hold down the spacebay key and say "read the room". </p>
+      <p className='tutorialText'>
+        To inspect an item, hold down the spacebar key and say "click on" then
+        the item name.
+      </p>
+      <p className='tutorialText'>
+        To navigate around the rooms, hold down the spacebar and say "go to next
+        room" or "go to previous room".
+      </p>
+      <p className='tutorialText'> You can also say “go to left” or “go to right". </p>
+      <p className='tutorialText'>
+        If you need to return to this tutorial, hold down the spacebar and say
+        “go to tutorial".
+      </p>
+      <p className='tutorialText'>
+        {" "}
+        If you are ready to play, hold down the spacebar and say “play game”.{" "}
+      </p>
+      <Link to="/">
         <button
           className="tutorialButtons"
           type="button"
