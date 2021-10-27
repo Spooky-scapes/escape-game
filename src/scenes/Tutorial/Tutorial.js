@@ -136,6 +136,7 @@ const Tutorial = () => {
         >
           Play Tutorial
         </button>
+        </Link>
         <button
           className="tutorialButtons"
           type="button"
@@ -197,7 +198,7 @@ const Tutorial = () => {
         </Link>
       </div>
     </div>
-  );
+    )
 };
 
 export default Tutorial;
