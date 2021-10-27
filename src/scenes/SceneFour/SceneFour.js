@@ -250,6 +250,7 @@ const SceneFour = () => {
     matShuffling: new Howl({
       src: [s4sounds[11].matShuffling],
       html5: true,
+      volume: 0.4,
       preload: false,
     }),
     windowRattling: new Howl({
