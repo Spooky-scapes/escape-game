@@ -168,7 +168,6 @@ const SceneOne = () => {
   // ******** Audio Command Functionality for Go To Commands
   function goTo(page) {
     stopAllAudio() // Stops audio so one scene's descriptions don't carry over to another scene.
-
     if (pagePossibilities.includes(page)) {
       page = mapPageToLink[page];
       document.getElementById(page).click();
