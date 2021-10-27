@@ -67,8 +67,6 @@ const EndFail = () => {
         alt = "Oh no! You ran out of time! To try again, click on play again or hold down the spacebar key and say play again"
         className="playAgain"
         onClick={() => {
-          failAudio.stop();
-          failSoundEffect.stop();
           history.push("/");
         }}
       >
