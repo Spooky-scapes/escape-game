@@ -11,11 +11,12 @@ const Timer = () => {
   const failAudio = new Howl({
     src: "https://firebasestorage.googleapis.com/v0/b/spooky-scapes.appspot.com/o/Scene%204%2FFailAudio.m4a?alt=media&token=f11504b5-4ebc-479b-a638-7d30def43073/allow-cors",
     html5: true,
-    volume: 0.5,
+    volume: 0.2,
   })
   const failSoundEffect = new Howl({
     src: "https://firebasestorage.googleapis.com/v0/b/spooky-scapes.appspot.com/o/Scene%204%2FFailSoundEffect.mp3?alt=media&token=3fce3925-359c-4871-90d8-5ef91d166d7e/allow-cors",
     html5: true,
+    volume: 0.2,
   })
 
   const startTimer = (duration, display) => {
@@ -43,6 +44,9 @@ const Timer = () => {
     clearInterval(interval);
     document.getElementById("timer").id = "invisible";
     interval = undefined;
+  }
+  if (location.pathname === "/youdied") {
+    document.getElementById("timer").id = "invisible";
   }
 
   if (location.pathname === "/parlor" && !interval) {
