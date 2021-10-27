@@ -139,17 +139,12 @@ const SceneTwo = () => {
     const candy = JSON.parse(window.localStorage.getItem("hasCandyBucket"));
     const keyBool = JSON.parse(window.localStorage.getItem("hasKey"));
     if (casset && !noMoreCasset) {
-      console.log("casset");
       noMoreCasset = true;
-    } else {
-      console.log("I am empty....");
     }
     if (candy && !noMoreCandyBucket) {
-      console.log("candy");
       noMoreCandyBucket = true;
     }
     if (keyBool && !noMoreKey) {
-      console.log("key");
       noMoreKey = true;
     }
   };
@@ -169,7 +164,6 @@ const SceneTwo = () => {
       setTimeout(function () {
         setActive(false);
       }, 6500);
-
       // this alert is left for developers, note that it shows the item received from the spoken command, and displays it.
       // alert(
       //   `it thinks you said ${item}, consider adding ${item} to your item list, and mapping that to the correct word/phrase. Remove this when finished testing`
@@ -187,9 +181,8 @@ const SceneTwo = () => {
   };
 
   function goTo(page) {
-    // this function is used as the callback for the go to command, in the event that you need to debug you may use the console.log below
-
-    if (pagePossibilities.includes(page)) {
+      // this function is used as the callback for the go to command, in the event that you need to debug you may use the console.log below
+      if (pagePossibilities.includes(page)) {
       page = mapPageToLink[page];
       document.getElementById(page).click();
     } else if (String(page) === "tutorial") {
@@ -237,7 +230,7 @@ const SceneTwo = () => {
       document.getElementsByClassName("coffin")[0].src = openCoffin;
     }
   };
-
+  // ******** FUNCTION FOR EVERY TIME AN ASSET WAS CLICKED ********
   const assetClicked = (e) => {
     timeoutCollection.removeAll();
     setActive(false);

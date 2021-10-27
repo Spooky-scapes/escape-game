@@ -149,8 +149,6 @@ const SceneOne = () => {
     }
   };
   // THIS FUNCTION TAKES THE SPEECH TO TEXT AND CLICKS ON THE CORRELATED ITEM
-  function clickImage(item) {
-    stopAllAudio();
 
   // ******** Audio Command Click On Function - Takes STT and clicks on correlated item. ********
   function clickImage(item) {
@@ -472,6 +470,5 @@ const SceneOne = () => {
     </div>
   );
 };
-}
 
-export default SceneOne
+export default SceneOne;
