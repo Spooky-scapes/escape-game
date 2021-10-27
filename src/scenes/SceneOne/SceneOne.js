@@ -149,8 +149,6 @@ const SceneOne = () => {
     }
   };
   // THIS FUNCTION TAKES THE SPEECH TO TEXT AND CLICKS ON THE CORRELATED ITEM
-  function clickImage(item) {
-    stopAllAudio();
 
   // ******** Audio Command Click On Function - Takes STT and clicks on correlated item. ********
   function clickImage(item) {
@@ -211,7 +209,7 @@ const SceneOne = () => {
   // ******** Creates audio description Howl objects ********
   // Due to the length of each audio file's reference link, we chose to import a json file and reference that.
   const descriptions = {
-    scene1desc1: new Howl({ 
+    scene1desc1: new Howl({
       src: [s1sounds[0].sceneOneDescription],  // Provides the source for the audio
       html5: true,  // Necessary for audio playback
       preload: false, // Do not load until called, saves memory
@@ -277,7 +275,7 @@ const SceneOne = () => {
     narrationBox.innerHTML = "";
 
     stopAllAudio(); // Clears any currently playing audio
-    
+
     // ******** FULL SWITCH CASE ********
     switch (clicked) {
       case "boatPainting":
@@ -473,4 +471,5 @@ const SceneOne = () => {
     </div>
   );
 };
+
 export default SceneOne;
