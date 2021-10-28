@@ -23,15 +23,15 @@ const SceneFour = () => {
   const [isActive, setActive] = useState(false);
   const history = useHistory();
 
-  const timerTracker = setInterval(function(){
-    if (document.getElementById('timer')){
-      let element = document.getElementById('timer').innerHTML
-      if (String(element) === "00:01"){
+  const timerTracker = setInterval(function () {
+    if (document.getElementById("timer")) {
+      let element = document.getElementById("timer").innerHTML;
+      if (String(element) === "00:01") {
         stopAllAudio();
         stopAllAudio();
         clearInterval(timerTracker);
       }
-    } else clearInterval(timerTracker)
+    } else clearInterval(timerTracker);
   }, 1000);
 
   const commands = [
@@ -45,8 +45,12 @@ const SceneFour = () => {
     },
     {
       command: ["Read the room"],
-      callback: () => readRoom()
-    }
+      callback: () => readRoom(),
+    },
+    {
+      command: ["Check bag"],
+      callback: () => checkBag(),
+    },
   ];
 
   useSpeechRecognition({ commands });
@@ -79,30 +83,54 @@ const SceneFour = () => {
   ];
 
   const matchItemToClass = {
-    "door": "door",
-    "window": "Window",
-    "painting": "moonPainting",
+    door: "door",
+    window: "Window",
+    painting: "moonPainting",
     "bone dog": "boneDog",
-    "bone": "boneDog",
+    bone: "boneDog",
     "bone.": "boneDog",
-    "mat": "mat",
-    "math": "mat",
-    "map": "mat",
-    "matt": "mat",
-    "mac": "mat",
-    "raven": "closedRaven",
-    "reva": "closedRaven",
+    mat: "mat",
+    math: "mat",
+    map: "mat",
+    matt: "mat",
+    mac: "mat",
+    raven: "closedRaven",
+    reva: "closedRaven",
   };
 
   const mapPageToLink = {
-    "right": "rightArrow",
-    "left": "leftArrow",
-    "laugh": "leftArrow",
-    "write": "rightArrow",
+    right: "rightArrow",
+    left: "leftArrow",
+    laugh: "leftArrow",
+    write: "rightArrow",
     "next room": "rightArrow",
     "previous room": "leftArrow",
     "room three": "leftArrow",
     "room one": "rightArrow",
+  };
+
+  let noMoreCasset = false;
+  let noMoreCandyBucket = false;
+  let noMoreKey = false;
+
+  const checkBag = () => {
+    const casset = JSON.parse(window.localStorage.getItem("hasCasset"));
+    const candy = JSON.parse(window.localStorage.getItem("hasCandyBucket"));
+    const keyBool = JSON.parse(window.localStorage.getItem("hasKey"));
+    if (casset && !noMoreCasset) {
+      console.log("casset");
+      noMoreCasset = true;
+    } else {
+      console.log("I am empty....");
+    }
+    if (candy && !noMoreCandyBucket) {
+      console.log("candy");
+      noMoreCandyBucket = true;
+    }
+    if (keyBool && !noMoreKey) {
+      console.log("key");
+      noMoreKey = true;
+    }
   };
 
   function clickImage(item) {
@@ -111,9 +139,10 @@ const SceneFour = () => {
       item = matchItemToClass[item];
       document.getElementsByClassName(item)[0].click();
     } else {
-      audioControl(audioCues.confused)
+      audioControl(audioCues.confused);
       setActive(true);
-      document.getElementById('narrationBox').innerHTML = 'I am truly perplexed by your request, speak clearly child and try again.'
+      document.getElementById("narrationBox").innerHTML =
+        "I am truly perplexed by your request, speak clearly child and try again.";
       setTimeout(function () {
         setActive(false);
       }, 6500);
@@ -124,58 +153,39 @@ const SceneFour = () => {
     if (pagePossibilities.includes(page)) {
       page = mapPageToLink[page];
       document.getElementById(page).click();
-    }  else if (String(page) === "tutorial"){
+    } else if (String(page) === "tutorial") {
       document.getElementsByClassName("visInventory")[0].className =
-      "hiddenInventory";
-    document.getElementsByClassName("visItemBox")[0].className =
-      "hiddenItemBox";
-      history.push("/tutorial")
-    }
-     else {
-       audioControl(audioCues.confused)
-       setActive(true);
-       document.getElementById('narrationBox').innerHTML = 'I am truly perplexed by your request, speak clearly child and try again.'
-       setTimeout(function () {
-         setActive(false);
-       }, 6500);
+        "hiddenInventory";
+      document.getElementsByClassName("visItemBox")[0].className =
+        "hiddenItemBox";
+      history.push("/tutorial");
+    } else {
+      audioControl(audioCues.confused);
+      setActive(true);
+      document.getElementById("narrationBox").innerHTML =
+        "I am truly perplexed by your request, speak clearly child and try again.";
+      setTimeout(function () {
+        setActive(false);
+      }, 6500);
     }
   }
   const readRoom = () => {
-    audioControl(audioCues.sceneFourDescription)
-  }
+    audioControl(audioCues.sceneFourDescription);
+  };
 
   document.addEventListener("keydown", (event) => {
     if (event.code === "Space") {
       event.preventDefault();
-      stopAllAudio()
+      stopAllAudio();
       SpeechRecognition.startListening();
-    }
-    const pagina =
-      window.location.href === "http://localhost:3000/entryway" ||
-      window.location.href === "https://spooky-scapes.netlify.app/entryway";
-    if (event.code === "Enter" && pagina) {
-      event.preventDefault();
-      if (event.repeat) {
-        return;
-      } else {
-        audioControl(audioCues.sceneFourDescription);
-      }
     }
   });
 
   document.addEventListener("keyup", (event) => {
     if (event.code === "Space") {
-      stopAllAudio()
+      stopAllAudio();
       event.preventDefault();
       SpeechRecognition.stopListening();
-    }
-    const pagina =
-      window.location.href === "http://localhost:3000/entryway" ||
-      window.location.href === "https://spooky-scapes.netlify.app/entryway";
-    if (event.code === "Enter" && pagina) {
-      stopAllAudio()
-      event.preventDefault();
-      audioCues.sceneFourDescription.stop();
     }
   });
 
@@ -240,6 +250,7 @@ const SceneFour = () => {
     matShuffling: new Howl({
       src: [s4sounds[11].matShuffling],
       html5: true,
+      volume: 0.4,
       preload: false,
     }),
     windowRattling: new Howl({
@@ -261,7 +272,7 @@ const SceneFour = () => {
       src: [s4sounds[15].confused],
       html5: true,
       preload: false,
-    })
+    }),
   };
   const audioControl = (specifiedSound) => {
     playingAudio = specifiedSound;
@@ -292,13 +303,13 @@ const SceneFour = () => {
       case "door":
         let found = JSON.parse(window.localStorage.getItem("foundPainting"));
         if (found) {
-          clearInterval(timerTracker)
+          clearInterval(timerTracker);
           audioControl(audioCues.doorSwinging);
           audioControl(audioCues.victory);
           narrationBox.innerHTML =
             "*door swinging open* You did what we couldn’t! Congratulations and Happy Halloween!";
           setTimeout(() => {
-            clearInterval(timerTracker)
+            clearInterval(timerTracker);
             hideInv();
             window.dispatchEvent(new Event("reset"));
             history.push("/victory");
@@ -350,8 +361,8 @@ const SceneFour = () => {
           break;
         }
         audioControl(audioCues.dust);
-          narrationBox.innerHTML = "It still smells like dust";
-          break;
+        narrationBox.innerHTML = "It still smells like dust";
+        break;
 
       default:
         break;
@@ -390,7 +401,15 @@ const SceneFour = () => {
         alt="cute little bonedog"
         onClick={(e) => assetClicked(e)}
       />
-      <img className={JSON.parse(window.localStorage.getItem("hasCasset"))? "hidden": "cassette"} src={cassette} alt="hidden cassette tape" />
+      <img
+        className={
+          JSON.parse(window.localStorage.getItem("hasCasset"))
+            ? "hidden"
+            : "cassette"
+        }
+        src={cassette}
+        alt="hidden cassette tape"
+      />
       <img
         className="mat"
         src={mat}

@@ -32,15 +32,15 @@ const SceneTwo = () => {
   const [isActive, setActive] = useState(false);
   const history = useHistory();
 
-  const timerTracker = setInterval(function(){
-    if (document.getElementById('timer')){
-      let element = document.getElementById('timer').innerHTML
-      if (String(element) === "00:01"){
+  const timerTracker = setInterval(function () {
+    if (document.getElementById("timer")) {
+      let element = document.getElementById("timer").innerHTML;
+      if (String(element) === "00:01") {
         stopAllAudio();
         stopAllAudio();
         clearInterval(timerTracker);
       }
-    } else clearInterval(timerTracker)
+    } else clearInterval(timerTracker);
   }, 1000);
 
   const commands = [
@@ -55,13 +55,17 @@ const SceneTwo = () => {
     },
     {
       command: ["Read the room"],
-      callback: () => readRoom()
+      callback: () => readRoom(),
+    },
+    {
+      command: ["Check bag"],
+      callback: () => checkBag(),
     },
   ];
   useSpeechRecognition({ commands });
 
   let casket = false;
-
+  //^^Savion. What dis^^
   const clickableItems = [
     // An array of items that may be said by a user, these are the only words we listen for with the Click on command
     "coffin",
@@ -124,6 +128,31 @@ const SceneTwo = () => {
 
   // ^^^ should need no adjustment, if adjusted we should all match the adjustment^^^
 
+  //this section is used for inventory reading
+  let noMoreCasset = false;
+  let noMoreCandyBucket = false;
+  let noMoreKey = false;
+
+  const checkBag = () => {
+    const casset = JSON.parse(window.localStorage.getItem("hasCasset"));
+    const candy = JSON.parse(window.localStorage.getItem("hasCandyBucket"));
+    const keyBool = JSON.parse(window.localStorage.getItem("hasKey"));
+    if (casset && !noMoreCasset) {
+      console.log("casset");
+      noMoreCasset = true;
+    } else {
+      console.log("I am empty....");
+    }
+    if (candy && !noMoreCandyBucket) {
+      console.log("candy");
+      noMoreCandyBucket = true;
+    }
+    if (keyBool && !noMoreKey) {
+      console.log("key");
+      noMoreKey = true;
+    }
+  };
+
   function clickImage(item) {
     // this function is used as the callback for the click on command
 
@@ -132,11 +161,12 @@ const SceneTwo = () => {
       item = matchItemToClass[item];
       document.getElementsByClassName(item)[0].click();
     } else {
-      sceneTwoAudio.confused.play()
-      document.getElementById("narrationBox").innerHTML= 'I am truly perplexed by your request, speak clearly child and try again.'
+      sceneTwoAudio.confused.play();
+      document.getElementById("narrationBox").innerHTML =
+        "I am truly perplexed by your request, speak clearly child and try again.";
       setActive(true);
       setTimeout(function () {
-      setActive(false);
+        setActive(false);
       }, 6500);
       // this alert is left for developers, note that it shows the item received from the spoken command, and displays it.
       // alert(
@@ -146,13 +176,13 @@ const SceneTwo = () => {
   }
 
   const readRoom = () => {
-    const bool = JSON.parse(window.localStorage.getItem("usedCasset"))
-    if(!bool){
-     audioControl(sceneTwoAudio.scene2FirstDescription)
-    }else{
-      audioControl(sceneTwoAudio.scene2SecondDescription)
+    const bool = JSON.parse(window.localStorage.getItem("usedCasset"));
+    if (!bool) {
+      audioControl(sceneTwoAudio.scene2FirstDescription);
+    } else {
+      audioControl(sceneTwoAudio.scene2SecondDescription);
     }
-  }
+  };
 
   function goTo(page) {
     // this function is used as the callback for the go to command, in the event that you need to debug you may use the console.log below
@@ -162,18 +192,19 @@ const SceneTwo = () => {
     if (pagePossibilities.includes(page)) {
       page = mapPageToLink[page];
       document.getElementById(page).click();
-    }  else if (String(page) === "tutorial"){
+    } else if (String(page) === "tutorial") {
       document.getElementsByClassName("visInventory")[0].className =
-      "hiddenInventory";
-    document.getElementsByClassName("visItemBox")[0].className =
-      "hiddenItemBox";
-      history.push("/tutorial")
-    }else {
-      sceneTwoAudio.confused.play()
-      document.getElementById("narrationBox").innerHTML= 'I am truly perplexed by your request, speak clearly child and try again.'
+        "hiddenInventory";
+      document.getElementsByClassName("visItemBox")[0].className =
+        "hiddenItemBox";
+      history.push("/tutorial");
+    } else {
+      sceneTwoAudio.confused.play();
+      document.getElementById("narrationBox").innerHTML =
+        "I am truly perplexed by your request, speak clearly child and try again.";
       setActive(true);
       setTimeout(function () {
-      setActive(false);
+        setActive(false);
       }, 6500);
     }
   }
@@ -181,13 +212,13 @@ const SceneTwo = () => {
   document.addEventListener("keydown", (event) => {
     // This listener allows users to initiate an audio description of the current room they're in, or listen for click on commands for listed items in the room
     setActive(false);
-    const bool = JSON.parse(window.localStorage.getItem("usedCasset"))
+    const bool = JSON.parse(window.localStorage.getItem("usedCasset"));
     if (event.code === "Space") {
       event.preventDefault();
       if (event.repeat) {
         return;
       }
-      stopAllAudio()
+      stopAllAudio();
       SpeechRecognition.startListening();
     }
     //
@@ -308,29 +339,105 @@ const SceneTwo = () => {
   };
 
   const sceneTwoAudio = {
-    scene2FirstDescription: new Howl({src: [s2Sounds[0].sceneTwoInitialDescription], html5: true, preload: false, onend: function(){this.unload()}}),
+    scene2FirstDescription: new Howl({
+      src: [s2Sounds[0].sceneTwoInitialDescription],
+      html5: true,
+      preload: false,
+      onend: function () {
+        this.unload();
+      },
+    }),
 
-    scene2SecondDescription: new Howl({src: [s2Sounds[1].sceneTwoSecondDescription], html5: true, preload: false, onend: function(){this.unload()}}),
+    scene2SecondDescription: new Howl({
+      src: [s2Sounds[1].sceneTwoSecondDescription],
+      html5: true,
+      preload: false,
+      onend: function () {
+        this.unload();
+      },
+    }),
 
-    closedCoffinDesc: new Howl({src:[s2Sounds[2].closedCoffinDesc], html5:true, preload: false, onend: function(){this.unload()}}),
+    closedCoffinDesc: new Howl({
+      src: [s2Sounds[2].closedCoffinDesc],
+      html5: true,
+      preload: false,
+      onend: function () {
+        this.unload();
+      },
+    }),
 
-    openCoffinDesc: new Howl({src:[s2Sounds[3].openCoffinDesc], html5:true, preload: false, onend: function(){this.unload()}}),
+    openCoffinDesc: new Howl({
+      src: [s2Sounds[3].openCoffinDesc],
+      html5: true,
+      preload: false,
+      onend: function () {
+        this.unload();
+      },
+    }),
 
-    stoolCabinetDesc: new Howl({src:[s2Sounds[4].stoolCabinetDesc], html5:true, preload: false, onend: function(){this.unload()}}),
+    stoolCabinetDesc: new Howl({
+      src: [s2Sounds[4].stoolCabinetDesc],
+      html5: true,
+      preload: false,
+      onend: function () {
+        this.unload();
+      },
+    }),
 
-    candles: new Howl({src:[s2Sounds[5].candles], html5: true, preload: false, onend: function(){this.unload()}}),
+    candles: new Howl({
+      src: [s2Sounds[5].candles],
+      html5: true,
+      preload: false,
+      onend: function () {
+        this.unload();
+      },
+    }),
 
-    holeInWallDesc: new Howl({src:[s2Sounds[6].holeInWallDesc],html5: true, preload: false, onend: function(){this.unload()}}),
+    holeInWallDesc: new Howl({
+      src: [s2Sounds[6].holeInWallDesc],
+      html5: true,
+      preload: false,
+      onend: function () {
+        this.unload();
+      },
+    }),
 
-    cowPaintingDesc: new Howl({src: [s2Sounds[7].cowPaintingDesc], html5: true, preload: false, onend: function(){this.unload()}}),
+    cowPaintingDesc: new Howl({
+      src: [s2Sounds[7].cowPaintingDesc],
+      html5: true,
+      preload: false,
+      onend: function () {
+        this.unload();
+      },
+    }),
 
-    oldChairDesc: new Howl({src: [s2Sounds[8].oldChairDesc], html5:true, preload: false, onend: function(){this.unload()}}),
+    oldChairDesc: new Howl({
+      src: [s2Sounds[8].oldChairDesc],
+      html5: true,
+      preload: false,
+      onend: function () {
+        this.unload();
+      },
+    }),
 
-    cowPaintingDesc2: new Howl({src: [s2Sounds[9].cowPaintingDesc2], html5:true, preload: false, onend: function(){this.unload()}}),
+    cowPaintingDesc2: new Howl({
+      src: [s2Sounds[9].cowPaintingDesc2],
+      html5: true,
+      preload: false,
+      onend: function () {
+        this.unload();
+      },
+    }),
 
-    confused: new Howl({src: [s2Sounds[10].confused], html5:true, preload: false, onend: function(){this.unload()}})
-
-  }
+    confused: new Howl({
+      src: [s2Sounds[10].confused],
+      html5: true,
+      preload: false,
+      onend: function () {
+        this.unload();
+      },
+    }),
+  };
   const audioControl = (specifiedSound) => {
     playingAudio = specifiedSound;
     !specifiedSound.playing() ? specifiedSound.play() : specifiedSound.stop();
