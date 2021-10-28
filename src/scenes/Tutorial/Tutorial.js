@@ -9,7 +9,7 @@ import SpeechRecognition, {
 let playingAudio = "none";
 const Tutorial = () => {
   const tutorialSound =
-    "https://firebasestorage.googleapis.com/v0/b/spooky-scapes.appspot.com/o/Spooky%20Sounds%2FTutorialUpdated.m4a?alt=media&token=59d7330c-5907-4be4-881c-5fc6c91d043c/allow-cors";
+    "https://firebasestorage.googleapis.com/v0/b/spooky-scapes.appspot.com/o/Spooky%20Sounds%2FTutorialUpdated2.m4a?alt=media&token=4d896143-9f26-484a-99c2-04d8a219d5d2/allow-cors";
   const tutorial = new Howl({
     src: [tutorialSound],
     html5: true,
@@ -107,7 +107,7 @@ const Tutorial = () => {
       >
         Stop Tutorial
       </button>
-      <p className='tutorialText'> To hear a description of the room, press the enter or return key. </p>
+      <p className='tutorialText'> To hear a full audio description of the room, hold down the spacebar and say, “read the room”. </p>
       <p className='tutorialText'>
         To inspect an item, hold down the spacebar key and say ‘click on’ then
         the item name.
