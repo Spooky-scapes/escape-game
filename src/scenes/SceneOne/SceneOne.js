@@ -333,7 +333,7 @@ const SceneOne = () => {
         narrationBox.innerHTML = JSON.parse(
           window.localStorage.getItem("hasCasset")
         )
-          ? "*Cassette player plays this riddle* What has no lungs, but still can bark. He codes all day. It is his hallmark."
+          ? "*Cassette player plays this riddle* The person who built it sold it. The person who bought it never used it. The person who used it never saw it. What is it?"
           : "Hmm, the cassette seems to be missing.";
         break;
       case "ravenClosed":
