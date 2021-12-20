@@ -1,14 +1,9 @@
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-In addition to the normal CRA modules/imports, Sass has been added.
-
-Note that .css files have been changed to .sass files, and the imports for .css files have been changed as well
-
 ### Welcome to Spooky Scapes!
 
 This is a point and click escape game created with accessibility in mind for those who are visually or hearing impaired. Our team wanted to make a fun and enjoyable but also inclusive experience.
+
+View the deployed app here:
+https://spooky-scapes.netlify.app/
 
 ### Installation
 
