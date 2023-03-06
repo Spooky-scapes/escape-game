@@ -4,6 +4,8 @@ This is a point and click escape game created with accessibility in mind for tho
 
 View the deployed app here:
 https://spooky-scapes.netlify.app/
+View our video demo here:
+https://youtu.be/CNrFaljJjVo
 
 ### Installation
 
