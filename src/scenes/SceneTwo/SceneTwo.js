@@ -64,8 +64,9 @@ const SceneTwo = () => {
   ];
   useSpeechRecognition({ commands });
 
-  let casket = false;
-  //^^Savion. What dis^^
+  // let casket = false;
+
+
   const clickableItems = [
     // An array of items that may be said by a user, these are the only words we listen for with the Click on command
     "coffin",
@@ -126,7 +127,7 @@ const SceneTwo = () => {
     "room three": "rightArrow",
   };
 
-  // ^^^ should need no adjustment, if adjusted we should all match the adjustment^^^
+
 
   //this section is used for inventory reading
   let noMoreCasset = false;
@@ -138,17 +139,12 @@ const SceneTwo = () => {
     const candy = JSON.parse(window.localStorage.getItem("hasCandyBucket"));
     const keyBool = JSON.parse(window.localStorage.getItem("hasKey"));
     if (casset && !noMoreCasset) {
-      console.log("casset");
       noMoreCasset = true;
-    } else {
-      console.log("I am empty....");
     }
     if (candy && !noMoreCandyBucket) {
-      console.log("candy");
       noMoreCandyBucket = true;
     }
     if (keyBool && !noMoreKey) {
-      console.log("key");
       noMoreKey = true;
     }
   };
@@ -185,11 +181,8 @@ const SceneTwo = () => {
   };
 
   function goTo(page) {
-    // this function is used as the callback for the go to command, in the event that you need to debug you may use the console.log below
-
-    // console.log("🧤 what the api heard....", page);
-
-    if (pagePossibilities.includes(page)) {
+      // this function is used as the callback for the go to command, in the event that you need to debug you may use the console.log below
+      if (pagePossibilities.includes(page)) {
       page = mapPageToLink[page];
       document.getElementById(page).click();
     } else if (String(page) === "tutorial") {
@@ -212,7 +205,6 @@ const SceneTwo = () => {
   document.addEventListener("keydown", (event) => {
     // This listener allows users to initiate an audio description of the current room they're in, or listen for click on commands for listed items in the room
     setActive(false);
-    const bool = JSON.parse(window.localStorage.getItem("usedCasset"));
     if (event.code === "Space") {
       event.preventDefault();
       if (event.repeat) {
@@ -221,46 +213,12 @@ const SceneTwo = () => {
       stopAllAudio();
       SpeechRecognition.startListening();
     }
-    //
-    // const pagina =
-    //   window.location.href === "http://localhost:3000/storage" ||
-    //   window.location.href === "https://spooky-scapes.netlify.app/storage";
-
-    // if (event.code === "Enter" && pagina) {
-    //   event.preventDefault();
-    //   stopAllAudio()
-    //   if (event.repeat) {
-    //     return;
-    //   }
-
-    //   if (!bool) {
-    //     sceneTwoAudio.scene2FirstDescription.play();
-    //   } else {
-    //     sceneTwoAudio.scene2SecondDescription.play();
-    //   }
-    // }
   });
 
   document.addEventListener("keyup", (event) => {
-    // this listen
-    const bool = JSON.parse(window.localStorage.getItem("usedCasset"));
     if (event.code === "Space") {
       event.preventDefault();
       SpeechRecognition.stopListening();
-    }
-
-    const pagina =
-      window.location.href === "http://localhost:3000/storage" ||
-      window.location.href === "https://spooky-scapes.netlify.app/storage";
-
-    if (event.code === "Enter" && pagina) {
-      event.preventDefault();
-
-      if (!bool) {
-        sceneTwoAudio.scene2FirstDescription.stop();
-      } else {
-        sceneTwoAudio.scene2SecondDescription.stop();
-      }
     }
   });
 
@@ -272,7 +230,7 @@ const SceneTwo = () => {
       document.getElementsByClassName("coffin")[0].src = openCoffin;
     }
   };
-
+  // ******** FUNCTION FOR EVERY TIME AN ASSET WAS CLICKED ********
   const assetClicked = (e) => {
     timeoutCollection.removeAll();
     setActive(false);

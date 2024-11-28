@@ -154,7 +154,7 @@ const Tutorial = () => {
         </Link>
       </div>
     </div>
-  );
+    )
 };
 
 export default Tutorial;
